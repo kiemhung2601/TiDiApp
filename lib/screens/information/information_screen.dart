@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/screens/contact/contact_screen.dart';
 import 'package:socialworkapp/screens/information/bloc/information_bloc.dart';
 import 'package:socialworkapp/screens/information/bloc/information_status.dart';
+import 'package:socialworkapp/screens/settings/setting_screen.dart';
 import 'package:socialworkapp/untils/constants.dart';
-import 'package:socialworkapp/widgets/bottom_sheet_notification.dart';
 import 'package:socialworkapp/widgets/button_widget.dart';
+import 'package:socialworkapp/widgets/information_widget.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../model/student.dart';
@@ -13,6 +14,8 @@ import '../../routes.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
+import '../../widgets/custom_nav.dart';
+import '../../widgets/information_location_widget.dart';
 
 class InformationScreen extends StatefulWidget {
   final bool admin;
@@ -20,7 +23,10 @@ class InformationScreen extends StatefulWidget {
   final bool isDrawerOpen;
 
   const InformationScreen(
-      {Key? key, required this.admin, required this.openDrawer, required this.isDrawerOpen})
+      {Key? key,
+      required this.admin,
+      required this.openDrawer,
+      required this.isDrawerOpen})
       : super(key: key);
 
   @override
@@ -56,317 +62,7 @@ class _InformationScreenState extends State<InformationScreen> {
     );
   }
 
-  Widget _buildInfor(String topic, String data) {
-    return Row(
-      children: [
-        TextCustom('$topic: '),
-        Expanded(
-          child: TextCustom(
-            data,
-            fontWeight: true,
-            maxLines: 1,
-            hadMaxLines: true,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildInformationPerson(Student student) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.radiusButton),
-        color: ConstColors.white,
-      ),
-      padding: const EdgeInsets.all(Dimens.paddingView),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const TextCustom(
-                ConstString.informationPerson,
-                fontWeight: true,
-              ),
-              Visibility(
-                visible: widget.admin == false,
-                child: InkWell(
-                  child: const TextCustom(
-                    ConstString.update,
-                    fontWeight: true,
-                    color: ConstColors.blueLight3,
-                  ),
-                  onTap: () {
-                    BottomSheetNotificationDialog.show(context, children: [
-                      const SizedBox(height: Dimens.marginView),
-                      const TextCustom(
-                        ConstString.contactWithManager, fontWeight: true,),
-                      const SizedBox(height: Dimens.marginView)
-                    ]);
-                  }
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: Dimens.marginView,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.person,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(
-                    child: _buildInfor(
-                        ConstString.fullName, student.studentName!)),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.gender,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(
-                  child: _buildInfor(ConstString.gender, student.gender!),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.dateBirthDay,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(
-                    child:
-                        _buildInfor(ConstString.dateBorn, student.dateBorn!)),
-              ],
-            ),
-          ),
-          Visibility(
-            visible: widget.admin == false,
-            child: SizedBox(
-              width: double.infinity,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    Images.studentCard,
-                    width: DimenUtilsPX.pxToPercentage(context, 32),
-                    height: DimenUtilsPX.pxToPercentage(context, 32),
-                  ),
-                  const SizedBox(
-                    width: Dimens.heightSmall,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: Dimens.marginView,
-                        ),
-                        _buildInfor(
-                            ConstString.studentId, student.studentId!.toString()),
-                        const SizedBox(
-                          height: Dimens.marginView,
-                        ),
-                        _buildInfor(
-                            ConstString.studentClass, student.studentClass!),
-                        const SizedBox(
-                          height: Dimens.marginView,
-                        ),
-                        _buildInfor(ConstString.major, student.studentMajor!),
-                        const SizedBox(
-                          height: Dimens.marginView,
-                        ),
-                        _buildInfor(ConstString.schoolYear, student.schoolYear!),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInformationLocation(Student student) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.radiusButton),
-        color: ConstColors.white,
-      ),
-      padding: const EdgeInsets.all(Dimens.paddingView),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const TextCustom(
-                ConstString.informationLocation,
-                fontWeight: true,
-              ),
-              Visibility(
-                visible: widget.admin == false,
-                child: InkWell(
-                  child: const TextCustom(
-                    ConstString.update,
-                    fontWeight: true,
-                    color: ConstColors.blueLight3,
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RoutesPath.updateRoute));
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: Dimens.marginView,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.location,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(
-                    child: _buildInfor(ConstString.address, student.address!)),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.mail,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(
-                  child: _buildInfor(ConstString.mail, student.mail!),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  Images.phone,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                Expanded(child: _buildInfor(ConstString.phone, student.phone!)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildContact(String urlImage, String topic) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.radiusButton),
-        color: ConstColors.white,
-      ),
-      padding: const EdgeInsets.only(
-        top: Dimens.heightSmall,
-        bottom: Dimens.heightSmall,
-        left: Dimens.marginView,
-        right: Dimens.marginView,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  urlImage,
-                  width: DimenUtilsPX.pxToPercentage(context, 32),
-                  height: DimenUtilsPX.pxToPercentage(context, 32),
-                ),
-                const SizedBox(
-                  width: Dimens.heightSmall,
-                ),
-                TextCustom(
-                  topic,
-                  fontWeight: true,
-                ),
-              ],
-            ),
-          ),
-          SvgPicture.asset(
-            Images.next,
-            width: DimenUtilsPX.pxToPercentage(context, 32),
-            height: DimenUtilsPX.pxToPercentage(context, 32),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBody(Student student) {
+  Widget _buildBody(Person person) {
     return Padding(
       padding: const EdgeInsets.only(
         top: Dimens.marginView,
@@ -376,17 +72,17 @@ class _InformationScreenState extends State<InformationScreen> {
       child: Column(
         children: [
           TextCustom(
-            student.studentName,
+            person.name,
             fontWeight: true,
           ),
           const SizedBox(
             height: Dimens.heightSmall,
           ),
-          _buildInformationPerson(student),
+          InformationWidget(admin: widget.admin, person: person),
           const SizedBox(
             height: Dimens.heightSmall,
           ),
-          _buildInformationLocation(student),
+          InformationLocationWidget(admin: widget.admin, person: person),
           Visibility(
             visible: widget.admin == false,
             child: Column(
@@ -394,14 +90,32 @@ class _InformationScreenState extends State<InformationScreen> {
                 const SizedBox(
                   height: Dimens.heightSmall,
                 ),
-                _buildContact(Images.contact, ConstString.contact),
+                CustomNav(
+                  icon: Images.contact,
+                  title: ConstString.contact,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ContactScreen()));
+                  },
+                )
               ],
             ),
           ),
           const SizedBox(
             height: Dimens.heightSmall,
           ),
-          _buildContact(Images.settings, ConstString.settings),
+          CustomNav(
+            icon: Images.settings,
+            title: ConstString.settings,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsScreen()));
+            },
+          )
         ],
       ),
     );
@@ -420,15 +134,15 @@ class _InformationScreenState extends State<InformationScreen> {
             return Container();
           }
           if (state.informationStatus is InformationStatusSuccess) {
-            final student =
-                (state.informationStatus as InformationStatusSuccess).student;
+            final person =
+                (state.informationStatus as InformationStatusSuccess).person;
             return Padding(
               padding: const EdgeInsets.only(top: Dimens.paddingView),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Center(child: _buildImage(student.urlImage!)),
-                    _buildBody(student),
+                    Center(child: _buildImage(person.urlImage!)),
+                    _buildBody(person),
                     const SizedBox(
                       height: Dimens.marginView,
                     ),

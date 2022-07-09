@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:socialworkapp/home_main.dart';
+import 'package:socialworkapp/screens/home_main/home_main.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

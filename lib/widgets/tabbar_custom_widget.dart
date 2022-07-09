@@ -6,41 +6,6 @@ import '../untils/constant_string.dart';
 import '../untils/constants.dart';
 import '../untils/untils.dart';
 
-// class TabBarCus extends StatelessWidget {
-//   final List<Widget> tabs;
-//   final TabController tabController;
-//
-//   const TabBarCus({Key? key, required this.tabs, required this.tabController})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DecoratedBox(
-//       decoration: const BoxDecoration(
-//         color: ConstColors.white,
-//         border: Border(bottom: BorderSide(color: ConstColors.white, width: 4)),
-//       ),
-//       child: TabBar(
-//         isScrollable: true,
-//         unselectedLabelColor: Colors.black,
-//         labelColor: ConstColors.blue,
-//         labelStyle: const TextStyle(
-//           fontSize: 5,
-//           fontFamily: 'Roboto',
-//           fontWeight: FontWeight.normal,
-//         ),
-//         indicator: const UnderlineTabIndicator(
-//           borderSide: BorderSide(color: ConstColors.blue, width: 5),
-//         ),
-//         tabs: tabs,
-//         controller: tabController,
-//         padding: EdgeInsets.zero,
-//         labelPadding: EdgeInsets.zero,
-//       ),
-//     );
-//   }
-// }
-
 class TabBarRadioCustom extends StatefulWidget {
   final List<String> lstTab;
   final List<String> lstImageTab;

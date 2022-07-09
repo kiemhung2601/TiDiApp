@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socialworkapp/screens/confirm_information/confirm_information_screen.dart';
 
 import '../../information/information_screen.dart';
 import '../../login/bloc/login_bloc.dart';
@@ -48,14 +49,10 @@ class _QrScanState extends State<QrScan> {
         final admin = context.read<LoginBloc>().admin;
         controller.pauseCamera();
         setState(() => this.barcode = barcode);
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => InformationScreen(
-                      admin: admin!,
-                      openDrawer: () {},
-                      isDrawerOpen: false,
-                    ))).then((value) => controller.resumeCamera());
+                builder: (context) => ConfirmInformationScreen(admin: admin!))).then((value) => controller.resumeCamera());
       }
     });
   }
@@ -114,6 +111,7 @@ class _QrScanState extends State<QrScan> {
                   await controller?.toggleFlash();
                   setState(() {});
                 }),
+            const SizedBox(width: Dimens.marginView,),
             InkWell(
                 child: FutureBuilder(
                   future: controller?.getCameraInfo(),
@@ -121,8 +119,8 @@ class _QrScanState extends State<QrScan> {
                     if (snapshot.data != null) {
                       return SvgPicture.asset(
                         Images.changeCamera,
-                        width: DimenUtilsPX.pxToPercentage(context, 22),
-                        height: DimenUtilsPX.pxToPercentage(context, 22),
+                        width: DimenUtilsPX.pxToPercentage(context, 35),
+                        height: DimenUtilsPX.pxToPercentage(context, 35),
                         color: ConstColors.white.withOpacity(0.4),
                       );
                     } else {

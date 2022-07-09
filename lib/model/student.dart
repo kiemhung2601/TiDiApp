@@ -1,6 +1,6 @@
-class Student {
+class Person {
   int? studentId;
-  String? studentName;
+  String? name;
   String? studentClass;
   String? studentMajor;
   String? schoolYear;
@@ -11,9 +11,9 @@ class Student {
   String? dateBorn;
   String? urlImage;
 
-  Student(
+  Person(
       {this.studentId,
-      this.studentName,
+      this.name,
       this.studentClass,
       this.studentMajor,
       this.schoolYear,
@@ -24,9 +24,9 @@ class Student {
       this.dateBorn,
       this.urlImage});
 
-  factory Student.fromJson(Map<String, dynamic> json) => Student(
+  factory Person.fromJson(Map<String, dynamic> json) => Person(
         studentId: json['studentId'],
-        studentName: json['studentName'],
+        name: json['name'],
         studentClass: json['studentClass'],
         studentMajor: json['studentMajor'],
         schoolYear: json['schoolYear'],
@@ -40,7 +40,7 @@ class Student {
 
   Map<String, dynamic> toJson() => {
         'studentId': studentId,
-        'studentName': studentName,
+        'name': name,
         'studentClass': studentClass,
         'studentMajor': studentMajor,
         'schoolYear': schoolYear,

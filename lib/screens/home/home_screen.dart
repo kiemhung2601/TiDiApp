@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                     image: const DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          'https://media.istockphoto.com/photos/portrait-of-happy-asian-handsome-young-man-in-fashionable-clothing-picture-id1283231614?s=612x612'),
+                          'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
                     ),
                   ),
                 ),

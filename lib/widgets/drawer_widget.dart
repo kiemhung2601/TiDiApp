@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/untils/constant_string.dart';
 import 'package:socialworkapp/untils/constants.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,7 +67,7 @@ class DrawerWidget extends StatelessWidget {
             image: const DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                  'https://media.istockphoto.com/photos/portrait-of-happy-asian-handsome-young-man-in-fashionable-clothing-picture-id1283231614?s=612x612'),
+                  'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
             ),
           ),
         ),
@@ -98,22 +99,26 @@ class DrawerWidget extends StatelessWidget {
 }
 
 class DrawerItems {
-  static const home = DrawerItem(title: 'Trang chủ', iconUrl: Images.homeTab);
+  static const home = DrawerItem(title: ConstString.titleAppHome, iconUrl: Images.homeTab);
   static const history =
-      DrawerItem(title: 'Lịch sử', iconUrl: Images.historyTab);
+      DrawerItem(title: ConstString.titleAppHistory, iconUrl: Images.historyTab);
   static const notification =
-      DrawerItem(title: 'Thông báo', iconUrl: Images.notificationTab);
+      DrawerItem(title: ConstString.titleAppNotification, iconUrl: Images.notificationTab);
   static const information =
-      DrawerItem(title: 'Thông tin', iconUrl: Images.informationTab);
-  static const qrcode = DrawerItem(title: 'Qr code', iconUrl: Images.qrCode);
-  static const logOut = DrawerItem(title: 'Đăng xuất', iconUrl: Images.back);
+      DrawerItem(title: ConstString.information, iconUrl: Images.informationTab);
+  static const news = DrawerItem(title: ConstString.news, iconUrl: Images.newsNav);
+  static const qrcode = DrawerItem(title: ConstString.titleQr, iconUrl: Images.qrCode);
+  static const settings = DrawerItem(title: ConstString.settings, iconUrl: Images.settings);
+  static const logOut = DrawerItem(title: ConstString.signOut, iconUrl: Images.back);
 
   static final List<DrawerItem> lstDrawer = [
     home,
     history,
     notification,
     information,
+    news,
     qrcode,
+    settings,
     logOut
   ];
 }

@@ -7,9 +7,9 @@ part 'information_event.dart';
 part 'information_state.dart';
 
 class InformationBloc extends Bloc<InformationEvent, InformationState> {
-  Student student = Student(
+  Person person = Person(
     studentId: 141801773,
-    studentName: 'Đặng Kiếm Hùng',
+    name: 'Đặng Kiếm Hùng',
     studentClass: '18DTH5',
     studentMajor: 'Công nghệ thông tin',
     schoolYear: '2018-2022',
@@ -18,21 +18,21 @@ class InformationBloc extends Bloc<InformationEvent, InformationState> {
     phone: '0359882902',
     gender: 'Nam',
     dateBorn: '26/01/2000',
-    urlImage: 'https://media.istockphoto.com/photos/portrait-of-happy-asian-handsome-young-man-in-fashionable-clothing-picture-id1283231614?s=612x612',
+    urlImage: 'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg',
   );
   InformationBloc() : super(const InformationState()) {
     on<LoadInformationStudent>((event, emit) {
       emit(state.updateWith(informationStatus: const InitInformationStatus()));
-      emit(state.updateWith(informationStatus: InformationStatusSuccess(student)));
+      emit(state.updateWith(informationStatus: InformationStatusSuccess(person)));
     });
     on<ChangeInformationStudent>((event, emit) {
       emit(state.updateWith(informationStatus: const InitInformationStatus()));
 
-      student.address = event.address;
-      student.mail = event.email;
-      student.phone = event.phone;
+      person.address = event.address;
+      person.mail = event.email;
+      person.phone = event.phone;
 
-      emit(state.updateWith(informationStatus: InformationStatusSuccess(student)));
+      emit(state.updateWith(informationStatus: InformationStatusSuccess(person)));
     });
   }
 }

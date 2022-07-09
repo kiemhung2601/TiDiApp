@@ -5,7 +5,8 @@ import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../home_main.dart';
+import '../confirm_information/confirm_information_screen.dart';
+import '../home_main/home_main.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
@@ -145,7 +146,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
               text: admin! ? ConstString.rollUp : ConstString.register,
               onPressed: () {
                 if (admin) {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const QrScanScreen()));
                 } else {
                   AppUtils.showDialogCustom(

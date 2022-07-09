@@ -17,10 +17,10 @@ class InitInformationStatus extends InformationStatus {
 // }
 
 class InformationStatusSuccess extends InformationStatus {
-  final Student student;
+  final Person person;
 
-  InformationStatusSuccess(this.student,);
+  InformationStatusSuccess(this.person,);
 
   // TODO: implement props
-  List<Object?> get props => [student];
+  List<Object?> get props => [person];
 }

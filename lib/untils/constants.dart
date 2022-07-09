@@ -11,12 +11,15 @@ class ConstColors {
   static const red = Color(0xFFE51313);
   static const redButton = Color(0xFF951818);
   static const redButton2 = Color(0xFFBB6B6B);
+  static const green = Color(0xFF02B14F);
+
 }
 
 class Dimens {
   //Font Size
   static const title = 13.0;
   static const body = 15.0;
+  static const titlebBig = 17.0;
   static const titleSmall = 10.0;
   static const titleButton = 20.0;
   static const titleAppbar = 18.0;
@@ -37,15 +40,18 @@ class Dimens {
 
 class Images {
   static const logoIconApp = 'res/logo/logo-app.png';
+  static const logoAppNonBG = 'res/logo/logo-app-nonBG.png';
   static const back = 'res/assets/ic_back.svg';
   static const logo = 'res/assets/logo.svg';
   static const notificationTab = 'res/assets/ic_notification_tab.svg';
   static const homeTab = 'res/assets/ic_home_tab.svg';
   static const historyTab = 'res/assets/ic_history_tab.svg';
   static const informationTab = 'res/assets/ic_information_tab.svg';
+  static const lottie = 'res/assets/bouncing-balls.json';
+
+  //remove
   static const banner = 'res/assets/banner.png';
   static const news = 'res/assets/news.png';
-  static const lottie = 'res/assets/bouncing-balls.json';
 
   //login
   static const user = 'res/assets/login/ic_user.svg';

@@ -10,10 +10,12 @@ class ConstString {
   static const titleAppDetailNews = 'Bảng tin';
   static const titleNews = 'Tin mới';
   static const titleQr = 'Qr code';
+  static const confirmInformation = 'Xác nhận sinh viên';
 
   //title button
   static const signOut = 'Đăng xuất';
   static const signIn = 'Đăng nhập';
+  static const confirm = 'Xác nhận';
 
   //information
   static const informationPerson = 'Thông tin cá nhân';
@@ -76,6 +78,7 @@ class ConstString {
 
   //qr
   static const giveQrForManager = 'Đưa mã qr này cho người quản lý';
+  static const confirmRollUp = 'Bạn xác nhận đúng thông tin chứ?';
 
   static const save = 'Lưu';
 
@@ -88,5 +91,17 @@ class ConstString {
   static const phoneMax = 'Số điện thoại phải là 10 số';
   static const errorSpace = 'Không được phép chứa khoảng trắng';
   static const errorSpecial = 'Không được chứa kí tự đặc biệt';
+
+  //settings
+  static const coverUser = 'Bảo mật tài khoản';
+  static const changePassword = 'Đổi mật khẩu';
+  static const inputOldPassword = 'Nhập mật khẩu cũ';
+  static const inputNewPassword = 'Nhập mật khẩu mới';
+
+  //contact
+  static const schoolName = 'Trường đại học Công Nghệ Đồng Nai';
+  static const timeWork = 'Giờ làm việc';
+  static const hotLine = 'Hotline';
+  static const webSite = 'Website';
 }
 

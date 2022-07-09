@@ -54,7 +54,7 @@ class BottomSheetNotificationDialog extends StatelessWidget {
                     ],
                   ),
                   Image.asset(
-                    Images.logoIconApp,
+                    Images.logoAppNonBG,
                     height: DimenUtilsPX.pxToPercentage(context, 100),
                     width: DimenUtilsPX.pxToPercentage(context, 100),
                   ),

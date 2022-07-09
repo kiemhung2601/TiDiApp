@@ -37,7 +37,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(int index) {
     return Stack(
       children: [
         Container(
@@ -49,7 +49,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             image: const DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                  'https://media.istockphoto.com/photos/portrait-of-happy-asian-handsome-young-man-in-fashionable-clothing-picture-id1283231614?s=612x612'),
+                  'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
             ),
           ),
         ),
@@ -57,7 +57,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
           right: 0,
           bottom: 0,
           child: SvgPicture.asset(
-            Images.complete,
+            index == 0
+                ? Images.complete
+                : index == 1 ? Images.fail
+                             : index == 2 ? Images.register
+                                          : Images.complete,
             width: DimenUtilsPX.pxToPercentage(
                 context, 25),
             height: DimenUtilsPX.pxToPercentage(
@@ -68,7 +72,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(int index) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
@@ -92,7 +96,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       margin: const EdgeInsets.only(bottom: Dimens.sizedBox),
       child: Row(
         children: [
-          _buildImage(),
+          _buildImage(index),
           const SizedBox(
             width: Dimens.sizedBox,
           ),
@@ -146,7 +150,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         itemCount: 20,
         itemBuilder: (_, index) {
           return InkWell(
-            child: _buildContent(),
+            child: _buildContent(index),
             onTap: () {
               Navigator.push(
                   context,

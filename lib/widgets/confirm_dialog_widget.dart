@@ -31,7 +31,7 @@ class ConfirmDialogWidget extends StatelessWidget {
   }
 
   _buildChild(BuildContext context) => Container(
-        height: DimenUtilsPX.pxToPercentage(context, 260),
+        height: DimenUtilsPX.pxToPercentage(context, 180),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [ConstColors.blueLight, ConstColors.blue],
@@ -42,6 +42,9 @@ class ConfirmDialogWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(Dimens.radius))),
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: DimenUtilsPX.pxToPercentage(context, 20),
+            ),
             TextCustom(
               title!,
               fontSize: Dimens.titleAppbar,
@@ -51,7 +54,7 @@ class ConfirmDialogWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: DimenUtilsPX.pxToPercentage(context, 30),
+              height: DimenUtilsPX.pxToPercentage(context, 40),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,

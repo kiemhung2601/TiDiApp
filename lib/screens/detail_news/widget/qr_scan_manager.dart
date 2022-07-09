@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socialworkapp/screens/confirm_information/confirm_information_screen.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 
 import '../../login/bloc/login_bloc.dart';
@@ -51,7 +52,7 @@ class _QrScanManagerState extends State<QrScanManager> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => DetailNewsScreen(admin: admin!)))
+                builder: (context) => ConfirmInformationScreen(admin: admin!)))
             .then((value) => controller.resumeCamera());
       }
     });
@@ -111,6 +112,7 @@ class _QrScanManagerState extends State<QrScanManager> {
               await controller?.toggleFlash();
               setState(() {});
             }),
+        const SizedBox(width: Dimens.marginView,),
         InkWell(
             child: FutureBuilder(
               future: controller?.getCameraInfo(),
@@ -118,8 +120,8 @@ class _QrScanManagerState extends State<QrScanManager> {
                 if (snapshot.data != null) {
                   return SvgPicture.asset(
                     Images.changeCamera,
-                    width: DimenUtilsPX.pxToPercentage(context, 22),
-                    height: DimenUtilsPX.pxToPercentage(context, 22),
+                    width: DimenUtilsPX.pxToPercentage(context, 35),
+                    height: DimenUtilsPX.pxToPercentage(context, 35),
                     color: ConstColors.white.withOpacity(0.4),
                   );
                 } else {
