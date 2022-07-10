@@ -1,28 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socialworkapp/screens/notification/bloc/notification_status.dart';
 
-import '../login/bloc/login_bloc.dart';
+import '../../model/account.dart';
+import '../../model/notification.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
+import '../../untils/date_time_format.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
 import '../../widgets/text_widget.dart';
+import '../login/bloc/login_bloc.dart';
+import 'bloc/notification_bloc.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   final VoidCallback openDrawer;
   final bool isDrawerOpen;
-  const NotificationScreen(
-      {Key? key, required this.openDrawer, required this.isDrawerOpen})
-      : super(key: key);
+  const NotificationScreen({Key? key, required this.openDrawer, required this.isDrawerOpen}) : super(key: key);
+
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
+  late Account _account;
+  final DateTime _dateNow = DateTime.now();
+
+  @override
+  void initState() {
+    _account = context.read<LoginBloc>().account;
+
+    super.initState();
+  }
 
   PreferredSizeWidget _buildAppbar() {
     return AppBarCustom(
       isHomePage: true,
       actions: null,
       title: ConstString.titleAppNotification,
-      openDrawer: openDrawer,
+      openDrawer: widget.openDrawer,
     );
   }
 
@@ -37,7 +55,7 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, Notifi notifi) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
@@ -64,9 +82,9 @@ class NotificationScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
+              Expanded(
                 child: TextCustom(
-                  'Thông tin tuyển sinh Đai Học Công Nghệ Đồng Nai năm 2022',
+                  notifi.title ?? '',
                   hadMaxLines: true,
                   maxLines: 2,
                   fontWeight: true,
@@ -84,8 +102,8 @@ class NotificationScreen extends StatelessWidget {
                   const SizedBox(
                     height: Dimens.marginView,
                   ),
-                  const TextCustom(
-                    '1 giờ trước',
+                  TextCustom(
+                    formatTime(_dateNow.toString(), notifi.dateNotification).toString(),
                     fontSize: Dimens.titleSmall,
                   ),
                 ],
@@ -100,8 +118,8 @@ class NotificationScreen extends StatelessWidget {
           const SizedBox(
             height: Dimens.marginView,
           ),
-          const TextCustom(
-            'Tên trường đại học công nghệ đồng nai, tuyển sinh viên năm học 2022 gồm các ngành nghề khác nhau như công nghệ thông tin, thực phẩm môi trường, Ngôn ngữ anh',
+          TextCustom(
+            notifi.detail ?? '',
             hadMaxLines: true,
             maxLines: 2,
             fontSize: Dimens.title,
@@ -112,8 +130,8 @@ class NotificationScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const TextCustom(
-                '${ConstString.dateNews}: 21/02/2022',
+              TextCustom(
+                '${ConstString.dateNews}: ${formatDate(notifi.datePost)}',
                 fontSize: Dimens.titleSmall,
                 color: ConstColors.black,
                 fontWeight: true,
@@ -128,8 +146,8 @@ class NotificationScreen extends StatelessWidget {
                   const SizedBox(
                     width: Dimens.heightSmall,
                   ),
-                  const TextCustom(
-                    '${ConstString.dayScore}: 5, ${ConstString.still} 23 giờ',
+                  TextCustom(
+                    '${ConstString.dayScore}: ${notifi.score}, ${ConstString.still} ${formatTime(notifi.dateEnd, _dateNow.toString())}',
                     fontSize: Dimens.titleSmall,
                     color: ConstColors.black,
                     fontWeight: true,
@@ -144,37 +162,79 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    final admin = context.read<LoginBloc>().admin;
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: Dimens.heightSmall,
-        right: Dimens.heightSmall,
-        top: Dimens.marginView,
-        bottom: Dimens.marginView,
-      ),
-      child: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (_, index) {
-            return InkWell(
-              child: _buildContent(context),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailNewsScreen(admin: admin!)));
-              },
-            );
-          }),
-    );
+    return BlocBuilder<NotificationBloc, NotificationState>(
+  builder: (context, state) {
+    if(state.notificationStatus is InitNotificationStatus){
+      return Container();
+    }
+    if(state.notificationStatus is NotificationStatusSuccess){
+      final lstNotification = (state.notificationStatus as NotificationStatusSuccess).lstNotification;
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: Dimens.heightSmall,
+          right: Dimens.heightSmall,
+          top: Dimens.marginView,
+          bottom: Dimens.marginView,
+        ),
+        child: ListView.builder(
+            itemCount: lstNotification.length,
+            itemBuilder: (_, index) {
+              return InkWell(
+                child: _buildContent(context, lstNotification[index]),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DetailNewsScreen(idNews: lstNotification[index].idNews!,)));
+                },
+              );
+            }),
+      );
+    }
+    return Container();
+  },
+);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          isDrawerOpen ? ConstColors.blueLight2 : ConstColors.backGroundColor,
+      widget.isDrawerOpen ? ConstColors.blueLight2 : ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: _buildBody(context),
+      body: BlocProvider(
+        create: (context) => NotificationBloc()..add(LoadNotification(account: _account)),
+        child: _buildBody(context),
+      ),
     );
+  }
+
+  String formatDate(String? time) {
+    return DateTimeFormatter.showDateFormat.format(DateTime.parse(time ?? ""));
+  }
+
+  String formatTime(String? timeBig, String? dateSmall){
+    String text = '';
+    int result = 0;
+    result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inSeconds;
+    text = '$result ${ConstString.seconds}';
+    if(result >= 60){
+      result = 0;
+      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inMinutes;
+      text = '$result ${ConstString.minutes}';
+    }
+    if(result >= 60){
+      result = 0;
+      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inHours;
+      text = '$result ${ConstString.hours}';
+    }
+    if(result >= 24){
+      result = 0;
+      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inDays;
+      text = '$result ${ConstString.day}';
+    }
+    debugPrint(result.toString());
+    return text;
   }
 }

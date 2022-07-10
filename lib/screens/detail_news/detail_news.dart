@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/screens/detail_news/bloc/detail_news_status.dart';
 import 'package:socialworkapp/screens/detail_news/widget/qr_scan_screen.dart';
 import 'package:socialworkapp/widgets/button_widget.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../confirm_information/confirm_information_screen.dart';
+import '../../model/account.dart';
+import '../../model/new.dart';
+import '../../untils/date_time_format.dart';
 import '../home_main/home_main.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
 import '../login/bloc/login_bloc.dart';
+import 'bloc/detail_news_bloc.dart';
 
 class DetailNewsScreen extends StatefulWidget {
-  final bool admin;
-  const DetailNewsScreen({Key? key, required this.admin}) : super(key: key);
+  final int idNews;
+  const DetailNewsScreen({Key? key, required this.idNews}) : super(key: key);
 
   @override
   State<DetailNewsScreen> createState() => _DetailNewsScreenState();
 }
 
 class _DetailNewsScreenState extends State<DetailNewsScreen> {
+  late Account _account;
+
+  @override
+  void initState() {
+    _account = context.read<LoginBloc>().account;
+    super.initState();
+  }
 
   PreferredSizeWidget _buildAppbar() {
     return AppBarCustom(
@@ -55,7 +66,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(String detail) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
@@ -73,13 +84,13 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       padding: const EdgeInsets.all(Dimens.marginView),
       child: SingleChildScrollView(
         child: Column(
-          children: const [
+          children: [
             TextCustom(
-              '\t Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào , Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào , Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. \n\n\t Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào , Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào. \n\n\t Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào , Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào .\n\n\t Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào. \n\n\t Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023.\n\n\t Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023.\n\n\t Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào Để thực hiện tốt và chuẩn bị hết các thứ cần thiết cho kì tuyển sinh của trường đại học Công nghệ đồng nai nam 2023. Các bạn hãy đăng ký trợ giúp công tác chuẩn bị cho trường, bạn nào đi sẽ được cộng 5 ngày công tác xã hội. Cơ hội chỉ đến với người nhanh tay, hãy ấn đăng ký nhanh đi nào',
+              detail,
               maxLines: null,
               textAlign: TextAlign.justify,
             ),
-            SizedBox(
+            const SizedBox(
               height: Dimens.marginView,
             )
           ],
@@ -88,88 +99,133 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     );
   }
 
+  Widget _buildButton(News news) {
+    if (_account.admin == true) {
+      return PrimaryButton(
+          text: ConstString.rollUp,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const QrScanScreen()));
+          });
+    } else {
+      if (news.status == 0) {
+        return PrimaryButton(
+            text: ConstString.register,
+            onPressed: () {
+              AppUtils.showDialogCustom(
+                  context: context,
+                  title: ConstString.registerEvent,
+                  strConfirm: ConstString.yes,
+                  strCancel: ConstString.cancel,
+                  onCancelClick: () {
+                    Navigator.pop(context);
+                  },
+                  onConfirmClick: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => const HomeMain()),
+                    );
+                  });
+            });
+      }
+      if (news.status == 1) {
+        return SecondaryButton(
+            text: ConstString.unRegister,
+            onPressed: () {
+              AppUtils.showDialogCustom(
+                  context: context,
+                  title: ConstString.unRegisterEvent,
+                  strConfirm: ConstString.yes,
+                  strCancel: ConstString.cancel,
+                  onCancelClick: () {
+                    Navigator.pop(context);
+                  },
+                  onConfirmClick: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => const HomeMain()),
+                    );
+                  });
+            });
+      }
+    }
+    return Container();
+  }
+
   Widget _buildBody(BuildContext context) {
-    final admin = context.read<LoginBloc>().admin;
-    return Column(
-      children: [
-        const TextCustom(
-          'Thông tin tuyển sinh trường đại học công nghệ thông tin',
-          textAlign: TextAlign.center,
-          fontSize: Dimens.titleAppbar,
-          fontWeight: true,
-        ),
-        const SizedBox(
-          height: Dimens.marginView,
-        ),
-        _buildTextString(context, ConstString.dateRegister, '20/10/2022'),
-        const SizedBox(
-          height: Dimens.heightSmall,
-        ),
-        _buildTextString(context, ConstString.dateEnd, '25/10/2022'),
-        const SizedBox(
-          height: Dimens.heightSmall,
-        ),
-        _buildTextString(context, ConstString.scoreSocialWork, '5 ngày'),
-        const SizedBox(
-          height: Dimens.heightSmall,
-        ),
-        _buildTextString(context, ConstString.namePost, 'Nguyễn Thị Liệu'),
-        const SizedBox(
-          height: Dimens.heightSmall,
-        ),
-        _buildTextString(context, ConstString.position, 'Cộng tác viên'),
-        const SizedBox(
-          height: Dimens.heightSmall,
-        ),
-        _buildTextString(context, ConstString.datePost, '18/10/2022'),
-        const SizedBox(
-          height: Dimens.marginView,
-        ),
-        const TextCustom(
-          'Lưu ý: Sau khi ấn đăng ký, bạn đã được lưu tên vào dành sách cho người kiểm duyệt, nếu bạn được nhận vào danh sách bạn sẽ được nhận thông báo, vui lòng làm theo thông báo, xin cảm ơn',
-          color: ConstColors.red,
-          fontSize: Dimens.titleSmall,
-          maxLines: null,
-        ),
-        const SizedBox(
-          height: Dimens.marginView,
-        ),
-        Expanded(
-          child: _buildContent(),
-        ),
-        const SizedBox(
-          height: Dimens.marginView,
-        ),
-        SizedBox(
-          width: DimenUtilsPX.pxToPercentage(context, 155),
-          child: PrimaryButton(
-              text: admin! ? ConstString.rollUp : ConstString.register,
-              onPressed: () {
-                if (admin) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const QrScanScreen()));
-                } else {
-                  AppUtils.showDialogCustom(
-                      context: context,
-                      title: ConstString.registerEvent,
-                      strConfirm: ConstString.yes,
-                      strCancel: ConstString.cancel,
-                      onCancelClick: () {
-                        Navigator.pop(context);
-                      },
-                      onConfirmClick: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => HomeMain(
-                                    admin: admin,
-                                  )),
-                        );
-                      });
-                }
-              }),
-        ),
-      ],
+    return BlocBuilder<DetailNewsBloc, DetailNewsState>(
+      builder: (context, state) {
+        if (state.detailNewsStatus is InitDetailNewsStatus) {
+          return Container();
+        }
+        if (state.detailNewsStatus is DetailNewsStatusSuccess) {
+          final news = (state.detailNewsStatus as DetailNewsStatusSuccess).news;
+          return Column(
+            children: [
+              TextCustom(
+                news.title ?? '',
+                textAlign: TextAlign.center,
+                fontSize: Dimens.titleAppbar,
+                fontWeight: true,
+              ),
+              const SizedBox(
+                height: Dimens.marginView,
+              ),
+              _buildTextString(context, ConstString.dateRegister, formatDate(news.dateOpenRegister ?? '')),
+              const SizedBox(
+                height: Dimens.heightSmall,
+              ),
+              _buildTextString(
+                  context, ConstString.dateEnd, formatDate(news.dateCloseRegister ?? '')),
+              const SizedBox(
+                height: Dimens.heightSmall,
+              ),
+              _buildTextString(
+                  context, ConstString.scoreSocialWork, news.score.toString()),
+              const SizedBox(
+                height: Dimens.heightSmall,
+              ),
+              _buildTextString(
+                  context, ConstString.namePost, news.namePost ?? ''),
+              const SizedBox(
+                height: Dimens.heightSmall,
+              ),
+              _buildTextString(
+                  context, ConstString.position, news.position ?? ''),
+              const SizedBox(
+                height: Dimens.heightSmall,
+              ),
+              _buildTextString(
+                  context, ConstString.datePost, formatDate(news.datePost ?? '')),
+              const SizedBox(
+                height: Dimens.marginView,
+              ),
+              const TextCustom(
+                'Lưu ý: Sau khi ấn đăng ký, bạn đã được lưu tên vào dành sách cho người kiểm duyệt, nếu bạn được nhận vào danh sách bạn sẽ được nhận thông báo, vui lòng làm theo thông báo, xin cảm ơn',
+                color: ConstColors.red,
+                fontSize: Dimens.titleSmall,
+                maxLines: null,
+              ),
+              const SizedBox(
+                height: Dimens.marginView,
+              ),
+              Expanded(
+                child: _buildContent(news.detail ?? ''),
+              ),
+              const SizedBox(
+                height: Dimens.marginView,
+              ),
+              SizedBox(
+                width: DimenUtilsPX.pxToPercentage(context, 155),
+                child: _buildButton(news),
+              ),
+            ],
+          );
+        }
+        return Container();
+      },
     );
   }
 
@@ -178,14 +234,22 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     return Scaffold(
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: Padding(
-        padding: const EdgeInsets.only(
-            right: Dimens.heightSmall,
-            left: Dimens.heightSmall,
-            top: Dimens.sizedBox,
-            bottom: Dimens.sizedBox),
-        child: _buildBody(context),
+      body: BlocProvider(
+        create: (context) =>
+            DetailNewsBloc()..add(LoadDetailNews(idnews: widget.idNews)),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              right: Dimens.heightSmall,
+              left: Dimens.heightSmall,
+              top: Dimens.sizedBox,
+              bottom: Dimens.sizedBox),
+          child: _buildBody(context),
+        ),
       ),
     );
+  }
+
+  String formatDate(String? time) {
+    return DateTimeFormatter.showDateFormat.format(DateTime.parse(time??""));
   }
 }

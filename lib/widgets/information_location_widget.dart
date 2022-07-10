@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../model/student.dart';
+import '../model/person.dart';
 import '../routes.dart';
 import '../untils/constant_string.dart';
 import '../untils/constants.dart';

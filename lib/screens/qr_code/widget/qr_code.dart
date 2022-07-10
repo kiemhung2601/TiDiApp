@@ -16,7 +16,6 @@ class QrCode extends StatelessWidget {
         const TextCustom(
           ConstString.giveQrForManager,
           fontWeight: true,
-          // fontSize: Dimens.,
         ),
         const SizedBox(
           height: Dimens.sizedBox,

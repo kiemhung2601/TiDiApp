@@ -1,4 +1,4 @@
-import '../../../model/student.dart';
+import '../../../model/person.dart';
 
 abstract class InformationStatus {
   const InformationStatus();

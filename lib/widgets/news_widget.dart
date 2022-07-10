@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 
+import '../model/new.dart';
 import '../untils/constants.dart';
 import '../untils/untils.dart';
 
 class NewsWidget extends StatelessWidget {
-  const NewsWidget({Key? key}) : super(key: key);
+  final News news;
+  const NewsWidget({Key? key, required this.news}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +34,16 @@ class NewsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                   width: 1, color: ConstColors.black.withOpacity(0.1)),
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(Images.news),
+                image: NetworkImage(news.image ?? ''),
               ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(Dimens.heightSmall),
             child: TextCustom(
-              'Thông tin tuyển sinh trường đại học công nghệ đồng nai',
+              news.title ?? '',
               hadMaxLines: true,
               maxLines: 2,
               fontSize: Dimens.fontTab,

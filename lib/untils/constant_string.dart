@@ -16,6 +16,7 @@ class ConstString {
   static const signOut = 'Đăng xuất';
   static const signIn = 'Đăng nhập';
   static const confirm = 'Xác nhận';
+  static const unRegister = 'Hủy đăng ký';
 
   //information
   static const informationPerson = 'Thông tin cá nhân';
@@ -54,6 +55,9 @@ class ConstString {
   static const dateNews = 'Ngày đăng';
   static const dayScore = 'Ngày công';
   static const still = 'Còn';
+  static const seconds = 'giây';
+  static const minutes = 'phút';
+  static const hours = 'giờ';
 
   //history
   static const search = 'Tìm kiếm';
@@ -66,6 +70,8 @@ class ConstString {
   static const failure = 'Thất bại';
   static const filter = 'Bộ lọc';
   static const rollUp = 'Điểm danh';
+  static const fail = 'Thất bại';
+  static const complete = 'Thành công';
 
   //detail news
   static const dateRegister = 'Ngày mở ĐK';
@@ -75,10 +81,13 @@ class ConstString {
   static const position = 'Chức vụ';
   static const datePost = 'Ngày đăng';
   static const registerEvent = 'Bạn có muốn đăng ký tham gia sự kiện này không?';
+  static const unRegisterEvent = 'Bạn có muốn hủy đăng ký tham gia sự kiện này không?';
 
   //qr
   static const giveQrForManager = 'Đưa mã qr này cho người quản lý';
   static const confirmRollUp = 'Bạn xác nhận đúng thông tin chứ?';
+  static const result = 'Kết quả';
+  static const scanCode = 'Scan a code';
 
   static const save = 'Lưu';
 
@@ -99,9 +108,10 @@ class ConstString {
   static const inputNewPassword = 'Nhập mật khẩu mới';
 
   //contact
-  static const schoolName = 'Trường đại học Công Nghệ Đồng Nai';
+  static const schoolInfo = 'Thông tin trường';
   static const timeWork = 'Giờ làm việc';
   static const hotLine = 'Hotline';
   static const webSite = 'Website';
+  static const school = 'Trường';
 }
 

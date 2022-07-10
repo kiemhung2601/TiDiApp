@@ -9,24 +9,23 @@ import 'package:socialworkapp/widgets/information_widget.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/student.dart';
+import '../../model/account.dart';
+import '../../model/person.dart';
 import '../../routes.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
 import '../../widgets/custom_nav.dart';
 import '../../widgets/information_location_widget.dart';
+import '../login/bloc/login_bloc.dart';
 
 class InformationScreen extends StatefulWidget {
-  final bool admin;
   final VoidCallback openDrawer;
   final bool isDrawerOpen;
 
-  const InformationScreen(
-      {Key? key,
-      required this.admin,
-      required this.openDrawer,
-      required this.isDrawerOpen})
+  const InformationScreen({Key? key,
+    required this.openDrawer,
+    required this.isDrawerOpen})
       : super(key: key);
 
   @override
@@ -34,9 +33,11 @@ class InformationScreen extends StatefulWidget {
 }
 
 class _InformationScreenState extends State<InformationScreen> {
+  late Account _account;
+
   @override
   void initState() {
-    context.read<InformationBloc>().add(const LoadInformationStudent());
+    _account = context.read<LoginBloc>().account;
     super.initState();
   }
 
@@ -57,7 +58,7 @@ class _InformationScreenState extends State<InformationScreen> {
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
         shape: BoxShape.circle,
         image:
-            DecorationImage(fit: BoxFit.cover, image: NetworkImage(urlImage)),
+        DecorationImage(fit: BoxFit.cover, image: NetworkImage(urlImage)),
       ),
     );
   }
@@ -78,13 +79,13 @@ class _InformationScreenState extends State<InformationScreen> {
           const SizedBox(
             height: Dimens.heightSmall,
           ),
-          InformationWidget(admin: widget.admin, person: person),
+          InformationWidget(admin: _account.admin, person: person),
           const SizedBox(
             height: Dimens.heightSmall,
           ),
-          InformationLocationWidget(admin: widget.admin, person: person),
+          InformationLocationWidget(admin: _account.admin!, person: person),
           Visibility(
-            visible: widget.admin == false,
+            visible: _account.admin == false,
             child: Column(
               children: [
                 const SizedBox(
@@ -128,69 +129,72 @@ class _InformationScreenState extends State<InformationScreen> {
           ? ConstColors.blueLight2
           : ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: BlocBuilder<InformationBloc, InformationState>(
-        builder: (context, state) {
-          if (state.informationStatus is InitInformationStatus) {
-            return Container();
-          }
-          if (state.informationStatus is InformationStatusSuccess) {
-            final person =
-                (state.informationStatus as InformationStatusSuccess).person;
-            return Padding(
-              padding: const EdgeInsets.only(top: Dimens.paddingView),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Center(child: _buildImage(person.urlImage!)),
-                    _buildBody(person),
-                    const SizedBox(
-                      height: Dimens.marginView,
-                    ),
-                    const TextCustom(
-                      'Version 1.00.001',
-                      fontSize: 10,
-                    ),
-                    const SizedBox(
-                      height: Dimens.sizedBox,
-                    ),
-                    Center(
-                      child: SizedBox(
-                        width: DimenUtilsPX.pxToPercentage(context, 224),
-                        height: DimenUtilsPX.pxToPercentage(context, 47),
-                        child: PrimaryButton(
-                          text: ConstString.signOut.toUpperCase(),
-                          onPressed: () {
-                            AppUtils.showDialogCustom(
-                                context: context,
-                                title: ConstString.logOutAccount,
-                                strConfirm: ConstString.yes,
-                                strCancel: ConstString.cancel,
-                                onCancelClick: () {
-                                  Navigator.pop(context);
-                                },
-                                onConfirmClick: () {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            RoutesPath.loginRoute),
-                                    ModalRoute.withName('/login'),
-                                  );
-                                });
-                          },
+      body: BlocProvider(
+        create: (context) => InformationBloc()..add(LoadInformationStudent(account: _account)),
+        child: BlocBuilder<InformationBloc, InformationState>(
+          builder: (context, state) {
+            if (state.informationStatus is InitInformationStatus) {
+              return Container();
+            }
+            if (state.informationStatus is InformationStatusSuccess) {
+              final person =
+                  (state.informationStatus as InformationStatusSuccess).person;
+              return Padding(
+                padding: const EdgeInsets.only(top: Dimens.paddingView),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Center(child: _buildImage(person.urlImage!)),
+                      _buildBody(person),
+                      const SizedBox(
+                        height: Dimens.marginView,
+                      ),
+                      const TextCustom(
+                        'Version 1.00.001',
+                        fontSize: 10,
+                      ),
+                      const SizedBox(
+                        height: Dimens.sizedBox,
+                      ),
+                      Center(
+                        child: SizedBox(
+                          width: DimenUtilsPX.pxToPercentage(context, 224),
+                          height: DimenUtilsPX.pxToPercentage(context, 47),
+                          child: PrimaryButton(
+                            text: ConstString.signOut.toUpperCase(),
+                            onPressed: () {
+                              AppUtils.showDialogCustom(
+                                  context: context,
+                                  title: ConstString.logOutAccount,
+                                  strConfirm: ConstString.yes,
+                                  strCancel: ConstString.cancel,
+                                  onCancelClick: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onConfirmClick: () {
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                          RoutesPath.loginRoute),
+                                      ModalRoute.withName('/login'),
+                                    );
+                                  });
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: Dimens.sizedBox,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: Dimens.sizedBox,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }
-          return Container();
-        },
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }

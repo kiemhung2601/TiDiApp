@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 import 'package:socialworkapp/screens/detail_news/widget/qr_scan_screen.dart';
 import 'package:socialworkapp/untils/constants.dart';
 import 'package:socialworkapp/widgets/information_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/student.dart';
-import '../../routes.dart';
+import '../../model/account.dart';
+import '../../model/person.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/information_location_widget.dart';
+import '../login/bloc/login_bloc.dart';
 
-class ConfirmInformationScreen extends StatelessWidget {
-  final bool admin;
-  const ConfirmInformationScreen({Key? key, required this.admin})
-      : super(key: key);
+class ConfirmInformationScreen extends StatefulWidget {
+  const ConfirmInformationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ConfirmInformationScreen> createState() =>
+      _ConfirmInformationScreenState();
+}
+
+class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
+  late Account _account;
+
+  @override
+  void initState() {
+    _account = context.read<LoginBloc>().account;
+
+    super.initState();
+  }
+
   PreferredSizeWidget _buildAppbar() {
     return AppBarCustom(
       transparent: true,
@@ -37,7 +52,7 @@ class ConfirmInformationScreen extends StatelessWidget {
           image: const DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                  'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg')),
+                  'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png')),
         ),
       ),
     );
@@ -45,18 +60,18 @@ class ConfirmInformationScreen extends StatelessWidget {
 
   Widget _buildInfo() {
     Person person = Person(
-      studentId: 141801773,
-      name: 'Đặng Kiếm Hùng',
+      studentId: '141801830',
+      name: 'Doãn Văn Long',
       studentClass: '18DTH5',
       studentMajor: 'Công nghệ thông tin',
       schoolYear: '2018-2022',
-      address: 'Huỳnh Văn Nghệ, P.Bửu Long, TP.Biên Hòa, Đồng Nai',
-      mail: 'kiemhung2601@gmail.com',
-      phone: '0359882902',
+      address: 'Trảng Dài, Thành phố Biên Hòa, Đồng Nai',
+      mail: 'longdoan@gmail.com',
+      phone: '01628332193',
       gender: 'Nam',
-      dateBorn: '26/01/2000',
+      dateBorn: '26/06/2000',
       urlImage:
-          'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg',
+          'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
     );
     return Column(
       children: [
@@ -103,7 +118,7 @@ class ConfirmInformationScreen extends StatelessWidget {
               height: Dimens.marginView,
             ),
             Visibility(
-              visible: admin == true,
+              visible: _account.admin == true,
               child: PrimaryButton(
                   text: ConstString.confirm.toUpperCase(),
                   onPressed: () {
@@ -121,7 +136,7 @@ class ConfirmInformationScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                  QrScanScreen()),
+                                    const QrScanScreen()),
                           );
                         });
                   }),

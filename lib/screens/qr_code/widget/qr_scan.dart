@@ -2,11 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialworkapp/screens/confirm_information/confirm_information_screen.dart';
+import 'package:socialworkapp/untils/constant_string.dart';
 
-import '../../information/information_screen.dart';
-import '../../login/bloc/login_bloc.dart';
 import '../../../untils/constants.dart';
 import '../../../untils/untils.dart';
 
@@ -46,13 +44,12 @@ class _QrScanState extends State<QrScan> {
         // .listen((barcode) => setState(() => this.barcode = barcode));
         .listen((barcode) async {
       if (mounted) {
-        final admin = context.read<LoginBloc>().admin;
         controller.pauseCamera();
         setState(() => this.barcode = barcode);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ConfirmInformationScreen(admin: admin!))).then((value) => controller.resumeCamera());
+                builder: (context) => const ConfirmInformationScreen())).then((value) => controller.resumeCamera());
       }
     });
   }
@@ -61,31 +58,31 @@ class _QrScanState extends State<QrScan> {
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-          borderRadius: 10,
+          borderRadius: Dimens.radius,
           borderColor: Colors.lightBlueAccent,
-          borderLength: 20,
-          borderWidth: 10,
+          borderLength: Dimens.sizedBox,
+          borderWidth: Dimens.borderWidth,
           cutOutSize: MediaQuery.of(context).size.width * 0.8,
         ),
       );
 
   Widget _buildResult() => Container(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(DimenUtilsPX.pxToPercentage(context, 12)),
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(Dimens.radius)),
           color: Colors.white24,
         ),
         child: Text(
-          barcode != null ? 'Result : ${barcode!.code}' : 'Scan a code',
+          barcode != null ? '${ConstString.result} : ${barcode!.code}' : ConstString.scanCode,
           maxLines: 3,
           style: const TextStyle(color: Colors.white),
         ),
       );
 
   Widget _buildControlButtons() => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: DimenUtilsPX.pxToPercentage(context, 16)),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white24),
+            borderRadius: BorderRadius.circular(Dimens.radius), color: Colors.white24),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

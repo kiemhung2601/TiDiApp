@@ -1,3 +1,5 @@
+import '../../../model/account.dart';
+
 abstract class LoginStatus {
   const LoginStatus();
 }
@@ -15,10 +17,10 @@ class LoginStatusFail extends LoginStatus {
 }
 
 class LoginStatusSuccess extends LoginStatus {
-  final bool admin;
+  final Account account;
 
-  LoginStatusSuccess(this.admin,);
+  LoginStatusSuccess(this.account,);
 
   // TODO: implement props
-  List<Object?> get props => [admin];
+  List<Object?> get props => [account];
 }

@@ -18,9 +18,9 @@ class ContactScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfor(BuildContext context, icon, String title, String content, bool longText){
+  Widget _buildInfor(BuildContext context, icon, String title, String content ){
     return Row(
-      crossAxisAlignment: longText ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment:CrossAxisAlignment.start,
       children: [
         SvgPicture.asset(
           icon,
@@ -30,10 +30,13 @@ class ContactScreen extends StatelessWidget {
         ),
         const SizedBox(width: Dimens.heightSmall,),
         Expanded(
-            child: TextCustom(
-              '$title: $content',
-              color: ConstColors.black.withOpacity(0.7),
-              maxLines: null,
+            child: Container(
+              margin: const EdgeInsets.only(top : Dimens.heightSmall),
+              child: TextCustom(
+                '$title: $content',
+                color: ConstColors.black.withOpacity(0.7),
+                maxLines: null,
+              ),
             )
         )
       ],
@@ -51,35 +54,35 @@ class ContactScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextCustom(ConstString.schoolName.toUpperCase(), fontWeight: true, fontSize: Dimens.body,),
+              const TextCustom(ConstString.schoolInfo, fontWeight: true, fontSize: Dimens.body,),
               const SizedBox(height: Dimens.sizedBox,),
               _buildInfor(
-                  context, Images.location, ConstString.address, 
+                  context, Images.school, ConstString.school,
+                  'Đại học Công nghệ Đồng Nai',
+              ),
+              const SizedBox(height: Dimens.sizedBox,),
+              _buildInfor(
+                  context, Images.locationCT, ConstString.address,
                   '206, Đường Nguyễn Khuyến, KP5, Phường Trảng Dài, TP Biên Hoà, Tỉnh Đồng Nai',
-                true
               ),
               const SizedBox(height: Dimens.sizedBox,),
               _buildInfor(
-                  context, Images.historyTab, ConstString.timeWork,
+                  context, Images.workingTimeCT, ConstString.timeWork,
                   '\nThứ Hai	07:00–21:00 \nThứ Ba	07:00–21:00 \nThứ Tư	07:00–21:00 \nThứ Năm	07:00–21:00 \nThứ Sáu	07:00–21:00 \nThứ Bảy	07:00–21:00 \nChủ Nhật	07:00–17:00',
-                true
               ),
               const SizedBox(height: Dimens.sizedBox,),
               _buildInfor(
-                  context, Images.phone, ConstString.hotLine,
+                  context, Images.phoneCT, ConstString.hotLine,
                   '0986 39 7733 - 0904 39 7733',
-                false
               ),
               const SizedBox(height: Dimens.sizedBox,),
               _buildInfor(
-                  context, Images.mail, ConstString.mail,
+                  context, Images.mailCT, ConstString.mail,
                   'tuyensinh@dntu.edu.vn',
-                false
               ),const SizedBox(height: Dimens.sizedBox,),
               _buildInfor(
-                  context, Images.mail, ConstString.webSite,
+                  context, Images.website, ConstString.webSite,
                   'https://dntu.edu.vn/',
-                false
               ),
 
             ],

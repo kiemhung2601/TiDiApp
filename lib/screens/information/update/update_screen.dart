@@ -8,7 +8,6 @@ import '../../../untils/constant_string.dart';
 import '../../../untils/constants.dart';
 import '../../../untils/untils.dart';
 import '../../../widgets/appbar_custom.dart';
-import '../../login/bloc/login_bloc.dart';
 import '../bloc/information_bloc.dart';
 
 class UpdateScreen extends StatefulWidget {
@@ -65,13 +64,11 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                 address: _address,
                                 email: _email,
                                 phone: _phone));
-                        final admin = context.read<LoginBloc>().admin;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => HomeMain(
+                              builder: (BuildContext context) => const HomeMain(
                                     currentTab: 3,
-                                    admin: admin!,
                                   )),
                           // ModalRoute.withName('/login'),
                         );

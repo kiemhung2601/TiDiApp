@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/model/account.dart';
 import 'package:socialworkapp/model/drawer_item.dart';
 import 'package:socialworkapp/routes.dart';
-import 'package:socialworkapp/screens/change_password/change_password_screen.dart';
 import 'package:socialworkapp/screens/history/history_screen.dart';
 import 'package:socialworkapp/screens/home/home_screen.dart';
+import 'package:socialworkapp/screens/home_main/bloc/home_main_status.dart';
 import 'package:socialworkapp/screens/information/information_screen.dart';
 import 'package:socialworkapp/screens/notification/notification_screen.dart';
 import 'package:socialworkapp/screens/qr_code/qr_main_screen.dart';
@@ -13,14 +14,19 @@ import 'package:socialworkapp/untils/constants.dart';
 import 'package:socialworkapp/untils/untils.dart';
 import 'package:socialworkapp/widgets/drawer_widget.dart';
 import 'package:socialworkapp/widgets/tabbar_custom_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/person.dart';
+import '../login/bloc/login_bloc.dart';
 import '../news/news_screen.dart';
+import 'bloc/home_main_bloc.dart';
 
 class HomeMain extends StatefulWidget {
-  final bool admin;
   final int? currentTab;
-  const HomeMain({Key? key, required this.admin, this.currentTab = 0})
-      : super(key: key);
+  const HomeMain({
+    Key? key,
+    this.currentTab = 0,
+  }) : super(key: key);
 
   @override
   State<HomeMain> createState() => _HomeMainState();
@@ -38,8 +44,11 @@ class _HomeMainState extends State<HomeMain>
   late TabController _tabController;
   int _selectedIndex = 0;
 
+  late Account _account;
+
   @override
   void initState() {
+    _account = context.read<LoginBloc>().account;
     _tabController = TabController(length: 4, vsync: this);
     _tabController.index = widget.currentTab!;
     _selectedIndex = _tabController.index;
@@ -72,7 +81,6 @@ class _HomeMainState extends State<HomeMain>
         return HomeScreen(
           openDrawer: openDrawer,
           isDrawerOpen: isDrawerOpen,
-          admin: widget.admin,
         );
       case 1:
         return HistoryScreen(
@@ -88,7 +96,6 @@ class _HomeMainState extends State<HomeMain>
         return InformationScreen(
           openDrawer: openDrawer,
           isDrawerOpen: isDrawerOpen,
-          admin: widget.admin,
         );
       default:
         return Container();
@@ -127,8 +134,8 @@ class _HomeMainState extends State<HomeMain>
           child: AbsorbPointer(
             absorbing: isDrawerOpen,
             child: ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(isDrawerOpen ? Dimens.radiusButton : 0),
+              borderRadius: BorderRadius.circular(
+                  isDrawerOpen ? Dimens.radiusButton : 0),
               child: Column(
                 children: [
                   Expanded(
@@ -163,17 +170,33 @@ class _HomeMainState extends State<HomeMain>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ConstColors.blueLight.withOpacity(0.6),
-      body: Stack(
+      body: BlocProvider(
+        create: (context) =>
+            HomeMainBloc()..add(LoadHomeMain(account: _account)),
+        child: BlocBuilder<HomeMainBloc, HomeMainState>(
+  builder: (context, state) {
+    if(state.homeMainStatus is InitHomeMainStatus){
+      return Container();
+    }
+    if(state.homeMainStatus is HomeMainStatusSuccess){
+      final person = (state.homeMainStatus as HomeMainStatusSuccess).person;
+      return Stack(
         children: [
-          buildDrawer(),
+          buildDrawer(person),
           _buildTabs(),
         ],
+      );
+    }
+    return Container();
+  },
+),
       ),
     );
   }
 
-  Widget buildDrawer() => SafeArea(
+  Widget buildDrawer(Person person) => SafeArea(
           child: DrawerWidget(
+            person: person,
         pressBack: () {
           closeDrawer();
         },
@@ -217,16 +240,14 @@ class _HomeMainState extends State<HomeMain>
                       ModalRoute.withName('/login'),
                     );
                   });
-            } else if (item == DrawerItems.settings ) {
+            } else if (item == DrawerItems.settings) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const SettingsScreen()));
-            } else if (item == DrawerItems.news ) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NewsScreen()));
+            } else if (item == DrawerItems.news) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const NewsScreen()));
             }
           });
         },

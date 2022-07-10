@@ -46,11 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.loginStatus is LoginStatusSuccess) {
-            final admin = (state.loginStatus as LoginStatusSuccess).admin;
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HomeMain(admin: admin)));
+                    builder: (context) => const HomeMain()));
           }
           if (state.loginStatus is LoginStatusFail) {
             final message = (state.loginStatus as LoginStatusFail).exception;

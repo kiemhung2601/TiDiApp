@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialworkapp/fake_data/fake_data.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
+import 'package:socialworkapp/screens/home/bloc/home_status.dart';
 import 'package:socialworkapp/screens/qr_code/qr_main_screen.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/account.dart';
 import '../../widgets/news_widget.dart';
 import '../login/bloc/login_bloc.dart';
 import '../../routes.dart';
@@ -12,28 +15,39 @@ import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
+import 'bloc/home_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
-  final bool admin;
+class HomeScreen extends StatefulWidget {
   final VoidCallback openDrawer;
   final bool isDrawerOpen;
   const HomeScreen(
-      {Key? key,
-      required this.admin,
-      required this.openDrawer,
-      required this.isDrawerOpen})
+      {Key? key, required this.openDrawer, required this.isDrawerOpen})
       : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Account _account;
+
+  @override
+  void initState() {
+    _account = context.read<LoginBloc>().account;
+    super.initState();
+  }
 
   PreferredSizeWidget _buildAppbar() {
     return AppBarCustom(
       isHomePage: true,
       actions: null,
       title: ConstString.titleAppHome.toUpperCase(),
-      openDrawer: openDrawer,
+      openDrawer: widget.openDrawer,
     );
   }
 
-  Widget _buildHeader(BuildContext context, String name, String score) {
+  Widget _buildHeader(
+      BuildContext context, String name, String score, String image) {
     return Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -57,10 +71,9 @@ class HomeScreen extends StatelessWidget {
                     border: Border.all(
                         width: 1, color: ConstColors.black.withOpacity(0.1)),
                     shape: BoxShape.circle,
-                    image: const DecorationImage(
+                    image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
+                      image: NetworkImage(image),
                     ),
                   ),
                 ),
@@ -74,7 +87,7 @@ class HomeScreen extends StatelessWidget {
               height: Dimens.marginView,
             ),
             Visibility(
-              visible: admin == false,
+              visible: _account.admin == false,
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -187,7 +200,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: Dimens.marginView,
             ),
-            admin
+            _account.admin == true
                 ? _buildListIconMenuAdmin(context)
                 : _buildListIconMenu(context),
           ],
@@ -224,97 +237,129 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildListNews(BuildContext context) {
-    final admin = context.read<LoginBloc>().admin;
-    return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimens.radiusButton),
-          color: ConstColors.white,
-        ),
-        padding: const EdgeInsets.only(
-          top: Dimens.heightSmall,
-          bottom: Dimens.heightSmall,
-          left: Dimens.marginView,
-          right: Dimens.marginView,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TextCustom(
-              ConstString.hotNews,
-              fontWeight: true,
-            ),
-            const SizedBox(
-              height: Dimens.marginView,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent:
-                          DimenUtilsPX.pxToPercentage(context, 175),
-                      childAspectRatio: 0.85,
-                      mainAxisSpacing: Dimens.marginView,
-                      crossAxisSpacing: Dimens.sizedBox,
-                    ),
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        child: const NewsWidget(),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DetailNewsScreen(admin: admin!)));
-                        },
-                      );
-                    }),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.newsHomeStatus is InitNewsHomeStatus) {
+          return Container();
+        }
+        if (state.newsHomeStatus is NewsHomeStatusSuccess) {
+          final lstNews =
+              (state.newsHomeStatus as NewsHomeStatusSuccess).lstNews;
+          return Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimens.radiusButton),
+                color: ConstColors.white,
               ),
-            )
-          ],
-        ));
+              padding: const EdgeInsets.only(
+                top: Dimens.heightSmall,
+                bottom: Dimens.heightSmall,
+                left: Dimens.marginView,
+                right: Dimens.marginView,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextCustom(
+                    ConstString.hotNews,
+                    fontWeight: true,
+                  ),
+                  const SizedBox(
+                    height: Dimens.marginView,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent:
+                                DimenUtilsPX.pxToPercentage(context, 175),
+                            childAspectRatio: 0.85,
+                            mainAxisSpacing: Dimens.marginView,
+                            crossAxisSpacing: Dimens.sizedBox,
+                          ),
+                          itemCount: lstNews.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              child: NewsWidget(news: lstNews[index]),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailNewsScreen(
+                                              idNews: lstNews[index].idNews!,
+                                            )));
+                              },
+                            );
+                          }),
+                    ),
+                  )
+                ],
+              ));
+        }
+        return Container();
+      },
+    );
   }
 
   Widget _buildBody(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: Dimens.heightSmall,
-        right: Dimens.heightSmall,
-        top: Dimens.marginView,
-        bottom: Dimens.marginView,
-      ),
-      child: Column(
-        children: [
-          _buildHeader(context, 'Đặng Kiếm Hùng', '8.5'),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          _buildMenu(context),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          _buildBanner(context),
-          const SizedBox(
-            height: Dimens.heightSmall,
-          ),
-          Expanded(
-            child: _buildListNews(context),
-          ),
-        ],
-      ),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.homeStatus is InitHomeStatus) {
+          return Container();
+        }
+        if (state.homeStatus is HomeStatusSuccess) {
+          final score = (state.homeStatus as HomeStatusSuccess).score;
+          return Padding(
+            padding: const EdgeInsets.only(
+              left: Dimens.heightSmall,
+              right: Dimens.heightSmall,
+              top: Dimens.marginView,
+              bottom: Dimens.marginView,
+            ),
+            child: Column(
+              children: [
+                _buildHeader(
+                    context,
+                    score.name ?? '',
+                    score.score == null ? '' : score.score.toString(),
+                    score.image!),
+                const SizedBox(
+                  height: Dimens.heightSmall,
+                ),
+                _buildMenu(context),
+                const SizedBox(
+                  height: Dimens.heightSmall,
+                ),
+                _buildBanner(context),
+                const SizedBox(
+                  height: Dimens.heightSmall,
+                ),
+                Expanded(
+                  child: _buildListNews(context),
+                ),
+              ],
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          isDrawerOpen ? ConstColors.blueLight2 : ConstColors.backGroundColor,
+      backgroundColor: widget.isDrawerOpen
+          ? ConstColors.blueLight2
+          : ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: _buildBody(context),
+      body: BlocProvider(
+        create: (context) => HomeBloc()..add(LoadInfoHome(account: _account)),
+        child: _buildBody(context),
+      ),
     );
   }
 }

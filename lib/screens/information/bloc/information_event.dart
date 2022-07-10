@@ -5,9 +5,9 @@ abstract class InformationEvent {
 }
 
 class LoadInformationStudent extends InformationEvent {
-  // final int productId;
+  final Account account;
 
-  const LoadInformationStudent();
+  const LoadInformationStudent({required this.account});
 }
 
 class ChangeInformationStudent extends InformationEvent {

@@ -1,5 +1,5 @@
 class Person {
-  int? studentId;
+  String? studentId;
   String? name;
   String? studentClass;
   String? studentMajor;

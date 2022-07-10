@@ -53,6 +53,7 @@ dev_dependencies:
   equatable: ^2.0.3
   shimmer: ^2.0.0
   lottie: ^1.2.1
+  intl: ^0.17.0
 
   flutter_launcher_icons: ^0.9.3
 
@@ -84,6 +85,7 @@ flutter:
     - res/assets/history/
     - res/assets/notification/
     - res/assets/news/
+    - res/assets/contact/
     - res/logo/
 
   # An image asset can refer to one or more resolution-specific "variants", see

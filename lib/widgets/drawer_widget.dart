@@ -6,21 +6,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/drawer_item.dart';
+import '../model/person.dart';
 import '../screens/login/bloc/login_bloc.dart';
 import '../untils/untils.dart';
 
 class DrawerWidget extends StatelessWidget {
+  final Person person;
   final ValueChanged<DrawerItem> onSelectdItem;
   final VoidCallback? pressBack;
-  const DrawerWidget({Key? key, required this.onSelectdItem, this.pressBack})
+  const DrawerWidget({Key? key, required this.person, required this.onSelectdItem, this.pressBack})
       : super(key: key);
 
   Widget buildDrawerItems(BuildContext context) {
-    final admin = context.read<LoginBloc>().admin;
+    final account = context.read<LoginBloc>().account;
     return Column(
       children: DrawerItems.lstDrawer
           .map((item) => Visibility(
-                visible: admin == true ? item != DrawerItems.qrcode : true,
+                visible: account.admin == true ? item != DrawerItems.qrcode : true,
                 child: ListTile(
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: DimenUtilsPX.pxToPercentage(context, 24),
@@ -64,18 +66,17 @@ class DrawerWidget extends StatelessWidget {
             border:
                 Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
             shape: BoxShape.circle,
-            image: const DecorationImage(
+            image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(
-                  'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
+              image: NetworkImage(person.urlImage ?? ''),
             ),
           ),
         ),
         const SizedBox(
           width: Dimens.heightSmall,
         ),
-        const TextCustom(
-          'Đặng Kiếm Hùng',
+        TextCustom(
+          person.name ?? '',
           color: ConstColors.white,
         )
       ],

@@ -9,8 +9,8 @@ class ConstColors {
   static const blueLight2 = Color(0xFFBBDEFB);
   static const blueLight3 = Color(0xFF4475F3);
   static const red = Color(0xFFE51313);
-  static const redButton = Color(0xFF951818);
-  static const redButton2 = Color(0xFFBB6B6B);
+  static const redButton = Color(0xFF951819);
+  static const redButton2 = Color(0xFFC37D7E);
   static const green = Color(0xFF02B14F);
 
 }
@@ -31,6 +31,7 @@ class Dimens {
   static const marginView = 10.0;
   static const paddingView = 10.0;
   static const radius = 10.0;
+  static const borderWidth = 10.0;
   static const radiusButton = 15.0;
   static const radiusTextFormField = 30.0;
   static const sizedBox = 20.0;
@@ -39,6 +40,7 @@ class Dimens {
 }
 
 class Images {
+  static const defaultImg = 'res/assets/image_default.svg';
   static const logoIconApp = 'res/logo/logo-app.png';
   static const logoAppNonBG = 'res/logo/logo-app-nonBG.png';
   static const back = 'res/assets/ic_back.svg';
@@ -95,6 +97,15 @@ class Images {
 
   //news
   static const stack = 'res/assets/news/ic_stack.svg';
+
+  //contact
+  static const mailCT = 'res/assets/contact/ic_email_ct.svg';
+  static const locationCT = 'res/assets/contact/ic_location_ct.svg';
+  static const phoneCT = 'res/assets/contact/ic_phone_ct.svg';
+  static const school = 'res/assets/contact/ic_school.svg';
+  static const website = 'res/assets/contact/ic_website.svg';
+  static const workingTimeCT = 'res/assets/contact/ic_workingtime_ct.svg';
+
 }
 
 class HeadPhone {

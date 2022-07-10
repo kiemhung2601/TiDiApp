@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socialworkapp/model/student.dart';
+import 'package:socialworkapp/model/person.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,7 +9,7 @@ import '../untils/untils.dart';
 import 'bottom_sheet_notification.dart';
 
 class InformationWidget extends StatelessWidget {
-  final bool admin;
+  final bool? admin;
   final bool qrPush;
   final Person person;
   const InformationWidget(
@@ -88,7 +88,7 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                    child: _buildInfor(ConstString.fullName, person.name!)),
+                    child: _buildInfor(ConstString.fullName, person.name ?? '')),
               ],
             ),
           ),
@@ -108,7 +108,7 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                  child: _buildInfor(ConstString.gender, person.gender!),
+                  child: _buildInfor(ConstString.gender, person.gender ?? ''),
                 )
               ],
             ),
@@ -129,7 +129,7 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                    child: _buildInfor(ConstString.dateBorn, person.dateBorn!)),
+                    child: _buildInfor(ConstString.dateBorn, person.dateBorn ?? '')),
               ],
             ),
           ),
@@ -155,21 +155,20 @@ class InformationWidget extends StatelessWidget {
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.studentId,
-                            person.studentId!.toString()),
+                        _buildInfor(ConstString.studentId, person.studentId ?? ''),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
                         _buildInfor(
-                            ConstString.studentClass, person.studentClass!),
+                            ConstString.studentClass, person.studentClass ?? ''),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.major, person.studentMajor!),
+                        _buildInfor(ConstString.major, person.studentMajor ?? ''),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.schoolYear, person.schoolYear!),
+                        _buildInfor(ConstString.schoolYear, person.schoolYear ?? ''),
                       ],
                     ),
                   ),
