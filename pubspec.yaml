@@ -46,7 +46,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
   flutter_svg: ^1.0.3
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: ^1.0.0
   qr_flutter: ^4.0.0
   dio: ^4.0.6
   flutter_bloc: ^8.0.1

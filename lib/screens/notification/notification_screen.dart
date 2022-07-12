@@ -234,7 +234,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
       result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inDays;
       text = '$result ${ConstString.day}';
     }
-    debugPrint(result.toString());
     return text;
   }
 }

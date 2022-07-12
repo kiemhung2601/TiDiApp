@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:socialworkapp/screens/news/bloc/news_status.dart';
 
 import '../../../fake_data/fake_data.dart';

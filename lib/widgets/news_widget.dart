@@ -41,7 +41,7 @@ class NewsWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(Dimens.heightSmall),
+            padding: const EdgeInsets.all(Dimens.heightSmall),
             child: TextCustom(
               news.title ?? '',
               hadMaxLines: true,

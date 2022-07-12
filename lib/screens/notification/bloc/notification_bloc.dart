@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:socialworkapp/screens/notification/bloc/notification_status.dart';
@@ -12,7 +10,7 @@ part 'notification_event.dart';
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
-  NotificationBloc() : super(NotificationState()) {
+  NotificationBloc() : super(const NotificationState()) {
     on<LoadNotification>((event, emit) {
       emit(state.updateWith(notificationStatus: const InitNotificationStatus()));
       List<Notifi> lstNotification = lstNotifi;

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:socialworkapp/fake_data/fake_data.dart';
-import 'package:socialworkapp/screens/detail_news/bloc/detail_news_status.dart';
 import 'package:socialworkapp/screens/home/bloc/home_status.dart';
 
 import '../../../model/account.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:socialworkapp/fake_data/fake_data.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 import 'package:socialworkapp/screens/home/bloc/home_status.dart';
 import 'package:socialworkapp/screens/qr_code/qr_main_screen.dart';

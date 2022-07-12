@@ -4,9 +4,9 @@ import '../model/notification.dart';
 import '../model/person.dart';
 import '../model/score.dart';
 
-DateTime _datePost = DateTime.now().subtract(Duration(hours: 12));
+DateTime _datePost = DateTime.now().subtract(const Duration(hours: 12));
 DateTime _dateOpen = DateTime.now();
-DateTime _dateClose = DateTime. now().add(Duration(days: 5));
+DateTime _dateClose = DateTime. now().add(const Duration(days: 5));
 
 List<Person> lstPerson = [
   Person(
