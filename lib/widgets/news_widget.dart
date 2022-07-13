@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/untils/constant_string.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../model/new.dart';
 import '../untils/constants.dart';
@@ -7,10 +9,13 @@ import '../untils/untils.dart';
 
 class NewsWidget extends StatelessWidget {
   final News news;
-  const NewsWidget({Key? key, required this.news}) : super(key: key);
+  final bool isNews;
+  const NewsWidget({Key? key, required this.news, this.isNews = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final DateTime _dateNow = DateTime.now();
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
@@ -29,7 +34,7 @@ class NewsWidget extends StatelessWidget {
         children: [
           Container(
             width: DimenUtilsPX.pxToPercentage(context, 175),
-            height: DimenUtilsPX.pxToPercentage(context, 138),
+            height: DimenUtilsPX.pxToPercentage(context, 130),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -40,6 +45,38 @@ class NewsWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: Dimens.heightSmall,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: Dimens.heightSmall, right: Dimens.heightSmall),
+            child: Visibility(
+                visible: isNews == true,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      Images.timeNotification,
+                      width: DimenUtilsPX.pxToPercentage(context, 9),
+                      height: DimenUtilsPX.pxToPercentage(context, 9),
+                    ),
+                    const SizedBox(
+                      width: Dimens.heightSmall,
+                    ),
+                    TextCustom(
+                      '${ConstString.still} ${StringUtils.formatTime(news.dateCloseRegister, _dateNow.toString())}',
+                      fontSize: Dimens.titleSmall,
+                      color: ConstColors.black,
+                    ),
+                    const Spacer(),
+                    TextCustom(
+                      '${ConstString.dayScore}: ${news.score}',
+                      fontSize: Dimens.titleSmall,
+                      color: ConstColors.black,
+                    ),
+                  ],
+                )),
+          ),
           Padding(
             padding: const EdgeInsets.all(Dimens.heightSmall),
             child: TextCustom(
@@ -47,6 +84,7 @@ class NewsWidget extends StatelessWidget {
               hadMaxLines: true,
               maxLines: 2,
               fontSize: Dimens.fontTab,
+              fontWeight: true,
             ),
           )
         ],

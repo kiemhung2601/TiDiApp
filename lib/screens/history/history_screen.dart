@@ -51,11 +51,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
   String status(int type) {
     String status = '';
     if (type == 0) {
-      status = ConstString.complete;
-    } else if (type == 1) {
-      status = ConstString.fail;
-    } else if (type == 2) {
       status = ConstString.register;
+    } else if (type == 1) {
+      status = ConstString.complete;
+    } else if (type == 2) {
+      status = ConstString.fail;
     }
     return status;
   }
@@ -201,7 +201,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailNewsScreen(idNews: lstHistory[index].idNews!,)));
+                            builder: (context) => DetailNewsScreen(
+                                  idNews: lstHistory[index].idNews!,
+                                )));
                   },
                 );
               });
@@ -248,8 +250,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     setState(() {
                       current = index;
                       if (index == 0) {
-                        _historyBloc
-                            .add(LoadHistory(account: _account));
+                        _historyBloc.add(LoadHistory(account: _account));
                       } else if (index == 1) {
                         _historyBloc
                             .add(LoadHistory(account: _account, type: 0));

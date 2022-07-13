@@ -23,7 +23,8 @@ class ConfirmDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.radius)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimens.radius)),
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: _buildChild(context),
@@ -31,7 +32,8 @@ class ConfirmDialogWidget extends StatelessWidget {
   }
 
   _buildChild(BuildContext context) => Container(
-        height: DimenUtilsPX.pxToPercentage(context, 180),
+        height: DimenUtilsPX.pxToPercentage(context, 150),
+        width: DimenUtilsPX.pxToPercentage(context, 280),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [ConstColors.blueLight, ConstColors.blue],
@@ -65,9 +67,9 @@ class ConfirmDialogWidget extends StatelessWidget {
                     text: strCancel!,
                     fontSize: Dimens.body,
                     onPressed: () {
-                          if (onCancelClick != null) {
-                            onCancelClick!();
-                          }
+                      if (onCancelClick != null) {
+                        onCancelClick!();
+                      }
                     },
                   ),
                 ),

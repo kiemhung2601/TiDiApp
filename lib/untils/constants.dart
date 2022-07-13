@@ -12,7 +12,6 @@ class ConstColors {
   static const redButton = Color(0xFF951819);
   static const redButton2 = Color(0xFFC37D7E);
   static const green = Color(0xFF02B14F);
-
 }
 
 class Dimens {
@@ -20,7 +19,7 @@ class Dimens {
   static const title = 13.0;
   static const body = 15.0;
   static const titlebBig = 17.0;
-  static const titleSmall = 10.0;
+  static const titleSmall = 11.0;
   static const titleButton = 20.0;
   static const titleAppbar = 18.0;
   static const textFormField = 30.0;
@@ -105,7 +104,6 @@ class Images {
   static const school = 'res/assets/contact/ic_school.svg';
   static const website = 'res/assets/contact/ic_website.svg';
   static const workingTimeCT = 'res/assets/contact/ic_workingtime_ct.svg';
-
 }
 
 class HeadPhone {
@@ -140,14 +138,28 @@ class HeadPhone {
   //gmobile
   static const gmobile1 = '059';
 
-
-
   static List<String> headPhone() {
     List<String> lstHeadPhone = [
-      viettel1, viettel2, viettel3, viettel4, viettel5, viettel6, viettel7, viettel8,
-      mobi1, mobi2, mobi3, mobi4, mobi5,
-      vina1, vina2, vina3, vina4, vina5,
-      vn1, vn2,
+      viettel1,
+      viettel2,
+      viettel3,
+      viettel4,
+      viettel5,
+      viettel6,
+      viettel7,
+      viettel8,
+      mobi1,
+      mobi2,
+      mobi3,
+      mobi4,
+      mobi5,
+      vina1,
+      vina2,
+      vina3,
+      vina4,
+      vina5,
+      vn1,
+      vn2,
       gmobile1
     ];
     return lstHeadPhone;

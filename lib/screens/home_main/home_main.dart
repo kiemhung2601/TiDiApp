@@ -62,8 +62,8 @@ class _HomeMainState extends State<HomeMain>
   }
 
   void openDrawer() => setState(() {
-        xOffset = 230;
-        yOffet = 150;
+        xOffset = DimenUtilsPX.pxToPercentage(context, 230);
+        yOffet = DimenUtilsPX.pxToPercentage(context, 150);
         scaleFactor = 0.6;
         isDrawerOpen = true;
       });
@@ -134,8 +134,8 @@ class _HomeMainState extends State<HomeMain>
           child: AbsorbPointer(
             absorbing: isDrawerOpen,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(
-                  isDrawerOpen ? Dimens.radiusButton : 0),
+              borderRadius:
+                  BorderRadius.circular(isDrawerOpen ? Dimens.radiusButton : 0),
               child: Column(
                 children: [
                   Expanded(
@@ -174,29 +174,30 @@ class _HomeMainState extends State<HomeMain>
         create: (context) =>
             HomeMainBloc()..add(LoadHomeMain(account: _account)),
         child: BlocBuilder<HomeMainBloc, HomeMainState>(
-  builder: (context, state) {
-    if(state.homeMainStatus is InitHomeMainStatus){
-      return Container();
-    }
-    if(state.homeMainStatus is HomeMainStatusSuccess){
-      final person = (state.homeMainStatus as HomeMainStatusSuccess).person;
-      return Stack(
-        children: [
-          buildDrawer(person),
-          _buildTabs(),
-        ],
-      );
-    }
-    return Container();
-  },
-),
+          builder: (context, state) {
+            if (state.homeMainStatus is InitHomeMainStatus) {
+              return Container();
+            }
+            if (state.homeMainStatus is HomeMainStatusSuccess) {
+              final person =
+                  (state.homeMainStatus as HomeMainStatusSuccess).person;
+              return Stack(
+                children: [
+                  buildDrawer(person),
+                  _buildTabs(),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
 
   Widget buildDrawer(Person person) => SafeArea(
           child: DrawerWidget(
-            person: person,
+        person: person,
         pressBack: () {
           closeDrawer();
         },

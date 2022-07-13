@@ -67,7 +67,7 @@ class _NewsScreenState extends State<NewsScreen> {
                     itemCount: lstNews.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        child: NewsWidget(news: lstNews[index]),
+                        child: NewsWidget(news: lstNews[index], isNews: true,),
                         onTap: () {
                           Navigator.push(
                               context,

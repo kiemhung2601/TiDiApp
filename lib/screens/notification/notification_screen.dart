@@ -8,7 +8,6 @@ import '../../model/account.dart';
 import '../../model/notification.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
-import '../../untils/date_time_format.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
 import '../../widgets/text_widget.dart';
@@ -18,7 +17,9 @@ import 'bloc/notification_bloc.dart';
 class NotificationScreen extends StatefulWidget {
   final VoidCallback openDrawer;
   final bool isDrawerOpen;
-  const NotificationScreen({Key? key, required this.openDrawer, required this.isDrawerOpen}) : super(key: key);
+  const NotificationScreen(
+      {Key? key, required this.openDrawer, required this.isDrawerOpen})
+      : super(key: key);
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -103,7 +104,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     height: Dimens.marginView,
                   ),
                   TextCustom(
-                    formatTime(_dateNow.toString(), notifi.dateNotification).toString(),
+                    StringUtils.formatTime(
+                            _dateNow.toString(), notifi.dateNotification)
+                        .toString(),
                     fontSize: Dimens.titleSmall,
                   ),
                 ],
@@ -131,7 +134,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextCustom(
-                '${ConstString.dateNews}: ${formatDate(notifi.datePost)}',
+                '${ConstString.dateNews}: ${StringUtils.formatDate(notifi.datePost)}',
                 fontSize: Dimens.titleSmall,
                 color: ConstColors.black,
                 fontWeight: true,
@@ -147,7 +150,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     width: Dimens.heightSmall,
                   ),
                   TextCustom(
-                    '${ConstString.dayScore}: ${notifi.score}, ${ConstString.still} ${formatTime(notifi.dateEnd, _dateNow.toString())}',
+                    '${ConstString.dayScore}: ${notifi.score}, ${ConstString.still} ${StringUtils.formatTime(notifi.dateEnd, _dateNow.toString())}',
                     fontSize: Dimens.titleSmall,
                     color: ConstColors.black,
                     fontWeight: true,
@@ -163,77 +166,55 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   Widget _buildBody(BuildContext context) {
     return BlocBuilder<NotificationBloc, NotificationState>(
-  builder: (context, state) {
-    if(state.notificationStatus is InitNotificationStatus){
-      return Container();
-    }
-    if(state.notificationStatus is NotificationStatusSuccess){
-      final lstNotification = (state.notificationStatus as NotificationStatusSuccess).lstNotification;
-      return Padding(
-        padding: const EdgeInsets.only(
-          left: Dimens.heightSmall,
-          right: Dimens.heightSmall,
-          top: Dimens.marginView,
-          bottom: Dimens.marginView,
-        ),
-        child: ListView.builder(
-            itemCount: lstNotification.length,
-            itemBuilder: (_, index) {
-              return InkWell(
-                child: _buildContent(context, lstNotification[index]),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailNewsScreen(idNews: lstNotification[index].idNews!,)));
-                },
-              );
-            }),
-      );
-    }
-    return Container();
-  },
-);
+      builder: (context, state) {
+        if (state.notificationStatus is InitNotificationStatus) {
+          return Container();
+        }
+        if (state.notificationStatus is NotificationStatusSuccess) {
+          final lstNotification =
+              (state.notificationStatus as NotificationStatusSuccess)
+                  .lstNotification;
+          return Padding(
+            padding: const EdgeInsets.only(
+              left: Dimens.heightSmall,
+              right: Dimens.heightSmall,
+              top: Dimens.marginView,
+              bottom: Dimens.marginView,
+            ),
+            child: ListView.builder(
+                itemCount: lstNotification.length,
+                itemBuilder: (_, index) {
+                  return InkWell(
+                    child: _buildContent(context, lstNotification[index]),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailNewsScreen(
+                                    idNews: lstNotification[index].idNews!,
+                                  )));
+                    },
+                  );
+                }),
+          );
+        }
+        return Container();
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-      widget.isDrawerOpen ? ConstColors.blueLight2 : ConstColors.backGroundColor,
+      backgroundColor: widget.isDrawerOpen
+          ? ConstColors.blueLight2
+          : ConstColors.backGroundColor,
       appBar: _buildAppbar(),
       body: BlocProvider(
-        create: (context) => NotificationBloc()..add(LoadNotification(account: _account)),
+        create: (context) =>
+            NotificationBloc()..add(LoadNotification(account: _account)),
         child: _buildBody(context),
       ),
     );
-  }
-
-  String formatDate(String? time) {
-    return DateTimeFormatter.showDateFormat.format(DateTime.parse(time ?? ""));
-  }
-
-  String formatTime(String? timeBig, String? dateSmall){
-    String text = '';
-    int result = 0;
-    result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inSeconds;
-    text = '$result ${ConstString.seconds}';
-    if(result >= 60){
-      result = 0;
-      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inMinutes;
-      text = '$result ${ConstString.minutes}';
-    }
-    if(result >= 60){
-      result = 0;
-      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inHours;
-      text = '$result ${ConstString.hours}';
-    }
-    if(result >= 24){
-      result = 0;
-      result = DateTime.parse(timeBig ?? "").difference(DateTime.parse(dateSmall ?? "")).inDays;
-      text = '$result ${ConstString.day}';
-    }
-    return text;
   }
 }

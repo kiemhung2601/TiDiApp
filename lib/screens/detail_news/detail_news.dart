@@ -173,12 +173,13 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
               const SizedBox(
                 height: Dimens.marginView,
               ),
-              _buildTextString(context, ConstString.dateRegister, formatDate(news.dateOpenRegister ?? '')),
+              _buildTextString(context, ConstString.dateRegister,
+                  formatDate(news.dateOpenRegister ?? '')),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
-              _buildTextString(
-                  context, ConstString.dateEnd, formatDate(news.dateCloseRegister ?? '')),
+              _buildTextString(context, ConstString.dateEnd,
+                  formatDate(news.dateCloseRegister ?? '')),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
@@ -197,15 +198,15 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
-              _buildTextString(
-                  context, ConstString.datePost, formatDate(news.datePost ?? '')),
+              _buildTextString(context, ConstString.datePost,
+                  formatDate(news.datePost ?? '')),
               const SizedBox(
                 height: Dimens.marginView,
               ),
               const TextCustom(
                 'Lưu ý: Sau khi ấn đăng ký, bạn đã được lưu tên vào dành sách cho người kiểm duyệt, nếu bạn được nhận vào danh sách bạn sẽ được nhận thông báo, vui lòng làm theo thông báo, xin cảm ơn',
                 color: ConstColors.red,
-                fontSize: Dimens.titleSmall,
+                fontSize: Dimens.title,
                 maxLines: null,
               ),
               const SizedBox(
@@ -250,6 +251,6 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
   }
 
   String formatDate(String? time) {
-    return DateTimeFormatter.showDateFormat.format(DateTime.parse(time??""));
+    return DateTimeFormatter.showDateFormat.format(DateTime.parse(time ?? ""));
   }
 }

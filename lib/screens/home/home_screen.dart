@@ -79,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   width: Dimens.marginView,
                 ),
-                TextCustom('${ConstString.hi}, $name'),
+                TextCustom(
+                  '${ConstString.hi}, $name',
+                  fontWeight: true,
+                ),
               ],
             ),
             const SizedBox(
@@ -94,7 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: DimenUtilsPX.pxToPercentage(context, 25),
                     height: DimenUtilsPX.pxToPercentage(context, 25),
                   ),
-                  TextCustom('${ConstString.totalScore}: $score')
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TextCustom('${ConstString.totalScore}: '),
+                      TextCustom(
+                        score,
+                        fontWeight: true,
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
