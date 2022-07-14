@@ -172,7 +172,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2016/11/22/19/27/arid-1850193_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 1,
       title: 'Open day DNTU 2022',
@@ -186,7 +187,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204_960_720.jpg',
-      status: 1),
+      status: 1,
+      numberRegister: 30),
   News(
       idNews: 2,
       title: 'Đại hội thể thao 2022',
@@ -200,7 +202,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2017/11/15/13/27/river-2951997_960_720.jpg',
-      status: 2),
+      status: 2,
+      numberRegister: 30),
   News(
       idNews: 3,
       title: 'Vận chuyển vật dụng ở thư viện',
@@ -214,7 +217,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2020/07/03/11/06/birds-in-flight-5366034__340.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 4,
       title: 'Đêm trăng rằm',
@@ -228,7 +232,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2018/05/17/09/18/away-3408119_960_720.jpg',
-      status: 1),
+      status: 1,
+      numberRegister: 30),
   News(
       idNews: 5,
       title: 'Tổ chức tính nguyện',
@@ -242,7 +247,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2017/08/16/01/23/desert-2646209__340.jpg',
-      status: 2),
+      status: 2,
+      numberRegister: 30),
   News(
       idNews: 6,
       title: 'Tết năm học 2022',
@@ -256,7 +262,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 7,
       title: 'Tuyển sinh trường đại học công nghệ Đồng Nai',
@@ -270,7 +277,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2019/01/04/14/54/landscape-3913325__340.jpg',
-      status: 1),
+      status: 1,
+      numberRegister: 30),
   News(
       idNews: 8,
       title: 'Hỗ trợ mùa hè xanh',
@@ -284,7 +292,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736882_960_720.jpg',
-      status: 2),
+      status: 2,
+      numberRegister: 30),
   News(
       idNews: 9,
       title: 'Tuyển sinh trường đại học công nghệ Đồng Nai',
@@ -298,7 +307,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2018/05/11/23/33/forest-3392077_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 10,
       title: 'Hỗ trợ tuyển sinh trường đai học 2022',
@@ -312,7 +322,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2016/11/16/10/59/mountains-1828596_960_720.jpg',
-      status: 4),
+      status: 4,
+      numberRegister: 30),
   News(
       idNews: 11,
       title: 'Tuyển sinh trường đại học công nghệ Đồng Nai',
@@ -326,7 +337,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
           'https://cdn.pixabay.com/photo/2016/05/11/16/32/bridge-1385938_960_720.jpg',
-      status: 4),
+      status: 4,
+      numberRegister: 30),
   News(
       idNews: 12,
       title: 'Tuyển sinh trường đại học công nghệ Đồng Nai',
@@ -340,7 +352,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
       'https://cdn.pixabay.com/photo/2016/11/22/19/27/arid-1850193_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 13,
       title: 'Open day DNTU 2022',
@@ -354,7 +367,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
       'https://cdn.pixabay.com/photo/2017/05/09/03/46/alberta-2297204_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 14,
       title: 'Đại hội thể thao 2022',
@@ -368,7 +382,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
       'https://cdn.pixabay.com/photo/2017/11/15/13/27/river-2951997_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 15,
       title: 'Vận chuyển vật dụng ở thư viện',
@@ -382,7 +397,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
       'https://cdn.pixabay.com/photo/2020/07/03/11/06/birds-in-flight-5366034__340.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
   News(
       idNews: 16,
       title: 'Đêm trăng rằm',
@@ -396,7 +412,8 @@ List<News> lstNews = [
       datePost: _datePost.toString(),
       image:
       'https://cdn.pixabay.com/photo/2018/05/17/09/18/away-3408119_960_720.jpg',
-      status: 0),
+      status: 0,
+      numberRegister: 30),
 ];
 
 List<Notifi> lstNotifi = [

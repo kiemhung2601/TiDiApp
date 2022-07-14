@@ -10,6 +10,7 @@ class News {
   String? datePost;
   String? image;
   int? status;
+  int? numberRegister;
 
   News({
     required this.idNews,
@@ -23,6 +24,7 @@ class News {
     required this.datePost,
     required this.image,
     required this.status,
+    required this.numberRegister,
   });
 
   factory News.fromJson(Map<String, dynamic> json) => News(
@@ -37,6 +39,7 @@ class News {
     datePost: json['datePost'],
     image: json['image'],
     status: json['status'],
+    numberRegister: json['numberRegister'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -51,5 +54,6 @@ class News {
     'datePost': datePost,
     'image': image,
     'status': status,
+    'numberRegister': numberRegister,
   };
 }

@@ -45,9 +45,12 @@ class TextCustom extends StatelessWidget {
             : null,
       ),
       maxLines: maxLines,
-      overflow: (hadMaxLines == true)
+      overflow: overFlowFade == false
+          ? (hadMaxLines)
           ? TextOverflow.ellipsis
           : null
+          :TextOverflow.fade,
+      softWrap: overFlowFade == true ? false : null,
     );
   }
 }

@@ -80,6 +80,7 @@ class ConstString {
   static const namePost = 'Người đăng';
   static const position = 'Chức vụ';
   static const datePost = 'Ngày đăng';
+  static const numberRegister = 'Số người tham gia';
   static const registerEvent = 'Bạn có muốn đăng ký tham gia sự kiện này không?';
   static const unRegisterEvent = 'Bạn có muốn hủy đăng ký tham gia sự kiện này không?';
 

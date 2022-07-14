@@ -19,7 +19,7 @@ class Dimens {
   static const title = 13.0;
   static const body = 15.0;
   static const titlebBig = 17.0;
-  static const titleSmall = 11.0;
+  static const titleSmall = 10.0;
   static const titleButton = 20.0;
   static const titleAppbar = 18.0;
   static const textFormField = 30.0;
@@ -48,6 +48,7 @@ class Images {
   static const homeTab = 'res/assets/ic_home_tab.svg';
   static const historyTab = 'res/assets/ic_history_tab.svg';
   static const informationTab = 'res/assets/ic_information_tab.svg';
+  static const newsDrawer = 'res/assets/ic_hotnew.svg';
   static const lottie = 'res/assets/bouncing-balls.json';
 
   //remove
@@ -72,7 +73,7 @@ class Images {
 
   //home
   static const scoreSocialWork = 'res/assets/home/ic_score_socialwork.svg';
-  static const newsNav = 'res/assets/home/ic_news_nav.svg';
+  static const newsNav = 'res/assets/home/ic_newsblack_nav.svg';
   static const qrCodeNav = 'res/assets/home/ic_qrcode_nav.svg';
   static const qrScanNav = 'res/assets/home/ic_qrscan_nav.svg';
 

@@ -107,7 +107,7 @@ class DrawerItems {
       DrawerItem(title: ConstString.titleAppNotification, iconUrl: Images.notificationTab);
   static const information =
       DrawerItem(title: ConstString.information, iconUrl: Images.informationTab);
-  static const news = DrawerItem(title: ConstString.news, iconUrl: Images.newsNav);
+  static const news = DrawerItem(title: ConstString.news, iconUrl: Images.newsDrawer);
   static const qrcode = DrawerItem(title: ConstString.titleQr, iconUrl: Images.qrCode);
   static const settings = DrawerItem(title: ConstString.settings, iconUrl: Images.settings);
   static const logOut = DrawerItem(title: ConstString.signOut, iconUrl: Images.back);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socialworkapp/untils/constant_string.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../model/new.dart';
 import '../untils/constants.dart';
@@ -34,7 +33,7 @@ class NewsWidget extends StatelessWidget {
         children: [
           Container(
             width: DimenUtilsPX.pxToPercentage(context, 175),
-            height: DimenUtilsPX.pxToPercentage(context, 130),
+            height: DimenUtilsPX.pxToPercentage(context, 120),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -55,24 +54,28 @@ class NewsWidget extends StatelessWidget {
                 visible: isNews == true,
                 child: Row(
                   children: [
-                    SvgPicture.asset(
-                      Images.timeNotification,
-                      width: DimenUtilsPX.pxToPercentage(context, 9),
-                      height: DimenUtilsPX.pxToPercentage(context, 9),
-                    ),
-                    const SizedBox(
-                      width: Dimens.heightSmall,
-                    ),
-                    TextCustom(
-                      '${ConstString.still} ${StringUtils.formatTime(news.dateCloseRegister, _dateNow.toString())}',
-                      fontSize: Dimens.titleSmall,
-                      color: ConstColors.black,
+                    SizedBox(
+                      width: 60,
+                      child: TextCustom(
+                        '${ConstString.still} ${StringUtils.formatTime(news.dateCloseRegister, _dateNow.toString())}',
+                        fontSize: Dimens.titleSmall,
+                        color: ConstColors.black,
+                        maxLines: 1,
+                        hadMaxLines: true,
+                        overFlowFade: true,
+                      ),
                     ),
                     const Spacer(),
-                    TextCustom(
-                      '${ConstString.dayScore}: ${news.score}',
-                      fontSize: Dimens.titleSmall,
-                      color: ConstColors.black,
+                    SizedBox(
+                      width: 75,
+                      child: TextCustom(
+                        '${news.score} ${ConstString.dayScore.toLowerCase()}',
+                        fontSize: Dimens.titleSmall,
+                        color: ConstColors.black,
+                        maxLines: 1,
+                        hadMaxLines: true,
+                        overFlowFade: true,
+                      ),
                     ),
                   ],
                 )),

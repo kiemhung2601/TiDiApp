@@ -201,14 +201,9 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
               _buildTextString(context, ConstString.datePost,
                   formatDate(news.datePost ?? '')),
               const SizedBox(
-                height: Dimens.marginView,
+                height: Dimens.heightSmall,
               ),
-              const TextCustom(
-                'Lưu ý: Sau khi ấn đăng ký, bạn đã được lưu tên vào dành sách cho người kiểm duyệt, nếu bạn được nhận vào danh sách bạn sẽ được nhận thông báo, vui lòng làm theo thông báo, xin cảm ơn',
-                color: ConstColors.red,
-                fontSize: Dimens.title,
-                maxLines: null,
-              ),
+              _buildTextString(context, ConstString.numberRegister, news.numberRegister.toString()),
               const SizedBox(
                 height: Dimens.marginView,
               ),
