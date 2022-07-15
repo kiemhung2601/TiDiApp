@@ -5,7 +5,7 @@ class HomeEvent{
 }
 
 class LoadInfoHome extends HomeEvent {
-  final Account account;
+  final Person person;
 
-  const LoadInfoHome({required this.account});
+  const LoadInfoHome({required this.person});
 }

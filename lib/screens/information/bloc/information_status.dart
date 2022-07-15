@@ -1,5 +1,6 @@
 import '../../../model/person.dart';
 
+//#region LoadInformation
 abstract class InformationStatus {
   const InformationStatus();
 }
@@ -24,3 +25,30 @@ class InformationStatusSuccess extends InformationStatus {
   // TODO: implement props
   List<Object?> get props => [person];
 }
+//#endregion
+
+//#region UpdateInformation
+abstract class UpdateInformationStatus {
+  const UpdateInformationStatus();
+}
+
+class InitUpdateInformationStatus extends UpdateInformationStatus {
+  const InitUpdateInformationStatus();
+}
+
+class UpdateInformationLoadingStatus extends UpdateInformationStatus {
+  const UpdateInformationLoadingStatus();
+}
+
+class UpdateInformationStatusFail extends UpdateInformationStatus {
+  final String? exception;
+
+  UpdateInformationStatusFail({this.exception});
+}
+
+class UpdateInformationStatusSuccess extends UpdateInformationStatus {
+  final Person person;
+  final String message;
+  const UpdateInformationStatusSuccess(this.person, this.message);
+}
+//#endregion

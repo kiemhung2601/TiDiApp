@@ -4,7 +4,6 @@ import 'package:socialworkapp/untils/constants.dart';
 import 'package:socialworkapp/widgets/information_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/account.dart';
 import '../../model/person.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
@@ -22,11 +21,11 @@ class ConfirmInformationScreen extends StatefulWidget {
 }
 
 class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
 
     super.initState();
   }
@@ -59,30 +58,16 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
   }
 
   Widget _buildInfo() {
-    Person person = Person(
-      studentId: '141801830',
-      name: 'Doãn Văn Long',
-      studentClass: '18DTH5',
-      studentMajor: 'Công nghệ thông tin',
-      schoolYear: '2018-2022',
-      address: 'Trảng Dài, Thành phố Biên Hòa, Đồng Nai',
-      mail: 'longdoan@gmail.com',
-      phone: '01628332193',
-      gender: 'Nam',
-      dateBorn: '26/06/2000',
-      urlImage:
-          'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-    );
     return Column(
       children: [
         InformationWidget(
-          person: person,
+          person: _person,
           qrPush: true,
         ),
         const SizedBox(
           height: Dimens.heightSmall,
         ),
-        InformationLocationWidget(person: person, qrPush: true),
+        InformationLocationWidget(person: _person, qrPush: true),
       ],
     );
   }
@@ -118,7 +103,7 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
               height: Dimens.marginView,
             ),
             Visibility(
-              visible: _account.admin == true,
+              visible: _person.role == 2,
               child: PrimaryButton(
                   text: ConstString.confirm.toUpperCase(),
                   onPressed: () {

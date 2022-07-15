@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/bottom_sheet_notification.dart';
+import '../../widgets/loading_widget.dart';
 import 'bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,13 +46,18 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
+          if(state.loginStatus is LoginLoadingStatus){
+            LoadingDialog.show(context);
+          }
           if (state.loginStatus is LoginStatusSuccess) {
+            LoadingDialog.hide(context);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const HomeMain()));
           }
           if (state.loginStatus is LoginStatusFail) {
+            LoadingDialog.hide(context);
             final message = (state.loginStatus as LoginStatusFail).exception;
             BottomSheetNotificationDialog.show(context, children: [
               const SizedBox(height: Dimens.marginView),

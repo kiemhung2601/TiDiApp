@@ -1,6 +1,7 @@
 class ConstString {
   static const yes = 'Đồng ý';
   static const cancel = 'Hủy';
+  static const clock = 'Tài khoản của bạn đã bị khóa';
 
   //title app bar
   static const titleAppInformation = 'Thông tin sinh viên';
@@ -38,6 +39,8 @@ class ConstString {
   static const contact = 'Liên hệ';
   static const settings = 'Cài đặt';
   static const update = 'Cập nhật';
+  static const man = 'Nam';
+  static const woman = 'Nữ';
   static const logOutAccount = 'Bạn muốn đăng xuất?';
   static const changeInformationAccount = 'Bạn có chắc chắn muốn thay đổi thông tin không?';
   static const contactWithManager = 'Bạn hãy liên lạc với người quản lý để có thể thay đổi thông tin cá nhân của mình !!!';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:socialworkapp/model/account.dart';
 import 'package:socialworkapp/model/drawer_item.dart';
 import 'package:socialworkapp/routes.dart';
 import 'package:socialworkapp/screens/history/history_screen.dart';
@@ -44,11 +43,11 @@ class _HomeMainState extends State<HomeMain>
   late TabController _tabController;
   int _selectedIndex = 0;
 
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
     _tabController = TabController(length: 4, vsync: this);
     _tabController.index = widget.currentTab!;
     _selectedIndex = _tabController.index;
@@ -172,7 +171,7 @@ class _HomeMainState extends State<HomeMain>
       backgroundColor: ConstColors.blueLight.withOpacity(0.6),
       body: BlocProvider(
         create: (context) =>
-            HomeMainBloc()..add(LoadHomeMain(account: _account)),
+            HomeMainBloc()..add(LoadHomeMain(person: _person)),
         child: BlocBuilder<HomeMainBloc, HomeMainState>(
           builder: (context, state) {
             if (state.homeMainStatus is InitHomeMainStatus) {

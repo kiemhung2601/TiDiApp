@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:socialworkapp/screens/home_main/home_main.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,20 +9,29 @@ import '../../../untils/constant_string.dart';
 import '../../../untils/constants.dart';
 import '../../../untils/untils.dart';
 import '../../../widgets/appbar_custom.dart';
+import '../../../widgets/bottom_sheet_notification.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../login/bloc/login_bloc.dart';
 import '../bloc/information_bloc.dart';
+import '../bloc/information_status.dart';
 
 class UpdateScreen extends StatefulWidget {
-  const UpdateScreen({Key? key}) : super(key: key);
+  final String id;
+  const UpdateScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<UpdateScreen> createState() => _UpdateScreenState();
 }
 
 class _UpdateScreenState extends State<UpdateScreen> {
-  final formKey = GlobalKey<FormState>();
+  final formKeyAddress = GlobalKey<FormState>();
+  final formKeyEmail = GlobalKey<FormState>();
+  final formKeyPhone = GlobalKey<FormState>();
   final FocusNode _focusAddress = FocusNode();
   final FocusNode _focusEmail = FocusNode();
   final FocusNode _focusPhone = FocusNode();
+
+  bool checkChange = false;
 
   String _address = '';
   String _email = '';
@@ -49,36 +59,34 @@ class _UpdateScreenState extends State<UpdateScreen> {
           margin: const EdgeInsets.only(right: Dimens.marginView),
           child: InkWell(
               onTap: () {
-                if (formKey.currentState!.validate()) {
-                  AppUtils.showDialogCustom(
-                      context: context,
-                      title: ConstString.changeInformationAccount,
-                      strConfirm: ConstString.yes,
-                      strCancel: ConstString.cancel,
-                      onCancelClick: () {
-                        Navigator.pop(context);
-                      },
-                      onConfirmClick: () {
-                        context.read<InformationBloc>().add(
-                            ChangeInformationStudent(
-                                address: _address,
-                                email: _email,
-                                phone: _phone));
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => const HomeMain(
-                                    currentTab: 3,
-                                  )),
-                          // ModalRoute.withName('/login'),
-                        );
-                      });
+                if (checkChange == true) {
+                  if (checkValid() == true) {
+                    AppUtils.showDialogCustom(
+                        context: context,
+                        title: ConstString.changeInformationAccount,
+                        strConfirm: ConstString.yes,
+                        strCancel: ConstString.cancel,
+                        onCancelClick: () {
+                          Navigator.pop(context);
+                        },
+                        onConfirmClick: () {
+                          Navigator.pop(context);
+                          context.read<InformationBloc>().add(
+                              ChangeInformationStudent(
+                                  id: widget.id,
+                                  address: _address,
+                                  email: _email,
+                                  phone: _phone));
+                        });
+                  }
                 }
               },
-              child: const Center(
+              child: Center(
                 child: TextCustom(
                   ConstString.save,
-                  color: ConstColors.blueLight2,
+                  color: checkChange
+                      ? ConstColors.blueLight
+                      : ConstColors.blueLight2,
                   fontWeight: true,
                 ),
               )),
@@ -90,11 +98,11 @@ class _UpdateScreenState extends State<UpdateScreen> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.all(Dimens.sizedBox),
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            SizedBox(
+      child: Column(
+        children: [
+          Form(
+            key: formKeyAddress,
+            child: SizedBox(
               width: double.infinity,
               child: TextFormField(
                 focusNode: _focusAddress,
@@ -119,10 +127,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return ConstString.dontEmpty;
-                  }
-                  if (value.length > 256) {
+                  if (value!.length > 256) {
                     return ConstString.addressMax;
                   }
                   return null;
@@ -130,14 +135,24 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 onChanged: (value) {
                   setState(() {
                     _address = value;
+                    if (_address.isNotEmpty ||
+                        _email.isNotEmpty ||
+                        _phone.isNotEmpty) {
+                      checkChange = true;
+                    } else {
+                      checkChange = false;
+                    }
                   });
                 },
               ),
             ),
-            const SizedBox(
-              height: Dimens.sizedBox,
-            ),
-            SizedBox(
+          ),
+          const SizedBox(
+            height: Dimens.sizedBox,
+          ),
+          Form(
+            key: formKeyEmail,
+            child: SizedBox(
               width: double.infinity,
               child: TextFormField(
                 focusNode: _focusEmail,
@@ -162,12 +177,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return ConstString.dontEmpty;
-                  }
                   if (!RegExp(
                           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                      .hasMatch(value)) {
+                      .hasMatch(value!)) {
                     return ConstString.emailError;
                   }
                   if (value.length > 320) {
@@ -181,14 +193,24 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 onChanged: (value) {
                   setState(() {
                     _email = value;
+                    if (_address.isNotEmpty ||
+                        _email.isNotEmpty ||
+                        _phone.isNotEmpty) {
+                      checkChange = true;
+                    } else {
+                      checkChange = false;
+                    }
                   });
                 },
               ),
             ),
-            const SizedBox(
-              height: Dimens.sizedBox,
-            ),
-            SizedBox(
+          ),
+          const SizedBox(
+            height: Dimens.sizedBox,
+          ),
+          Form(
+            key: formKeyPhone,
+            child: SizedBox(
               width: double.infinity,
               child: TextFormField(
                 focusNode: _focusPhone,
@@ -213,14 +235,11 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return ConstString.dontEmpty;
-                  }
                   List<String> lstPhone = HeadPhone.headPhone();
                   int i;
                   bool checkPhone = false;
                   for (i = 0; i < lstPhone.length; i++) {
-                    if (value.startsWith(lstPhone[i]) == true) {
+                    if (value!.startsWith(lstPhone[i]) == true) {
                       checkPhone = true;
                       break;
                     }
@@ -228,7 +247,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                   if (checkPhone == false) {
                     return ConstString.errorPhone;
                   }
-                  if (value.length < 10 || value.length > 10) {
+                  if (value!.length < 10 || value.length > 10) {
                     return ConstString.phoneMax;
                   }
                   if (value.contains(' ')) {
@@ -239,12 +258,19 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 onChanged: (value) {
                   setState(() {
                     _phone = value;
+                    if (_address.isNotEmpty ||
+                        _email.isNotEmpty ||
+                        _phone.isNotEmpty) {
+                      checkChange = true;
+                    } else {
+                      checkChange = false;
+                    }
                   });
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -254,7 +280,62 @@ class _UpdateScreenState extends State<UpdateScreen> {
     return Scaffold(
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: _buildBody(),
+      body: BlocListener<InformationBloc, InformationState>(
+        listener: (context, state) {
+          if (state.updateInformationStatus is UpdateInformationLoadingStatus) {
+            LoadingDialog.show(context);
+          }
+          if (state.updateInformationStatus is UpdateInformationStatusFail) {
+            LoadingDialog.hide(context);
+            final message =
+                (state.updateInformationStatus as UpdateInformationStatusFail)
+                    .exception;
+            BottomSheetNotificationDialog.show(context, children: [
+              const SizedBox(height: Dimens.marginView),
+              TextCustom(
+                message,
+                fontWeight: true,
+              ),
+              const SizedBox(height: Dimens.marginView)
+            ]);
+          }
+          if (state.updateInformationStatus is UpdateInformationStatusSuccess) {
+            LoadingDialog.hide(context);
+            context.read<LoginBloc>().person = (state.updateInformationStatus as UpdateInformationStatusSuccess).person;
+            final message =
+                (state.updateInformationStatus as UpdateInformationStatusSuccess).message;
+            BottomSheetNotificationDialog.show(context, children: [
+              const SizedBox(height: Dimens.marginView),
+              TextCustom(
+                message,
+                fontWeight: true,
+              ),
+              const SizedBox(height: Dimens.marginView)
+            ]);
+          }
+        },
+        child: _buildBody(),
+      ),
     );
+  }
+
+  bool checkValid() {
+    bool checkValid = true;
+    if (_address.isNotEmpty) {
+      if (formKeyAddress.currentState!.validate() == false) {
+        checkValid = false;
+      }
+    }
+    if (_email.isNotEmpty) {
+      if (formKeyEmail.currentState!.validate() == false) {
+        checkValid = false;
+      }
+    }
+    if (_phone.isNotEmpty) {
+      if (formKeyPhone.currentState!.validate() == false) {
+        checkValid = false;
+      }
+    }
+    return checkValid;
   }
 }

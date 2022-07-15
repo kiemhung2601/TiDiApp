@@ -1,39 +1,38 @@
 import '../model/history.dart';
 import '../model/new.dart';
 import '../model/notification.dart';
-import '../model/person.dart';
 import '../model/score.dart';
 
 DateTime _datePost = DateTime.now().subtract(const Duration(hours: 12));
 DateTime _dateOpen = DateTime.now();
 DateTime _dateClose = DateTime. now().add(const Duration(days: 5));
 
-List<Person> lstPerson = [
-  Person(
-    studentId: '141801773',
-    name: 'Đặng Kiếm Hùng',
-    studentClass: '18DTH5',
-    studentMajor: 'Công nghệ thông tin',
-    schoolYear: '2018-2022',
-    address: 'đường Huỳnh Văn Nghệ, Bửu Long, Biên Hòa, Đồng Nai',
-    mail: 'kiemhung2601@gmail.com',
-    phone: '0359882902',
-    gender: 'Nam',
-    dateBorn: '26/01/2000',
-    urlImage:
-        'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg',
-  ),
-  Person(
-    name: 'Nguyễn Thị Liệu',
-    address: 'Trường Đại học công nghệ Đồng Nai',
-    mail: 'lieu@dntu.edu.com',
-    phone: '0342331111',
-    gender: 'Nữ',
-    dateBorn: '15/12/1990',
-    urlImage:
-        'https://cdn.pixabay.com/photo/2021/11/12/03/04/woman-6787784_960_720.png',
-  ),
-];
+// List<Person> lstPerson = [
+//   Person(
+//     studentId: '141801773',
+//     name: 'Đặng Kiếm Hùng',
+//     studentClass: '18DTH5',
+//     studentMajor: 'Công nghệ thông tin',
+//     schoolYear: '2018-2022',
+//     address: 'đường Huỳnh Văn Nghệ, Bửu Long, Biên Hòa, Đồng Nai',
+//     mail: 'kiemhung2601@gmail.com',
+//     phone: '0359882902',
+//     gender: 'Nam',
+//     dateBorn: '26/01/2000',
+//     urlImage:
+//         'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg',
+//   ),
+//   Person(
+//     name: 'Nguyễn Thị Liệu',
+//     address: 'Trường Đại học công nghệ Đồng Nai',
+//     mail: 'lieu@dntu.edu.com',
+//     phone: '0342331111',
+//     gender: 'Nữ',
+//     dateBorn: '15/12/1990',
+//     urlImage:
+//         'https://cdn.pixabay.com/photo/2021/11/12/03/04/woman-6787784_960_720.png',
+//   ),
+// ];
 
 List<Score> lstScore = [
   Score(

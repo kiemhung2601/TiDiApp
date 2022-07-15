@@ -5,7 +5,7 @@ class NotificationEvent {
 }
 
 class LoadNotification extends NotificationEvent {
-  final Account account;
+  final Person person;
 
-  const LoadNotification({required this.account});
+  const LoadNotification({required this.person});
 }

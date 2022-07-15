@@ -4,8 +4,8 @@ import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialworkapp/screens/notification/bloc/notification_status.dart';
 
-import '../../model/account.dart';
 import '../../model/notification.dart';
+import '../../model/person.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
@@ -26,12 +26,12 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  late Account _account;
+  late Person _person;
   final DateTime _dateNow = DateTime.now();
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
 
     super.initState();
   }
@@ -212,7 +212,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: _buildAppbar(),
       body: BlocProvider(
         create: (context) =>
-            NotificationBloc()..add(LoadNotification(account: _account)),
+            NotificationBloc()..add(LoadNotification(person: _person)),
         child: _buildBody(context),
       ),
     );

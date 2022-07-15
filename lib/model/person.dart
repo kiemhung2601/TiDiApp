@@ -1,54 +1,109 @@
 class Person {
-  String? studentId;
-  String? name;
-  String? studentClass;
-  String? studentMajor;
-  String? schoolYear;
+  String? id;
+  int? mssv;
+  String? myClass;
+  String? job;
+  String? course;
+  bool? gender;
+  String? birthday;
+  String? username;
+  String? fullname;
   String? address;
   String? mail;
   String? phone;
-  String? gender;
-  String? dateBorn;
-  String? urlImage;
+  int? role;
+  double? swScore;
+  int? isLock;
+  String? avtImage;
+  String? position;
 
-  Person(
-      {this.studentId,
-      this.name,
-      this.studentClass,
-      this.studentMajor,
-      this.schoolYear,
-      this.address,
-      this.mail,
-      this.phone,
-      this.gender,
-      this.dateBorn,
-      this.urlImage});
+  Person({
+    this.id,
+    this.mssv,
+    this.myClass,
+    this.job,
+    this.course,
+    this.gender,
+    this.birthday,
+    this.username,
+    this.fullname,
+    this.address,
+    this.mail,
+    this.phone,
+    this.role,
+    this.swScore,
+    this.isLock,
+    this.avtImage,
+    this.position,
+  });
 
   factory Person.fromJson(Map<String, dynamic> json) => Person(
-        studentId: json['studentId'],
-        name: json['name'],
-        studentClass: json['studentClass'],
-        studentMajor: json['studentMajor'],
-        schoolYear: json['schoolYear'],
+        id: json['_id'],
+        mssv: json['mssv'],
+        myClass: json['myClass'],
+        job: json['job'],
+        course: json['course'],
+        gender: json['gender'],
+        birthday: json['birthday'],
+        username: json['username'],
+        fullname: json['fullname'],
         address: json['address'],
         mail: json['mail'],
         phone: json['phone'],
-        gender: json['gender'],
-        dateBorn: json['dateBorn'],
-        urlImage: json['urlImage'],
+        role: json['role'],
+        swScore: json['swScore'].toDouble(),
+        isLock: json['isLock'],
+        avtImage: json['avtImage'],
+        position: json['position'],
       );
 
   Map<String, dynamic> toJson() => {
-        'studentId': studentId,
-        'name': name,
-        'studentClass': studentClass,
-        'studentMajor': studentMajor,
-        'schoolYear': schoolYear,
+        '_id': id,
+        'mssv': mssv,
+        'myClass': myClass,
+        'job': job,
+        'course': course,
+        'gender': gender,
+        'birthday': birthday,
+        'username': username,
+        'fullname': fullname,
         'address': address,
         'mail': mail,
         'phone': phone,
-        'gender': gender,
-        'dateBorn': dateBorn,
-        'urlImage': urlImage,
+        'role': role,
+        'swScore': swScore,
+        'isLock': isLock,
+        'avtImage': avtImage,
+        'position': position,
       };
 }
+
+// class PersonRespone {
+//   String msg;
+//   int status;
+//   Person? data;
+//
+//   PersonRespone({
+//     this.msg = '',
+//     this.status = -100,
+//     this.data,
+//   });
+//
+//   factory PersonRespone.fromJson(Map<String, dynamic> json) {
+//     Person? data;
+//     if(json['data'] != null ){
+//       data = Person.fromJson(json['data']);
+//     }
+//     return PersonRespone(
+//       msg: json['msg'] ?? '',
+//       status:  json['status'] ?? - 100,
+//       data: data,
+//     );
+//   }
+//
+//   Map<String, dynamic> toJson() => {
+//     'msg': msg,
+//     'status': status,
+//     'data': data,
+//   };
+// }

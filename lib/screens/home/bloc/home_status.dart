@@ -1,5 +1,5 @@
 import '../../../model/new.dart';
-import '../../../model/score.dart';
+import '../../../model/person.dart';
 
 abstract class HomeStatus {
   const HomeStatus();
@@ -18,8 +18,8 @@ class InitHomeStatus extends HomeStatus {
 // }
 
 class HomeStatusSuccess extends HomeStatus {
-  final Score score;
-  HomeStatusSuccess({required this.score});
+  final Person person;
+  HomeStatusSuccess({required this.person});
 
   // TODO: implement props
   List<Object?> get props => [];

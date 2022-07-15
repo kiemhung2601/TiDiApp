@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:socialworkapp/fake_data/fake_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:socialworkapp/model/person.dart';
+import 'package:socialworkapp/repository/repos.dart';
 import 'package:socialworkapp/screens/information/bloc/information_status.dart';
 
-import '../../../model/account.dart';
 
 part 'information_event.dart';
 part 'information_state.dart';
@@ -14,20 +14,41 @@ class InformationBloc extends Bloc<InformationEvent, InformationState> {
   InformationBloc() : super(const InformationState()) {
     on<LoadInformationStudent>((event, emit) {
       emit(state.updateWith(informationStatus: const InitInformationStatus()));
-      List<Person> lstPer = lstPerson;
-      Account account = event.account;
-      for(int i = 0; i < lstPer.length; i++){
-        if(account.accountId == i){
-          emit(state.updateWith(informationStatus: InformationStatusSuccess(lstPer[i])));
-        }
-      }
-    });
-    on<ChangeInformationStudent>((event, emit) {
-      emit(state.updateWith(informationStatus: const InitInformationStatus()));
+      person = event.person;
 
-      person.address = event.address;
-      person.mail = event.email;
-      person.phone = event.phone;
+      emit(state.updateWith(informationStatus: InformationStatusSuccess(person)));
+    });
+    on<ChangeInformationStudent>((event, emit) async {
+      late String address;
+      late String email;
+      late String phone;
+      if(event.address.isNotEmpty){
+        address = event.address;
+      } else{
+        address = person.address!;
+      }
+      if(event.email.isNotEmpty){
+        email = event.email;
+      } else{
+        email = person.mail!;
+      }
+      if(event.phone.isNotEmpty){
+        phone = event.phone;
+      } else{
+        phone = person.phone!;
+      }
+      emit(state.updateWith(updateInformationStatus: const UpdateInformationLoadingStatus()));
+      final result = await ApiRepository.accountRepo.updateInforAccount(event.id, address, email, phone);
+
+      if(result.data['status'] == 1){
+        debugPrint(result.data['data']['address']);
+        person.address = result.data['data']['address'];
+        person.mail = result.data['data']['mail'];
+        person.phone = result.data['data']['phone'];
+        emit(state.updateWith(updateInformationStatus: UpdateInformationStatusSuccess(person, result.data['msg'])));
+      } else{
+        emit(state.updateWith(updateInformationStatus: UpdateInformationStatusFail(exception: result.data['msg'])));
+      }
 
       emit(state.updateWith(informationStatus: InformationStatusSuccess(person)));
     });

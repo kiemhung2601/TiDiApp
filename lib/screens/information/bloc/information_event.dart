@@ -5,15 +5,16 @@ abstract class InformationEvent {
 }
 
 class LoadInformationStudent extends InformationEvent {
-  final Account account;
+  final Person person;
 
-  const LoadInformationStudent({required this.account});
+  const LoadInformationStudent({required this.person});
 }
 
 class ChangeInformationStudent extends InformationEvent {
+  final String id;
   final String address;
   final String email;
   final String phone;
 
-  const ChangeInformationStudent({required this.address, required this.email, required this.phone});
+  const ChangeInformationStudent({required this.id, required this.address, required this.email, required this.phone});
 }

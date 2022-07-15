@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/screens/information/bloc/information_bloc.dart';
 import 'package:socialworkapp/screens/login/bloc/login_bloc.dart';
 import 'package:socialworkapp/screens/slash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<LoginBloc>(
           create: (BuildContext context) => LoginBloc(),
+        ),
+        BlocProvider<InformationBloc>(
+          create: (BuildContext context) => InformationBloc(),
         ),
       ],
       child: const MaterialApp(

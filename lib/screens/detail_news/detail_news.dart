@@ -6,8 +6,8 @@ import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/account.dart';
 import '../../model/new.dart';
+import '../../model/person.dart';
 import '../../untils/date_time_format.dart';
 import '../home_main/home_main.dart';
 import '../../untils/constant_string.dart';
@@ -26,11 +26,11 @@ class DetailNewsScreen extends StatefulWidget {
 }
 
 class _DetailNewsScreenState extends State<DetailNewsScreen> {
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
     super.initState();
   }
 
@@ -100,7 +100,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
   }
 
   Widget _buildButton(News news) {
-    if (_account.admin == true) {
+    if (_person.role == 1) {
       return PrimaryButton(
           text: ConstString.rollUp,
           onPressed: () {

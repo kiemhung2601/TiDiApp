@@ -5,7 +5,7 @@ class HomeMainEvent {
 }
 
 class LoadHomeMain extends HomeMainEvent {
-  final Account account;
+  final Person person;
 
-  const LoadHomeMain({required this.account});
+  const LoadHomeMain({required this.person});
 }

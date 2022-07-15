@@ -18,11 +18,11 @@ class DrawerWidget extends StatelessWidget {
       : super(key: key);
 
   Widget buildDrawerItems(BuildContext context) {
-    final account = context.read<LoginBloc>().account;
+    final person = context.read<LoginBloc>().person;
     return Column(
       children: DrawerItems.lstDrawer
           .map((item) => Visibility(
-                visible: account.admin == true ? item != DrawerItems.qrcode : true,
+                visible: person?.role == 1 ? item != DrawerItems.qrcode : true,
                 child: ListTile(
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: DimenUtilsPX.pxToPercentage(context, 24),
@@ -68,7 +68,8 @@ class DrawerWidget extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(person.urlImage ?? ''),
+              //Image
+              image: NetworkImage('https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
             ),
           ),
         ),
@@ -76,7 +77,7 @@ class DrawerWidget extends StatelessWidget {
           width: Dimens.heightSmall,
         ),
         TextCustom(
-          person.name ?? '',
+          person.fullname ?? '',
           color: ConstColors.white,
         )
       ],

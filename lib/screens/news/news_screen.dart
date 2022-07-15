@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/model/person.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialworkapp/screens/news/bloc/news_status.dart';
 
-import '../../model/account.dart';
 import '../../widgets/news_widget.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
@@ -21,11 +21,11 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
     super.initState();
   }
 
@@ -97,7 +97,7 @@ class _NewsScreenState extends State<NewsScreen> {
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
       body: BlocProvider(
-        create: (context) => NewsBloc()..add(LoadNews(account: _account)),
+        create: (context) => NewsBloc()..add(LoadNews(person: _person)),
         child: Padding(
           padding: const EdgeInsets.only(
               right: Dimens.heightSmall,

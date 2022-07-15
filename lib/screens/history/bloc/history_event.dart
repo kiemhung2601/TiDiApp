@@ -5,8 +5,8 @@ class HistoryEvent {
 }
 
 class LoadHistory extends HistoryEvent {
-  final Account account;
+  final Person person;
   final int? type;
 
-  const LoadHistory({required this.account, this.type});
+  const LoadHistory({required this.person, this.type});
 }

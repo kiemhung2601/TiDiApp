@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:socialworkapp/screens/information/update/update_screen.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../model/person.dart';
-import '../routes.dart';
 import '../untils/constant_string.dart';
 import '../untils/constants.dart';
 import '../untils/untils.dart';
 
 class InformationLocationWidget extends StatelessWidget {
-  final bool admin;
+  final int role;
   final bool qrPush;
   final Person person;
   const InformationLocationWidget(
-      {Key? key, this.admin = false, this.qrPush = false, required this.person})
+      {Key? key, this.role = 2, this.qrPush = false, required this.person})
       : super(key: key);
 
   Widget _buildInfor(String topic, String data) {
@@ -52,7 +52,7 @@ class InformationLocationWidget extends StatelessWidget {
                 fontWeight: true,
               ),
               Visibility(
-                visible: qrPush == true ? false : admin == false,
+                visible: qrPush == true ? false : role == 2,
                 child: InkWell(
                   child: const TextCustom(
                     ConstString.update,
@@ -63,7 +63,7 @@ class InformationLocationWidget extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RoutesPath.updateRoute));
+                            builder: (context) => UpdateScreen(id: person.id!)));
                   },
                 ),
               ),

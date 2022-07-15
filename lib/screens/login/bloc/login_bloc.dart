@@ -1,27 +1,32 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:socialworkapp/model/account.dart';
+import 'package:socialworkapp/untils/constant_string.dart';
 
+import '../../../model/person.dart';
+import '../../../repository/repos.dart';
 import 'login_status.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  late Account account;
+  Person? person;
   LoginBloc() : super(const LoginState()) {
-    on<LoginAccountEvent>((event, emit) {
-      emit(state.updateWith(loginStatus: const InitLoginStatus()));
-      if(event.user == '141801773' && event.passWord == '12345'){
-        account = Account(accountId: 0, admin: false,);
-        // admin = false;
-        emit(state.updateWith(loginStatus: LoginStatusSuccess(account)));
-      } else if(event.user == 'manager' && event.passWord == '12345'){
-        // admin = true;
-        account = Account(accountId: 1, admin: true,);
-        emit(state.updateWith(loginStatus: LoginStatusSuccess(account)));
-      } else {
-        emit(state.updateWith(loginStatus: LoginStatusFail(exception: 'Sai tài khoảng hoặc mật khẩu')));
+    on<LoginAccountEvent>((event, emit) async {
+      emit(state.updateWith(loginStatus: const LoginLoadingStatus()));
+      final result = await ApiRepository.accountRepo.reqeustLogin(event.user, event.passWord);
+      if(result.data['data'] != null){
+        person = Person.fromJson(result.data['data']);
+      }
+
+      if(result.data['status'] == 1){
+        if(person?.isLock == 0){
+          emit(state.updateWith(loginStatus: LoginStatusSuccess(person!)));
+        } else{
+          emit(state.updateWith(loginStatus: LoginStatusFail(exception: ConstString.clock)));
+        }
+      } else{
+        emit(state.updateWith(loginStatus: LoginStatusFail(exception: result.data['msg'])));
       }
     });
   }

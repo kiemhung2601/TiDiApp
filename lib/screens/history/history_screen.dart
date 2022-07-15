@@ -5,8 +5,8 @@ import 'package:socialworkapp/screens/history/bloc/history_status.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/account.dart';
 import '../../model/history.dart';
+import '../../model/person.dart';
 import '../login/bloc/login_bloc.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
@@ -38,14 +38,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
   ];
   int current = 0;
 
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
     super.initState();
     _historyBloc = HistoryBloc();
-    _historyBloc.add(LoadHistory(account: _account));
+    _historyBloc.add(LoadHistory(person: _person));
   }
 
   String status(int type) {
@@ -250,16 +250,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     setState(() {
                       current = index;
                       if (index == 0) {
-                        _historyBloc.add(LoadHistory(account: _account));
+                        _historyBloc.add(LoadHistory(person: _person));
                       } else if (index == 1) {
                         _historyBloc
-                            .add(LoadHistory(account: _account, type: 0));
+                            .add(LoadHistory(person: _person, type: 0));
                       } else if (index == 2) {
                         _historyBloc
-                            .add(LoadHistory(account: _account, type: 1));
+                            .add(LoadHistory(person: _person, type: 1));
                       } else if (index == 3) {
                         _historyBloc
-                            .add(LoadHistory(account: _account, type: 2));
+                            .add(LoadHistory(person: _person, type: 2));
                       }
                     });
                   },

@@ -6,7 +6,7 @@ import 'package:socialworkapp/screens/qr_code/qr_main_screen.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/account.dart';
+import '../../model/person.dart';
 import '../../widgets/news_widget.dart';
 import '../login/bloc/login_bloc.dart';
 import '../../routes.dart';
@@ -28,11 +28,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Account _account;
+  late Person _person;
 
   @override
   void initState() {
-    _account = context.read<LoginBloc>().account;
+    _person = context.read<LoginBloc>().person!;
     super.initState();
   }
 
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: Dimens.marginView,
             ),
             Visibility(
-              visible: _account.admin == false,
+              visible: _person.role == 2,
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: Dimens.marginView,
             ),
-            _account.admin == true
+            _person.role == 1
                 ? _buildListIconMenuAdmin(context)
                 : _buildListIconMenu(context),
           ],
@@ -322,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Container();
         }
         if (state.homeStatus is HomeStatusSuccess) {
-          final score = (state.homeStatus as HomeStatusSuccess).score;
+          final person = (state.homeStatus as HomeStatusSuccess).person;
           return Padding(
             padding: const EdgeInsets.only(
               left: Dimens.heightSmall,
@@ -334,9 +334,10 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _buildHeader(
                     context,
-                    score.name ?? '',
-                    score.score == null ? '' : score.score.toString(),
-                    score.image!),
+                    person.fullname ?? '',
+                    person.swScore == null ? '' : person.swScore.toString(),
+                    //Image
+                    'https://i.pinimg.com/564x/ba/58/83/ba5883c68a1ffef7d29971eaa7686133.jpg'),
                 const SizedBox(
                   height: Dimens.heightSmall,
                 ),
@@ -368,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
           : ConstColors.backGroundColor,
       appBar: _buildAppbar(),
       body: BlocProvider(
-        create: (context) => HomeBloc()..add(LoadInfoHome(account: _account)),
+        create: (context) => HomeBloc()..add(LoadInfoHome(person: _person)),
         child: _buildBody(context),
       ),
     );

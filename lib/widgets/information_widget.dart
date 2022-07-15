@@ -9,11 +9,11 @@ import '../untils/untils.dart';
 import 'bottom_sheet_notification.dart';
 
 class InformationWidget extends StatelessWidget {
-  final bool? admin;
+  final int? role;
   final bool qrPush;
   final Person person;
   const InformationWidget(
-      {Key? key, this.admin = false, this.qrPush = false, required this.person})
+      {Key? key, this.role = 2, this.qrPush = false, required this.person})
       : super(key: key);
 
   Widget _buildInfor(String topic, String data) {
@@ -52,7 +52,7 @@ class InformationWidget extends StatelessWidget {
                 fontWeight: true,
               ),
               Visibility(
-                visible: qrPush == true ? false : admin == false,
+                visible: qrPush == true ? false : role == 2,
                 child: InkWell(
                     child: const TextCustom(
                       ConstString.update,
@@ -88,7 +88,8 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                    child: _buildInfor(ConstString.fullName, person.name ?? '')),
+                    child: _buildInfor(
+                        ConstString.fullName, person.fullname ?? '')),
               ],
             ),
           ),
@@ -108,7 +109,8 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                  child: _buildInfor(ConstString.gender, person.gender ?? ''),
+                  child: _buildInfor(ConstString.gender,
+                      person.gender! ? ConstString.man : ConstString.woman),
                 )
               ],
             ),
@@ -129,12 +131,13 @@ class InformationWidget extends StatelessWidget {
                   width: Dimens.heightSmall,
                 ),
                 Expanded(
-                    child: _buildInfor(ConstString.dateBorn, person.dateBorn ?? '')),
+                    child: _buildInfor(ConstString.dateBorn,
+                        StringUtils.formatDate(person.birthday))),
               ],
             ),
           ),
           Visibility(
-            visible: admin == false,
+            visible: role == 2,
             child: SizedBox(
               width: double.infinity,
               child: Row(
@@ -155,20 +158,22 @@ class InformationWidget extends StatelessWidget {
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.studentId, person.studentId ?? ''),
+                        _buildInfor(
+                            ConstString.studentId, person.mssv.toString()),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
                         _buildInfor(
-                            ConstString.studentClass, person.studentClass ?? ''),
+                            ConstString.studentClass, person.myClass ?? ''),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.major, person.studentMajor ?? ''),
+                        _buildInfor(ConstString.major, person.job ?? ''),
                         const SizedBox(
                           height: Dimens.marginView,
                         ),
-                        _buildInfor(ConstString.schoolYear, person.schoolYear ?? ''),
+                        _buildInfor(
+                            ConstString.schoolYear, person.course ?? ''),
                       ],
                     ),
                   ),

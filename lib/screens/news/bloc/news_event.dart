@@ -5,7 +5,7 @@ class NewsEvent {
 }
 
 class LoadNews extends NewsEvent {
-  final Account account;
+  final Person person;
 
-  const LoadNews({required this.account});
+  const LoadNews({required this.person});
 }

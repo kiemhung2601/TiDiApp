@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:socialworkapp/screens/notification/bloc/notification_status.dart';
 
 import '../../../fake_data/fake_data.dart';
-import '../../../model/account.dart';
 import '../../../model/notification.dart';
+import '../../../model/person.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';

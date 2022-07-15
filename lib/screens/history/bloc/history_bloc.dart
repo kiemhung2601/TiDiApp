@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:socialworkapp/fake_data/fake_data.dart';
 import 'package:socialworkapp/screens/history/bloc/history_status.dart';
 
-import '../../../model/account.dart';
 import '../../../model/history.dart';
+import '../../../model/person.dart';
 
 part 'history_event.dart';
 part 'history_state.dart';
