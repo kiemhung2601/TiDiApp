@@ -1,7 +1,8 @@
 class ConstString {
   static const yes = 'Đồng ý';
   static const cancel = 'Hủy';
-  static const clock = 'Tài khoản của bạn đã bị khóa';
+  static const block = 'Tài khoản của bạn đã bị khóa';
+  static const somethingWrongError = 'Tài khoản của bạn đã bị khóa';
 
   //title app bar
   static const titleAppInformation = 'Thông tin sinh viên';
@@ -110,6 +111,12 @@ class ConstString {
   static const changePassword = 'Đổi mật khẩu';
   static const inputOldPassword = 'Nhập mật khẩu cũ';
   static const inputNewPassword = 'Nhập mật khẩu mới';
+  static const inputPassword = 'Hãy nhập mật khẩu vào';
+  static const inputSpacerPassword = 'Mật khẩu không được chứa khoảng trắng';
+  static const errorPass = 'Mật khẩu không hợp lệ';
+  static const minPass = 'Tối thiểu 8 kí tự';
+  static const upperPass = 'Có 1 chữ thường (a-z) & 1 chữ in hoa (A-Z)';
+  static const specialPass = 'Có ít nhất 1 số (0-9) & 1 ký hiệu (@#)';
 
   //contact
   static const schoolInfo = 'Thông tin trường';

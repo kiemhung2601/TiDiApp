@@ -244,7 +244,7 @@ class _HomeMainState extends State<HomeMain>
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SettingsScreen()));
+                      builder: (context) => SettingsScreen(id: _person.id!,)));
             } else if (item == DrawerItems.news) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const NewsScreen()));

@@ -8,6 +8,7 @@ import 'package:socialworkapp/widgets/button_widget.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../network/custom_exception.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/bottom_sheet_notification.dart';
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           if (state.loginStatus is LoginStatusFail) {
             LoadingDialog.hide(context);
-            final message = (state.loginStatus as LoginStatusFail).exception;
+            final message = (state.loginStatus as LoginStatusFail).responseError.message;
             BottomSheetNotificationDialog.show(context, children: [
               const SizedBox(height: Dimens.marginView),
               TextCustom(
@@ -67,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: Dimens.marginView)
             ]);
+            context.read<LoginBloc>().add(InitialEvent());
           }
         },
         child: SingleChildScrollView(

@@ -4,6 +4,8 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
+class InitialEvent extends LoginEvent {}
+
 class LoginAccountEvent extends LoginEvent {
   final String user;
   final String passWord;

@@ -289,7 +289,8 @@ class _UpdateScreenState extends State<UpdateScreen> {
             LoadingDialog.hide(context);
             final message =
                 (state.updateInformationStatus as UpdateInformationStatusFail)
-                    .exception;
+                    .responseError
+                    .message;
             BottomSheetNotificationDialog.show(context, children: [
               const SizedBox(height: Dimens.marginView),
               TextCustom(
@@ -301,9 +302,12 @@ class _UpdateScreenState extends State<UpdateScreen> {
           }
           if (state.updateInformationStatus is UpdateInformationStatusSuccess) {
             LoadingDialog.hide(context);
-            context.read<LoginBloc>().person = (state.updateInformationStatus as UpdateInformationStatusSuccess).person;
-            final message =
-                (state.updateInformationStatus as UpdateInformationStatusSuccess).message;
+            context.read<LoginBloc>().person = (state.updateInformationStatus
+                    as UpdateInformationStatusSuccess)
+                .person;
+            final message = (state.updateInformationStatus
+                    as UpdateInformationStatusSuccess)
+                .message;
             BottomSheetNotificationDialog.show(context, children: [
               const SizedBox(height: Dimens.marginView),
               TextCustom(

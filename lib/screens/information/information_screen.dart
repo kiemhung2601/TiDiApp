@@ -14,11 +14,8 @@ import '../../routes.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
-import '../../widgets/bottom_sheet_notification.dart';
 import '../../widgets/custom_nav.dart';
 import '../../widgets/information_location_widget.dart';
-import '../../widgets/loading_widget.dart';
-import '../home_main/home_main.dart';
 import '../login/bloc/login_bloc.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -118,7 +115,7 @@ class _InformationScreenState extends State<InformationScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SettingsScreen()));
+                      builder: (context) => SettingsScreen(id: _person.id!,)));
             },
           )
         ],

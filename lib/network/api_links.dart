@@ -4,7 +4,6 @@ class ApiLinks {
 
   //account
   static String getAccessToken = '$apiHost/auth/login';
-
-  //Information
   static String updateInformationAccount = '$apiHost/account/update-account';
+  static String changePassword = '$apiHost/account/change-password';
 }

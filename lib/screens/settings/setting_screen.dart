@@ -8,7 +8,8 @@ import '../../widgets/custom_nav.dart';
 import '../../widgets/text_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  final String id;
+  const SettingsScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -49,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ChangePasswordScreen()));
+                          builder: (context) => ChangePasswordScreen(id: widget.id,)));
                 },
               )
             ],

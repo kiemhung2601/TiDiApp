@@ -1,4 +1,5 @@
 import '../../../model/person.dart';
+import '../../../network/custom_exception.dart';
 
 abstract class LoginStatus {
   const LoginStatus();
@@ -13,11 +14,9 @@ class LoginLoadingStatus extends LoginStatus {
 }
 
 class LoginStatusFail extends LoginStatus {
-  final String? exception;
+  final ResponseError responseError;
 
-  LoginStatusFail({this.exception});
-
-  List<Object?> get props => [exception];
+  LoginStatusFail(this.responseError);
 }
 
 class LoginStatusSuccess extends LoginStatus {

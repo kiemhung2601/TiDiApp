@@ -1,4 +1,5 @@
 import '../../../model/person.dart';
+import '../../../network/custom_exception.dart';
 
 //#region LoadInformation
 abstract class InformationStatus {
@@ -41,9 +42,9 @@ class UpdateInformationLoadingStatus extends UpdateInformationStatus {
 }
 
 class UpdateInformationStatusFail extends UpdateInformationStatus {
-  final String? exception;
+  final ResponseError responseError;
 
-  UpdateInformationStatusFail({this.exception});
+  UpdateInformationStatusFail(this.responseError);
 }
 
 class UpdateInformationStatusSuccess extends UpdateInformationStatus {
