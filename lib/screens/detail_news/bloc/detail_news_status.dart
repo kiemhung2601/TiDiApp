@@ -10,13 +10,11 @@ class InitDetailNewsStatus extends DetailNewsStatus {
   const InitDetailNewsStatus();
 }
 
-// class AddFavProductStatusFail extends InformationStatus {
-//   final ResponseError? responseError;
-//
-//   AddFavProductStatusFail({this.responseError});
-//
-//   List<Object?> get props => [responseError];
-// }
+class DetailNewsStatusFail extends DetailNewsStatus {
+  final ResponseError responseError;
+
+  DetailNewsStatusFail(this.responseError);
+}
 
 class  DetailNewsStatusSuccess extends DetailNewsStatus {
   final News news;

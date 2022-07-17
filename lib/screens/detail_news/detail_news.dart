@@ -35,7 +35,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
   void initState() {
     _person = context.read<LoginBloc>().person!;
     _detailNewsBloc = DetailNewsBloc()
-      ..add(LoadDetailNews(idnews: widget.idNews));
+      ..add(LoadDetailNews(idNews: widget.idNews, idAccount: _person.id!));
     super.initState();
   }
 
@@ -73,6 +73,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
 
   Widget _buildContent(String detail) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
         borderRadius: BorderRadius.circular(Dimens.radiusButton),
@@ -89,6 +90,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       padding: const EdgeInsets.all(Dimens.marginView),
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextCustom(
               detail,
@@ -113,7 +115,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                 MaterialPageRoute(builder: (context) => QrScanScreen(idTeacher: _person.id!, idEvent: widget.idNews,)));
           });
     } else {
-      if (news.status == 0) {
+      if (news.status == -1) {
         return PrimaryButton(
             text: ConstString.register,
             onPressed: () {
@@ -134,7 +136,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   });
             });
       }
-      if (news.status == 1) {
+      if (news.status == 0) {
         return SecondaryButton(
             text: ConstString.unRegister,
             onPressed: () {

@@ -2,13 +2,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialworkapp/screens/qr_code/bloc/qr_scan_status.dart';
 import 'package:socialworkapp/untils/constant_string.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../untils/constants.dart';
 import '../../../untils/untils.dart';
+import '../../../widgets/bottom_sheet_notification.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../../widgets/text_widget.dart';
+import '../../confirm_information/confirm_information_screen.dart';
+import '../bloc/qr_scan_bloc.dart';
 
 class QrScan extends StatefulWidget {
-  const QrScan({Key? key}) : super(key: key);
+  final String idAccount;
+  const QrScan({Key? key, required this.idAccount}) : super(key: key);
 
   @override
   State<QrScan> createState() => _QrScanState();
@@ -18,6 +26,14 @@ class _QrScanState extends State<QrScan> {
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   Barcode? barcode;
+
+  late QrScanBloc _qrScanBloc;
+
+  @override
+  void initState() {
+    _qrScanBloc = QrScanBloc();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -45,10 +61,8 @@ class _QrScanState extends State<QrScan> {
       if (mounted) {
         controller.pauseCamera();
         setState(() => this.barcode = barcode);
-        // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => const ConfirmInformationScreen())).then((value) => controller.resumeCamera());
+        _qrScanBloc.add(
+            LoadInfoQr(idAccount: widget.idAccount, idTarger: barcode.code!));
       }
     });
   }
@@ -72,16 +86,20 @@ class _QrScanState extends State<QrScan> {
           color: Colors.white24,
         ),
         child: Text(
-          barcode != null ? '${ConstString.result} : ${barcode!.code}' : ConstString.scanCode,
+          barcode != null
+              ? '${ConstString.result} : ${barcode!.code}'
+              : ConstString.scanCode,
           maxLines: 3,
           style: const TextStyle(color: Colors.white),
         ),
       );
 
   Widget _buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: DimenUtilsPX.pxToPercentage(context, 16)),
+        padding: EdgeInsets.symmetric(
+            horizontal: DimenUtilsPX.pxToPercentage(context, 16)),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimens.radius), color: Colors.white24),
+            borderRadius: BorderRadius.circular(Dimens.radius),
+            color: Colors.white24),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +125,9 @@ class _QrScanState extends State<QrScan> {
                   await controller?.toggleFlash();
                   setState(() {});
                 }),
-            const SizedBox(width: Dimens.marginView,),
+            const SizedBox(
+              width: Dimens.marginView,
+            ),
             InkWell(
                 child: FutureBuilder(
                   future: controller?.getCameraInfo(),
@@ -134,13 +154,49 @@ class _QrScanState extends State<QrScan> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        _buildQrView(context),
-        Positioned(bottom: 10, child: _buildResult()),
-        Positioned(top: 10, child: _buildControlButtons())
-      ],
+    return BlocProvider(
+      create: (context) => _qrScanBloc,
+      child: BlocListener<QrScanBloc, QrScanState>(
+        listener: (context, state) {
+          if (state.qrScanStatus is QrScanLoadingStatus) {
+            LoadingDialog.show(context);
+          }
+          if (state.qrScanStatus is QrScanStatusSuccess) {
+            final userScanned = (state.qrScanStatus as QrScanStatusSuccess).userScanned;
+            LoadingDialog.hide(context);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ConfirmInformationScreen(userScanned: userScanned,)))
+                .then((value) => controller?.resumeCamera());
+          }
+          if (state.qrScanStatus is QrScanStatusFail) {
+            LoadingDialog.hide(context);
+            final message = (state.qrScanStatus as QrScanStatusFail)
+                .responseError
+                .message;
+            BottomSheetNotificationDialog.show(context, children: [
+              const SizedBox(height: Dimens.marginView),
+              TextCustom(
+                message,
+                fontWeight: true,
+              ),
+              const SizedBox(height: Dimens.marginView)
+            ], pressClose: () {
+              Navigator.of(context).pop();
+              controller?.resumeCamera();
+            });
+          }
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            _buildQrView(context),
+            Positioned(bottom: 10, child: _buildResult()),
+            Positioned(top: 10, child: _buildControlButtons())
+          ],
+        ),
+      ),
     );
   }
 }

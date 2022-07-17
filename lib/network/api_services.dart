@@ -113,4 +113,24 @@ class ApiServices {
     );
     return response;
   }
+
+  Future getDetailNews(String idEvent, String idUser) async {
+    var map = {'event_id': idEvent, 'user_id': idUser};
+
+    final response = await get(
+      ApiLinks.getDetailNews,
+      map: map
+    );
+    return response;
+  }
+
+  Future getInfoQR(String targetId, String userId) async {
+    var map = {'target_id': targetId, 'user_id': userId};
+
+    final response = await get(
+        ApiLinks.getInfo,
+        map: map
+    );
+    return response;
+  }
 }

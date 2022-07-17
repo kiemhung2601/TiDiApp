@@ -5,6 +5,7 @@ abstract class AccountRepo {
   Future updateInforAccount(String id, String address, String email, String phone);
   Future changePassword(String id, String password, String newPassword);
   Future requestLogout(String id);
+  Future getInfoQR(String targetId, String userId);
 }
 
 class AccountRepoImpl extends AccountRepo {
@@ -30,5 +31,10 @@ class AccountRepoImpl extends AccountRepo {
   @override
   Future requestLogout(String id) {
     return _apiServices.requestLogout(id);
+  }
+
+  @override
+  Future getInfoQR(String targetId, String userId) {
+    return _apiServices.getInfoQR(targetId, userId);
   }
 }

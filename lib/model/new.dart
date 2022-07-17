@@ -10,7 +10,7 @@ class News {
   String? namePost;
   String? position;
   String? postDate;
-  String? numberRegister;
+  int? numberRegister;
 
   News({
     this.idNews,
@@ -36,10 +36,10 @@ class News {
     publisher: json['publisher'],
     point: json['point'],
     status: json['status'],
-    namePost: json['namePost'],
+    namePost: json['namepost'],
     position: json['position'],
-    postDate: json['postDate'],
-    numberRegister: json['numberRegister'],
+    postDate: json['createdAt'],
+    numberRegister: json['limitReg'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -51,9 +51,9 @@ class News {
     'publisher': publisher,
     'point': point,
     'status': status,
-    'namePost': namePost,
+    'namepost': namePost,
     'position': position,
-    'postDate': postDate,
-    'numberRegister': numberRegister,
+    'createdAt': postDate,
+    'limitReg': numberRegister,
   };
 }

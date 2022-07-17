@@ -7,6 +7,7 @@ abstract class NewsRepo {
   Future unRegisterNews(String idEvent, String idStudent);
   Future getFourNews();
   Future getListNews();
+  Future getDetailNews(String idEvent, String idUser);
 }
 
 class NewsRepoImpl extends NewsRepo {
@@ -42,5 +43,10 @@ class NewsRepoImpl extends NewsRepo {
   @override
   Future getListNews() {
     return _apiServices.getListNews();
+  }
+
+  @override
+  Future getDetailNews(String idEvent, String idUser) {
+    return _apiServices.getDetailNews(idEvent, idUser);
   }
 }

@@ -7,7 +7,8 @@ import '../../../untils/untils.dart';
 import '../../../widgets/text_widget.dart';
 
 class QrCode extends StatelessWidget {
-  const QrCode({Key? key}) : super(key: key);
+  final String idAccount;
+  const QrCode({Key? key, required this.idAccount}) : super(key: key);
 
   Widget _buildQrView(BuildContext context) {
     return Column(

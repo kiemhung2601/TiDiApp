@@ -17,13 +17,13 @@ import 'bloc/confirm_information_bloc.dart';
 import 'bloc/confirm_information_status.dart';
 
 class ConfirmInformationScreen extends StatefulWidget {
-  final String idEvent;
-  final String idTeacher;
+  final String? idEvent;
+  final String? idTeacher;
   final UserApp userScanned;
 
   const ConfirmInformationScreen({Key? key,
-    required this.idEvent,
-    required this.idTeacher,
+    this.idEvent = '',
+    this.idTeacher = '',
     required this.userScanned})
       : super(key: key);
 
@@ -115,7 +115,7 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        QrScanScreen(idEvent: widget.idEvent, idTeacher: widget.idTeacher)),
+                        QrScanScreen(idEvent: widget.idEvent!, idTeacher: widget.idTeacher!)),
               );
             }
             if (state.rollUpStatus is RollUpStatusFail) {
@@ -160,9 +160,9 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
                             onConfirmClick: () {
                               Navigator.pop(context);
                               _confirmInformationBloc.add(RollUpEvent(
-                                  idTeacher: widget.idTeacher,
+                                  idTeacher: widget.idTeacher!,
                                   idUser: widget.userScanned.id!,
-                                  idEvent: widget.idEvent));
+                                  idEvent: widget.idEvent!));
                             });
                       }),
                 ),

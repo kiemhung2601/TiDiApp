@@ -5,9 +5,10 @@ class DetailNewsEvent {
 }
 
 class LoadDetailNews extends DetailNewsEvent {
-  final String idnews;
+  final String idNews;
+  final String idAccount;
 
-  const LoadDetailNews({required this.idnews});
+  const LoadDetailNews({required this.idNews, required this.idAccount});
 }
 
 class ChangeTypeNewsEvent extends DetailNewsEvent {

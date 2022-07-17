@@ -7,6 +7,8 @@ class ApiLinks {
   static String updateInformationAccount = '$apiHost/account/update-account';
   static String changePassword = '$apiHost/account/change-password';
   static String logOut = '$apiHost/auth/logout';
+  static String getInfo = '$apiHost/account/info-account';
+
 
   //contact
   static String getInfoContact = '$apiHost/contact/info';
@@ -18,6 +20,7 @@ class ApiLinks {
   static String enRollNews = '$apiHost/event-history/enroll-event';
   static String getFourNews = '$apiHost/event/top-four';
   static String getListNews = '$apiHost/event/listAll';
+  static String getDetailNews = '$apiHost/event/detail';
 
   //history
   static String loadHistory = '$apiHost/event-history/list';

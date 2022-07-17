@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:socialworkapp/screens/qr_code/widget/qr_code.dart';
 import 'package:socialworkapp/screens/qr_code/widget/qr_scan.dart';
 import 'package:socialworkapp/widgets/tabbar_custom_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/person.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
+import '../login/bloc/login_bloc.dart';
+import 'bloc/qr_scan_bloc.dart';
 
 class QrMainScreen extends StatefulWidget {
   final int? current;
+
   const QrMainScreen({Key? key, this.current = 0}) : super(key: key);
 
   @override
@@ -17,6 +22,8 @@ class QrMainScreen extends StatefulWidget {
 }
 
 class _QrMainScreenState extends State<QrMainScreen> {
+  late UserApp _person;
+
   List<String> lstTab = [
     ConstString.qrCode,
     ConstString.qrScan,
@@ -28,6 +35,9 @@ class _QrMainScreenState extends State<QrMainScreen> {
 
   @override
   void initState() {
+    _person = context
+        .read<LoginBloc>()
+        .person!;
     current = widget.current;
     super.initState();
   }
@@ -84,7 +94,13 @@ class _QrMainScreenState extends State<QrMainScreen> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(Dimens.marginView),
-        child: current == 0 ? const QrCode() : const QrScan(),
+        child: current == 0
+            ? QrCode(
+          idAccount: _person.id!,
+        )
+            : QrScan(
+          idAccount: _person.id!,
+        ),
       ),
     );
   }
@@ -94,21 +110,24 @@ class _QrMainScreenState extends State<QrMainScreen> {
     return Scaffold(
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: Padding(
-        padding: const EdgeInsets.only(
-            right: Dimens.heightSmall,
-            left: Dimens.heightSmall,
-            top: Dimens.sizedBox,
-            bottom: Dimens.sizedBox),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(child: _buildBody()),
-            SizedBox(
-              height: DimenUtilsPX.pxToPercentage(context, 40),
-            ),
-            _buildTabBar(),
-          ],
+      body: BlocProvider(
+        create: (context) => QrScanBloc(),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              right: Dimens.heightSmall,
+              left: Dimens.heightSmall,
+              top: Dimens.sizedBox,
+              bottom: Dimens.sizedBox),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: _buildBody()),
+              SizedBox(
+                height: DimenUtilsPX.pxToPercentage(context, 40),
+              ),
+              _buildTabBar(),
+            ],
+          ),
         ),
       ),
     );

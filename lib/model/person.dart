@@ -44,7 +44,7 @@ class UserApp {
         job: json['job'] ?? '',
         course: json['course'] ?? '',
         gender: json['gender'] ?? true,
-        birthday: json['birthday'] ?? '',
+        birthday: json['birthday'] ?? DateTime.now().toString(),
         username: json['username'] ?? '',
         fullname: json['fullname'] ?? '',
         address: json['address'] ?? '',
