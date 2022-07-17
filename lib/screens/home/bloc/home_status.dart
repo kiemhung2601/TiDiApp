@@ -1,5 +1,6 @@
 import '../../../model/new.dart';
 import '../../../model/person.dart';
+import '../../../network/custom_exception.dart';
 
 abstract class HomeStatus {
   const HomeStatus();
@@ -9,13 +10,11 @@ class InitHomeStatus extends HomeStatus {
   const InitHomeStatus();
 }
 
-// class AddFavProductStatusFail extends InformationStatus {
-//   final ResponseError? responseError;
-//
-//   AddFavProductStatusFail({this.responseError});
-//
-//   List<Object?> get props => [responseError];
-// }
+class HomeStatusFail extends HomeStatus {
+  final ResponseError responseError;
+
+  HomeStatusFail(this.responseError);
+}
 
 class HomeStatusSuccess extends HomeStatus {
   final UserApp person;
@@ -33,13 +32,11 @@ class InitNewsHomeStatus extends NewsHomeStatus {
   const InitNewsHomeStatus();
 }
 
-// class AddFavProductStatusFail extends InformationStatus {
-//   final ResponseError? responseError;
-//
-//   AddFavProductStatusFail({this.responseError});
-//
-//   List<Object?> get props => [responseError];
-// }
+class NewsHomeStatusFail extends NewsHomeStatus {
+  final ResponseError responseError;
+
+  NewsHomeStatusFail(this.responseError);
+}
 
 class NewsHomeStatusSuccess extends NewsHomeStatus {
   final List<News> lstNews;

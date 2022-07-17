@@ -40,7 +40,7 @@ class NewsWidget extends StatelessWidget {
                   width: 1, color: ConstColors.black.withOpacity(0.1)),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(news.image ?? ''),
+                image: NetworkImage('https://cdn.pixabay.com/photo/2016/11/22/19/27/arid-1850193_960_720.jpg'),
               ),
             ),
           ),
@@ -55,9 +55,9 @@ class NewsWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60,
+                      width: DimenUtilsPX.pxToPercentage(context, 65),
                       child: TextCustom(
-                        '${ConstString.still} ${StringUtils.formatTime(news.dateCloseRegister, _dateNow.toString())}',
+                        '${ConstString.still} ${StringUtils.formatTime(news.endDate, _dateNow.toString())}',
                         fontSize: Dimens.titleSmall,
                         color: ConstColors.black,
                         maxLines: 1,
@@ -67,9 +67,9 @@ class NewsWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     SizedBox(
-                      width: 75,
+                      width: DimenUtilsPX.pxToPercentage(context, 65),
                       child: TextCustom(
-                        '${news.score} ${ConstString.dayScore.toLowerCase()}',
+                        '${news.point} ${ConstString.dayScore.toLowerCase()}',
                         fontSize: Dimens.titleSmall,
                         color: ConstColors.black,
                         maxLines: 1,

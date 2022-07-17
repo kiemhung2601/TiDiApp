@@ -45,7 +45,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     _person = context.read<LoginBloc>().person!;
     super.initState();
     _historyBloc = HistoryBloc();
-    _historyBloc.add(LoadHistory(person: _person));
+    _historyBloc.add(LoadHistory(idAccount: _person.id!));
   }
 
   String status(int type) {
@@ -134,7 +134,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       margin: const EdgeInsets.only(bottom: Dimens.sizedBox),
       child: Row(
         children: [
-          _buildImage(index, history.image ?? '', history.type!),
+          _buildImage(index, 'https://cdn.pixabay.com/photo/2016/11/22/19/27/arid-1850193_960_720.jpg', history.status!),
           const SizedBox(
             width: Dimens.sizedBox,
           ),
@@ -143,7 +143,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextCustom(
-                  history.title ?? '',
+                  history.newsHistory!.title ?? '',
                   hadMaxLines: true,
                   maxLines: 2,
                   fontWeight: true,
@@ -152,7 +152,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   width: Dimens.heightSmall,
                 ),
                 TextCustom(
-                  history.detail ?? '',
+                  history.newsHistory!.description ?? '',
                   hadMaxLines: true,
                   maxLines: 2,
                   fontSize: Dimens.title,
@@ -164,12 +164,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextCustom(
-                      '${ConstString.dayScoreNumber}: ${history.score} ${ConstString.day}',
+                      '${ConstString.dayScoreNumber}: ${history.newsHistory!.point} ${ConstString.day}',
                       fontSize: Dimens.titleSmall,
                       color: ConstColors.black.withOpacity(0.5),
                     ),
                     TextCustom(
-                      '${ConstString.status}: ${status(history.type!)}',
+                      '${ConstString.status}: ${status(history.status!)}',
                       fontSize: Dimens.titleSmall,
                       color: ConstColors.black.withOpacity(0.5),
                     )
@@ -202,7 +202,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetailNewsScreen(
-                                  idNews: lstHistory[index].idNews!,
+                                  idNews: lstHistory[index].newsHistory!.idNews!,
                                 )));
                   },
                 );
@@ -250,16 +250,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     setState(() {
                       current = index;
                       if (index == 0) {
-                        _historyBloc.add(LoadHistory(person: _person));
+                        _historyBloc.add(LoadHistory(idAccount: _person.id!));
                       } else if (index == 1) {
                         _historyBloc
-                            .add(LoadHistory(person: _person, type: 0));
+                            .add(LoadHistory(idAccount: _person.id!, type: 0));
                       } else if (index == 2) {
                         _historyBloc
-                            .add(LoadHistory(person: _person, type: 1));
+                            .add(LoadHistory(idAccount: _person.id!, type: 1));
                       } else if (index == 3) {
                         _historyBloc
-                            .add(LoadHistory(person: _person, type: 2));
+                            .add(LoadHistory(idAccount: _person.id!, type: 2));
                       }
                     });
                   },

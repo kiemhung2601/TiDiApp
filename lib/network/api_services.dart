@@ -59,4 +59,58 @@ class ApiServices {
     );
     return response;
   }
+
+  Future checkEnRollNews(String idEvent, String idTeacher, String idStudent) async {
+    var map = {'event_id': idEvent, 'teacher_id': idTeacher, 'user_id': idStudent};
+
+    final response = await post(
+      ApiLinks.checkEnRollNews,
+      body: map,
+    );
+    return response;
+  }
+
+  Future enRollNews(String idEvent, String idTeacher, String idStudent) async {
+    var map = {'event_id': idEvent, 'teacher_id': idTeacher, 'user_id': idStudent};
+
+    final response = await post(
+      ApiLinks.enRollNews,
+      body: map,
+    );
+    return response;
+  }
+
+  Future unRegisterNews(String idEvent, String idStudent) async {
+    var map = {'event_id': idEvent, 'user_id': idStudent};
+
+    final response = await post(
+      ApiLinks.unRegisterNews,
+      body: map,
+    );
+    return response;
+  }
+
+  Future getListHistory(String idStudent) async {
+    var map = {'user_id': idStudent};
+
+    final response = await get(
+      ApiLinks.loadHistory,
+      map: map,
+    );
+    return response;
+  }
+
+  Future getFourNews() async {
+    final response = await get(
+      ApiLinks.getFourNews,
+    );
+    return response;
+  }
+
+  Future getListNews() async {
+    final response = await get(
+      ApiLinks.getListNews,
+    );
+    return response;
+  }
 }

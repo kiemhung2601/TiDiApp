@@ -1,5 +1,5 @@
-
 import '../../../model/history.dart';
+import '../../../network/custom_exception.dart';
 
 abstract class HistoryStatus {
   const HistoryStatus();
@@ -9,13 +9,11 @@ class InitHistoryStatus extends HistoryStatus {
   const InitHistoryStatus();
 }
 
-// class AddFavProductStatusFail extends InformationStatus {
-//   final ResponseError? responseError;
-//
-//   AddFavProductStatusFail({this.responseError});
-//
-//   List<Object?> get props => [responseError];
-// }
+class HistoryStatusFail extends HistoryStatus {
+  final ResponseError responseError;
+
+  HistoryStatusFail(this.responseError);
+}
 
 class HistoryStatusSuccess extends HistoryStatus {
   final List<History> lstHistory;

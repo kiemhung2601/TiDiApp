@@ -13,4 +13,12 @@ class ApiLinks {
 
   //news
   static String registerNews = '$apiHost/event-history/join-event';
+  static String unRegisterNews = '$apiHost/event-history/delete-event';
+  static String checkEnRollNews = '$apiHost/event-history/check-enroll-event';
+  static String enRollNews = '$apiHost/event-history/enroll-event';
+  static String getFourNews = '$apiHost/event/top-four';
+  static String getListNews = '$apiHost/event/listAll';
+
+  //history
+  static String loadHistory = '$apiHost/event-history/list';
 }

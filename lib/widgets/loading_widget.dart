@@ -21,8 +21,8 @@ class LoadingDialog extends StatelessWidget {
           color: Colors.transparent,
           width: 80,
           height: 80,
-          padding: EdgeInsets.all(12.0),
-          child: RepaintBoundary(child: CircularProgressIndicator()),
+          padding: const EdgeInsets.all(12.0),
+          child: const RepaintBoundary(child: CircularProgressIndicator()),
         ),
       ),
     );

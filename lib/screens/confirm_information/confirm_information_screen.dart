@@ -8,12 +8,24 @@ import '../../model/person.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
+import '../../widgets/bottom_sheet_notification.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/information_location_widget.dart';
-import '../login/bloc/login_bloc.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/text_widget.dart';
+import 'bloc/confirm_information_bloc.dart';
+import 'bloc/confirm_information_status.dart';
 
 class ConfirmInformationScreen extends StatefulWidget {
-  const ConfirmInformationScreen({Key? key}) : super(key: key);
+  final String idEvent;
+  final String idTeacher;
+  final UserApp userScanned;
+
+  const ConfirmInformationScreen({Key? key,
+    required this.idEvent,
+    required this.idTeacher,
+    required this.userScanned})
+      : super(key: key);
 
   @override
   State<ConfirmInformationScreen> createState() =>
@@ -21,12 +33,11 @@ class ConfirmInformationScreen extends StatefulWidget {
 }
 
 class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
-  late UserApp _person;
+  late ConfirmInformationBloc _confirmInformationBloc;
 
   @override
   void initState() {
-    _person = context.read<LoginBloc>().person!;
-
+    _confirmInformationBloc = ConfirmInformationBloc();
     super.initState();
   }
 
@@ -46,7 +57,7 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
         height: imageSize,
         decoration: BoxDecoration(
           border:
-              Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
+          Border.all(width: 1, color: ConstColors.black.withOpacity(0.1)),
           borderRadius: BorderRadius.circular(Dimens.radiusButton),
           image: const DecorationImage(
               fit: BoxFit.cover,
@@ -61,13 +72,13 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
     return Column(
       children: [
         InformationWidget(
-          person: _person,
+          person: widget.userScanned,
           qrPush: true,
         ),
         const SizedBox(
           height: Dimens.heightSmall,
         ),
-        InformationLocationWidget(person: _person, qrPush: true),
+        InformationLocationWidget(person: widget.userScanned, qrPush: true),
       ],
     );
   }
@@ -91,42 +102,73 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
     return Scaffold(
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Dimens.marginView, vertical: Dimens.sizedBox),
-        child: Column(
-          children: [
-            Expanded(
-              child: _buildBody(context),
+      body: BlocProvider(
+        create: (context) => _confirmInformationBloc,
+        child: BlocListener<ConfirmInformationBloc, ConfirmInformationState>(
+          listener: (context, state) {
+            if (state.rollUpStatus is RollUpLoadingStatus) {
+              LoadingDialog.show(context);
+            }
+            if (state.rollUpStatus is RollUpStatusSuccess) {
+              LoadingDialog.hide(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        QrScanScreen(idEvent: widget.idEvent, idTeacher: widget.idTeacher)),
+              );
+            }
+            if (state.rollUpStatus is RollUpStatusFail) {
+              LoadingDialog.hide(context);
+              final message = (state.rollUpStatus as RollUpStatusFail)
+                  .responseError
+                  .message;
+              BottomSheetNotificationDialog.show(context, children: [
+                const SizedBox(height: Dimens.marginView),
+                TextCustom(
+                  message,
+                  fontWeight: true,
+                ),
+                const SizedBox(height: Dimens.marginView)
+              ]);
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: Dimens.marginView, vertical: Dimens.sizedBox),
+            child: Column(
+              children: [
+                Expanded(
+                  child: _buildBody(context),
+                ),
+                const SizedBox(
+                  height: Dimens.marginView,
+                ),
+                Visibility(
+                  visible: widget.userScanned.role == 2,
+                  child: PrimaryButton(
+                      text: ConstString.confirm.toUpperCase(),
+                      onPressed: () {
+                        AppUtils.showDialogCustom(
+                            context: context,
+                            title: ConstString.confirmRollUp,
+                            strConfirm: ConstString.yes,
+                            strCancel: ConstString.cancel,
+                            onCancelClick: () {
+                              Navigator.pop(context);
+                            },
+                            onConfirmClick: () {
+                              Navigator.pop(context);
+                              _confirmInformationBloc.add(RollUpEvent(
+                                  idTeacher: widget.idTeacher,
+                                  idUser: widget.userScanned.id!,
+                                  idEvent: widget.idEvent));
+                            });
+                      }),
+                ),
+              ],
             ),
-            const SizedBox(
-              height: Dimens.marginView,
-            ),
-            Visibility(
-              visible: _person.role == 2,
-              child: PrimaryButton(
-                  text: ConstString.confirm.toUpperCase(),
-                  onPressed: () {
-                    AppUtils.showDialogCustom(
-                        context: context,
-                        title: ConstString.confirmRollUp,
-                        strConfirm: ConstString.yes,
-                        strCancel: ConstString.cancel,
-                        onCancelClick: () {
-                          Navigator.pop(context);
-                        },
-                        onConfirmClick: () {
-                          Navigator.pop(context);
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const QrScanScreen()),
-                          );
-                        });
-                  }),
-            ),
-          ],
+          ),
         ),
       ),
     );

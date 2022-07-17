@@ -44,7 +44,6 @@ class _HomeMainState extends State<HomeMain>
 
   late UserApp _person;
 
-
   @override
   void initState() {
     _person = context.read<LoginBloc>().person!;

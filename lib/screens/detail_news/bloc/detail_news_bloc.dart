@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:socialworkapp/fake_data/fake_data.dart';
 import 'package:socialworkapp/repository/repos.dart';
 import 'package:socialworkapp/screens/detail_news/bloc/detail_news_status.dart';
@@ -53,8 +52,19 @@ class DetailNewsBloc extends Bloc<DetailNewsEvent, DetailNewsState> {
           }
         }
         if(event.typeChange == 1){
-          emit(state.updateWith(
-              changeStatusNewsStatus: const ChangeStatusNewsStatusSuccess()));
+          final result = await ApiRepository.newsRepo
+              .unRegisterNews(event.idnews, event.idAccount);
+
+          if (result.data['status'] == 1) {
+            emit(state.updateWith(
+                changeStatusNewsStatus: const ChangeStatusNewsStatusSuccess()));
+          } else {
+            emit(state.updateWith(
+                changeStatusNewsStatus: ChangeStatusNewsStatusFail(
+                    ResponseError(
+                        errorCode: result.data['status'].toString(),
+                        message: result.data['msg']))));
+          }
         }
       } on DioError catch (e) {
         emit(state.updateWith(

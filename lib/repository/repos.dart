@@ -1,12 +1,14 @@
 import '../network/api_services.dart';
 import 'account_repo.dart';
 import 'contact_repo.dart';
+import 'history_repo.dart';
 import 'news_repo.dart';
 
 class ApiRepository {
   static AccountRepo? _accountRepo;
   static ContactRepo? _contactRepo;
   static NewsRepo? _newsRepo;
+  static HistoryRepo? _historyRepo;
 
   static final ApiServices _apiServices = ApiServices();
 
@@ -16,4 +18,6 @@ class ApiRepository {
       _contactRepo ??= ContactRepoImpl(_apiServices);
   static NewsRepo get newsRepo =>
       _newsRepo ??= NewsRepoImpl(_apiServices);
+  static HistoryRepo get historyRepo =>
+      _historyRepo ??= HistoryRepoImpl(_apiServices);
 }

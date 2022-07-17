@@ -4,7 +4,7 @@ import 'package:socialworkapp/untils/untils.dart';
 import '../untils/constants.dart';
 
 class BottomSheetNotificationDialog extends StatelessWidget {
-  static void show(BuildContext context, {Key? key, List<Widget>? children}) =>
+  static void show(BuildContext context, {Key? key, List<Widget>? children, VoidCallback? pressClose,}) =>
       showModalBottomSheet(
           context: context,
           useRootNavigator: false,
@@ -19,7 +19,9 @@ class BottomSheetNotificationDialog extends StatelessWidget {
 
   final List<Widget>? children;
 
-  const BottomSheetNotificationDialog({Key? key, this.children})
+  final VoidCallback? pressClose;
+
+  const BottomSheetNotificationDialog({Key? key, this.children, this.pressClose})
       : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class BottomSheetNotificationDialog extends StatelessWidget {
                           size: DimenUtilsPX.pxToPercentage(context, 24),
                         ),
                         padding: EdgeInsets.zero,
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: pressClose ?? () => Navigator.of(context).pop(),
                       ),
                     ],
                   ),

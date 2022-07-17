@@ -12,3 +12,14 @@ Future post(String path, {Map<String, String>? body}) async {
 
   return response;
 }
+
+Future get(String path, {Map<String, String>? map}) async {
+  Options options = Options(headers: {ApiServices.fieldKey: ApiServices.keyHeaders},);
+  final dio = Dio();
+  dio.interceptors.add(
+      LoggingInterceptor()
+  );
+  final response = await dio.get(path, queryParameters: map, options: options);
+
+  return response;
+}

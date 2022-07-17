@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:socialworkapp/screens/confirm_information/confirm_information_screen.dart';
 import 'package:socialworkapp/untils/constant_string.dart';
 
 import '../../../untils/constants.dart';
@@ -46,10 +45,10 @@ class _QrScanState extends State<QrScan> {
       if (mounted) {
         controller.pauseCamera();
         setState(() => this.barcode = barcode);
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ConfirmInformationScreen())).then((value) => controller.resumeCamera());
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => const ConfirmInformationScreen())).then((value) => controller.resumeCamera());
       }
     });
   }

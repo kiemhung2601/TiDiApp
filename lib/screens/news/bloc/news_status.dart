@@ -1,6 +1,8 @@
 
 import 'package:socialworkapp/model/new.dart';
 
+import '../../../network/custom_exception.dart';
+
 abstract class NewsStatus {
   const NewsStatus();
 }
@@ -9,13 +11,11 @@ class InitNewsStatus extends NewsStatus {
   const InitNewsStatus();
 }
 
-// class AddFavProductStatusFail extends InformationStatus {
-//   final ResponseError? responseError;
-//
-//   AddFavProductStatusFail({this.responseError});
-//
-//   List<Object?> get props => [responseError];
-// }
+class NewsStatusFail extends NewsStatus {
+  final ResponseError responseError;
+
+  NewsStatusFail(this.responseError);
+}
 
 class NewsStatusSuccess extends NewsStatus {
   final List<News> lstNews;

@@ -110,7 +110,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
           text: ConstString.rollUp,
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const QrScanScreen()));
+                MaterialPageRoute(builder: (context) => QrScanScreen(idTeacher: _person.id!, idEvent: widget.idNews,)));
           });
     } else {
       if (news.status == 0) {
@@ -179,17 +179,17 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                 height: Dimens.marginView,
               ),
               _buildTextString(context, ConstString.dateRegister,
-                  formatDate(news.dateOpenRegister ?? '')),
+                  formatDate(news.startDate ?? '')),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
               _buildTextString(context, ConstString.dateEnd,
-                  formatDate(news.dateCloseRegister ?? '')),
+                  formatDate(news.endDate ?? '')),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
               _buildTextString(
-                  context, ConstString.scoreSocialWork, news.score.toString()),
+                  context, ConstString.scoreSocialWork, news.point.toString()),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
@@ -204,7 +204,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                 height: Dimens.heightSmall,
               ),
               _buildTextString(context, ConstString.datePost,
-                  formatDate(news.datePost ?? '')),
+                  formatDate(news.postDate ?? '')),
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
@@ -214,7 +214,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                 height: Dimens.marginView,
               ),
               Expanded(
-                child: _buildContent(news.detail ?? ''),
+                child: _buildContent(news.description ?? ''),
               ),
               const SizedBox(
                 height: Dimens.marginView,
