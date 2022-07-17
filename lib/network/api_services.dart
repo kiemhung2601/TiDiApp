@@ -133,4 +133,14 @@ class ApiServices {
     );
     return response;
   }
+
+  Future getListNotification(String userId) async {
+    var map = {'user_id': userId};
+
+    final response = await get(
+        ApiLinks.getListNotification,
+        map: map
+    );
+    return response;
+  }
 }

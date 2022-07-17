@@ -100,10 +100,10 @@ class _LoginScreenState extends State<LoginScreen> {
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              // TODO add a proper drawable resource to android, for now using
-              //      one that already exists in example app.
-              icon: 'launch_background',
+              importance: Importance.max,
+              icon: 'mipmap/launcher_icon',
             ),
+            iOS: IOSNotificationDetails()
           ),
         );
       }

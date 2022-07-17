@@ -5,7 +5,7 @@ class News {
   String? startDate;
   String? endDate;
   String? publisher;
-  int? point;
+  double? point;
   int? status;
   String? namePost;
   String? position;
@@ -28,18 +28,18 @@ class News {
   });
 
   factory News.fromJson(Map<String, dynamic> json) => News(
-    idNews: json['_id'],
-    title: json['title'],
-    description: json['description'],
-    startDate: json['start_date'],
-    endDate: json['end_date'],
-    publisher: json['publisher'],
-    point: json['point'],
-    status: json['status'],
-    namePost: json['namepost'],
-    position: json['position'],
-    postDate: json['createdAt'],
-    numberRegister: json['limitReg'],
+    idNews: json['_id'] ?? '',
+    title: json['title'] ?? '',
+    description: json['description'] ?? '',
+    startDate: json['start_date'] ?? DateTime.now().toString(),
+    endDate: json['end_date'] ?? DateTime.now().toString(),
+    publisher: json['publisher'] ?? '',
+    point: json['point'] != null ? json['point'].toDouble() : 0.0,
+    status: json['status'] ?? -2,
+    namePost: json['namepost'] ?? '',
+    position: json['position'] ?? '',
+    postDate: json['createdAt'] ?? DateTime.now().toString(),
+    numberRegister: json['limitReg'] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {

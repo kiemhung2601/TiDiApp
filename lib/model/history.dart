@@ -20,8 +20,8 @@ class History {
       newsHistory = NewsHistory.fromJson(json['event']);
     }
     return History(
-      idHistory: json['_id'],
-      newsHistory: newsHistory,
+      idHistory: json['_id'] ?? '',
+      newsHistory: newsHistory ?? NewsHistory(),
       user: json['user'],
       teacher: json['teacher'],
       admin: json['admin'],
@@ -58,13 +58,13 @@ class NewsHistory {
       this.point});
 
   factory NewsHistory.fromJson(Map<String, dynamic> json) => NewsHistory(
-    idNews: json['_id'],
-    title: json['title'],
-    description: json['description'],
-    startDate: json['start_date'],
-    endDate: json['end_date'],
-    publisher: json['publisher'],
-    point: json['point'].toDouble(),
+    idNews: json['_id'] ?? '',
+    title: json['title'] ?? '',
+    description: json['description'] ?? '',
+    startDate: json['start_date'] ?? DateTime.now().toString(),
+    endDate: json['end_date'] ?? DateTime.now().toString(),
+    publisher: json['publisher'] ?? '',
+    point: json['point'] != null ? json['point'].toDouble() : 0.0,
   );
 
   Map<String, dynamic> toJson() => {

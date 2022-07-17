@@ -1,38 +1,35 @@
 class Notifi {
+  String? id;
+  String? userID;
   String? title;
   String? detail;
-  double? score;
   String? dateNotification;
-  String? datePost;
-  String? dateEnd;
-  String? idNews;
+  double? score;
 
-  Notifi(
-      {required this.title,
-      required this.detail,
-      required this.score,
-      required this.dateNotification,
-      required this.datePost,
-      required this.dateEnd,
-      required this.idNews});
+  Notifi({
+    this.id,
+    this.userID,
+    this.title,
+    this.detail,
+    this.dateNotification,
+    this.score,
+  });
 
   factory Notifi.fromJson(Map<String, dynamic> json) => Notifi(
-        title: json['title'],
-        detail: json['detail'],
-        score: json['score'],
-        dateNotification: json['dateNotification'],
-        datePost: json['datePost'],
-        dateEnd: json['dateEnd'],
-        idNews: json['idNews'],
+        id: json['_id'] ?? '',
+        userID: json['userID'] ?? '',
+        title: json['title'] ?? '',
+        detail: json['data'] ?? '',
+        dateNotification: json['createdAt'] ?? DateTime.now().toString(),
+        score: json['swPoint'].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
+        '_id': id,
+        'userID': userID,
         'title': title,
-        'detail': detail,
-        'score': score,
-        'dateNotification': dateNotification,
-        'datePost': datePost,
-        'dateEnd': dateEnd,
-        'idNews': idNews,
+        'data': detail,
+        'createdAt': dateNotification,
+        'swPoint': score,
       };
 }

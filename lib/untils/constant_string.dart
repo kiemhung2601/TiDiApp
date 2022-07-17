@@ -62,6 +62,7 @@ class ConstString {
   static const seconds = 'giây';
   static const minutes = 'phút';
   static const hours = 'giờ';
+  static const dateNotifi = 'Ngày thông báo';
 
   //history
   static const search = 'Tìm kiếm';

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialworkapp/screens/detail_news/detail_news.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialworkapp/screens/notification/bloc/notification_status.dart';
+import 'package:socialworkapp/untils/date_time_format.dart';
 
 import '../../model/notification.dart';
 import '../../model/person.dart';
@@ -95,14 +96,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  SvgPicture.asset(
-                    Images.bluePoint,
-                    width: DimenUtilsPX.pxToPercentage(context, 9),
-                    height: DimenUtilsPX.pxToPercentage(context, 9),
-                  ),
-                  const SizedBox(
-                    height: Dimens.marginView,
-                  ),
                   TextCustom(
                     StringUtils.formatTime(
                             _dateNow.toString(), notifi.dateNotification)
@@ -133,12 +126,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextCustom(
-                '${ConstString.dateNews}: ${StringUtils.formatDate(notifi.datePost)}',
-                fontSize: Dimens.titleSmall,
-                color: ConstColors.black,
-                fontWeight: true,
-              ),
               Row(
                 children: [
                   SvgPicture.asset(
@@ -150,13 +137,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     width: Dimens.heightSmall,
                   ),
                   TextCustom(
-                    '${ConstString.dayScore}: ${notifi.score}, ${ConstString.still} ${StringUtils.formatTime(notifi.dateEnd, _dateNow.toString())}',
+                    '${ConstString.dateNotifi}: ${StringUtils.formatDate(notifi.dateNotification)}',
                     fontSize: Dimens.titleSmall,
                     color: ConstColors.black,
                     fontWeight: true,
                   ),
                 ],
-              )
+              ),
+              TextCustom(
+                '${ConstString.dayScore}: ${notifi.score} ${ConstString.day}',
+                fontSize: Dimens.titleSmall,
+                color: ConstColors.black,
+                fontWeight: true,
+              ),
             ],
           )
         ],
@@ -184,17 +177,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: ListView.builder(
                 itemCount: lstNotification.length,
                 itemBuilder: (_, index) {
-                  return InkWell(
-                    child: _buildContent(context, lstNotification[index]),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailNewsScreen(
-                                    idNews: lstNotification[index].idNews!,
-                                  )));
-                    },
-                  );
+                  return _buildContent(context, lstNotification[index]);
                 }),
           );
         }
@@ -212,7 +195,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: _buildAppbar(),
       body: BlocProvider(
         create: (context) =>
-            NotificationBloc()..add(LoadNotification(person: _person)),
+            NotificationBloc()..add(LoadNotification(idAccount: _person.id!)),
         child: _buildBody(context),
       ),
     );

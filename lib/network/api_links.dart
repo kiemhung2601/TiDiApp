@@ -24,4 +24,7 @@ class ApiLinks {
 
   //history
   static String loadHistory = '$apiHost/event-history/list';
+
+  //information
+  static String getListNotification = '$apiHost/auth/notifycation';
 }

@@ -51,7 +51,7 @@ class UserApp {
         mail: json['mail'] ?? '',
         phone: json['phone'] ?? '',
         role: json['role'] ?? 2,
-        swScore: json['swScore'].toDouble() ?? 0.0,
+        swScore: json['swScore'] != null ? json['swScore'].toDouble() : 0.0,
         isLock: json['isLock'] ?? 0,
         avtImage: json['avtImage'] ?? '',
         position: json['position'] ?? '',
@@ -77,33 +77,3 @@ class UserApp {
         'position': position,
       };
 }
-
-// class PersonRespone {
-//   String msg;
-//   int status;
-//   Person? data;
-//
-//   PersonRespone({
-//     this.msg = '',
-//     this.status = -100,
-//     this.data,
-//   });
-//
-//   factory PersonRespone.fromJson(Map<String, dynamic> json) {
-//     Person? data;
-//     if(json['data'] != null ){
-//       data = Person.fromJson(json['data']);
-//     }
-//     return PersonRespone(
-//       msg: json['msg'] ?? '',
-//       status:  json['status'] ?? - 100,
-//       data: data,
-//     );
-//   }
-//
-//   Map<String, dynamic> toJson() => {
-//     'msg': msg,
-//     'status': status,
-//     'data': data,
-//   };
-// }
