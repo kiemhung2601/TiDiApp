@@ -5,7 +5,7 @@ class HomeMainEvent {
 }
 
 class LoadHomeMain extends HomeMainEvent {
-  final Person person;
+  final UserApp person;
 
   const LoadHomeMain({required this.person});
 }

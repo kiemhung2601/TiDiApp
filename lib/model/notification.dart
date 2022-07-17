@@ -5,7 +5,7 @@ class Notifi {
   String? dateNotification;
   String? datePost;
   String? dateEnd;
-  int? idNews;
+  String? idNews;
 
   Notifi(
       {required this.title,

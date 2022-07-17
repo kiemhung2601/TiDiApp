@@ -21,7 +21,7 @@ class ConfirmInformationScreen extends StatefulWidget {
 }
 
 class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
-  late Person _person;
+  late UserApp _person;
 
   @override
   void initState() {

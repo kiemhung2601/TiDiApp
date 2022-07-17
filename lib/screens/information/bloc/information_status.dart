@@ -19,7 +19,7 @@ class InitInformationStatus extends InformationStatus {
 // }
 
 class InformationStatusSuccess extends InformationStatus {
-  final Person person;
+  final UserApp person;
 
   InformationStatusSuccess(this.person,);
 
@@ -48,7 +48,7 @@ class UpdateInformationStatusFail extends UpdateInformationStatus {
 }
 
 class UpdateInformationStatusSuccess extends UpdateInformationStatus {
-  final Person person;
+  final UserApp person;
   final String message;
   const UpdateInformationStatusSuccess(this.person, this.message);
 }

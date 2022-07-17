@@ -5,7 +5,7 @@ class NotificationEvent {
 }
 
 class LoadNotification extends NotificationEvent {
-  final Person person;
+  final UserApp person;
 
   const LoadNotification({required this.person});
 }

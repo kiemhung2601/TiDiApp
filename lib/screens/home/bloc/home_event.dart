@@ -5,7 +5,7 @@ class HomeEvent{
 }
 
 class LoadInfoHome extends HomeEvent {
-  final Person person;
+  final UserApp person;
 
   const LoadInfoHome({required this.person});
 }

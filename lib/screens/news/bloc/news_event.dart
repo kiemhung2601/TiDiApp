@@ -5,7 +5,7 @@ class NewsEvent {
 }
 
 class LoadNews extends NewsEvent {
-  final Person person;
+  final UserApp person;
 
   const LoadNews({required this.person});
 }

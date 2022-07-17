@@ -11,7 +11,7 @@ import '../screens/login/bloc/login_bloc.dart';
 import '../untils/untils.dart';
 
 class DrawerWidget extends StatelessWidget {
-  final Person person;
+  final UserApp person;
   final ValueChanged<DrawerItem> onSelectdItem;
   final VoidCallback? pressBack;
   const DrawerWidget({Key? key, required this.person, required this.onSelectdItem, this.pressBack})

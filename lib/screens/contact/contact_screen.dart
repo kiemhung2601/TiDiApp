@@ -220,7 +220,7 @@ class ContactScreen extends StatelessWidget {
                           context,
                           Images.phoneCT,
                           ConstString.hotLine,
-                          contact.sclhotline!,
+                          contact.sclhotline.toString(),
                         ),
                         const SizedBox(
                           height: Dimens.sizedBox,

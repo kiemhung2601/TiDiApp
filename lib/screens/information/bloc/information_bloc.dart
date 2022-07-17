@@ -11,7 +11,7 @@ part 'information_event.dart';
 part 'information_state.dart';
 
 class InformationBloc extends Bloc<InformationEvent, InformationState> {
-  late Person person;
+  late UserApp person;
   InformationBloc() : super(const InformationState()) {
     on<LoadInformationStudent>((event, emit) {
       emit(state.updateWith(informationStatus: const InitInformationStatus()));

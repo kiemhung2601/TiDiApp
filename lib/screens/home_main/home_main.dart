@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:socialworkapp/model/drawer_item.dart';
-import 'package:socialworkapp/routes.dart';
 import 'package:socialworkapp/screens/history/history_screen.dart';
 import 'package:socialworkapp/screens/home/home_screen.dart';
 import 'package:socialworkapp/screens/home_main/bloc/home_main_status.dart';
@@ -43,7 +42,8 @@ class _HomeMainState extends State<HomeMain>
   late TabController _tabController;
   int _selectedIndex = 0;
 
-  late Person _person;
+  late UserApp _person;
+
 
   @override
   void initState() {
@@ -194,7 +194,7 @@ class _HomeMainState extends State<HomeMain>
     );
   }
 
-  Widget buildDrawer(Person person) => SafeArea(
+  Widget buildDrawer(UserApp person) => SafeArea(
           child: DrawerWidget(
         person: person,
         pressBack: () {
@@ -232,13 +232,7 @@ class _HomeMainState extends State<HomeMain>
                     Navigator.pop(context);
                   },
                   onConfirmClick: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              RoutesPath.loginRoute),
-                      ModalRoute.withName('/login'),
-                    );
+                    context.read<LoginBloc>().add(LogoutAccountEvent(id: person.id!));
                   });
             } else if (item == DrawerItems.settings) {
               Navigator.push(

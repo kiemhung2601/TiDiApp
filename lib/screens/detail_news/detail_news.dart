@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../model/new.dart';
 import '../../model/person.dart';
 import '../../untils/date_time_format.dart';
+import '../../widgets/bottom_sheet_notification.dart';
+import '../../widgets/loading_widget.dart';
 import '../home_main/home_main.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/constants.dart';
@@ -18,7 +20,7 @@ import '../login/bloc/login_bloc.dart';
 import 'bloc/detail_news_bloc.dart';
 
 class DetailNewsScreen extends StatefulWidget {
-  final int idNews;
+  final String idNews;
   const DetailNewsScreen({Key? key, required this.idNews}) : super(key: key);
 
   @override
@@ -26,11 +28,14 @@ class DetailNewsScreen extends StatefulWidget {
 }
 
 class _DetailNewsScreenState extends State<DetailNewsScreen> {
-  late Person _person;
+  late UserApp _person;
+  late DetailNewsBloc _detailNewsBloc;
 
   @override
   void initState() {
     _person = context.read<LoginBloc>().person!;
+    _detailNewsBloc = DetailNewsBloc()
+      ..add(LoadDetailNews(idnews: widget.idNews));
     super.initState();
   }
 
@@ -121,11 +126,11 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                     Navigator.pop(context);
                   },
                   onConfirmClick: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => const HomeMain()),
-                    );
+                    Navigator.pop(context);
+                    _detailNewsBloc.add(ChangeTypeNewsEvent(
+                        idnews: news.idNews!,
+                        idAccount: _person.id!,
+                        typeChange: 0));
                   });
             });
       }
@@ -142,11 +147,11 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                     Navigator.pop(context);
                   },
                   onConfirmClick: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => const HomeMain()),
-                    );
+                    Navigator.pop(context);
+                    _detailNewsBloc.add(ChangeTypeNewsEvent(
+                        idnews: news.idNews!,
+                        idAccount: _person.id!,
+                        typeChange: 1));
                   });
             });
       }
@@ -203,7 +208,8 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
               const SizedBox(
                 height: Dimens.heightSmall,
               ),
-              _buildTextString(context, ConstString.numberRegister, news.numberRegister.toString()),
+              _buildTextString(context, ConstString.numberRegister,
+                  news.numberRegister.toString()),
               const SizedBox(
                 height: Dimens.marginView,
               ),
@@ -231,15 +237,44 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       backgroundColor: ConstColors.backGroundColor,
       appBar: _buildAppbar(),
       body: BlocProvider(
-        create: (context) =>
-            DetailNewsBloc()..add(LoadDetailNews(idnews: widget.idNews)),
-        child: Padding(
-          padding: const EdgeInsets.only(
-              right: Dimens.heightSmall,
-              left: Dimens.heightSmall,
-              top: Dimens.sizedBox,
-              bottom: Dimens.sizedBox),
-          child: _buildBody(context),
+        create: (context) => _detailNewsBloc,
+        child: BlocListener<DetailNewsBloc, DetailNewsState>(
+          listener: (context, state) {
+            if (state.changeStatusNewsStatus is ChangeStatusNewsLoadingStatus) {
+              LoadingDialog.show(context);
+            }
+            if (state.changeStatusNewsStatus is ChangeStatusNewsStatusSuccess) {
+              LoadingDialog.hide(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const HomeMain()),
+              );
+            }
+            if (state.changeStatusNewsStatus is ChangeStatusNewsStatusFail) {
+              LoadingDialog.hide(context);
+              final message =
+                  (state.changeStatusNewsStatus as ChangeStatusNewsStatusFail)
+                      .responseError
+                      .message;
+              BottomSheetNotificationDialog.show(context, children: [
+                const SizedBox(height: Dimens.marginView),
+                TextCustom(
+                  message,
+                  fontWeight: true,
+                ),
+                const SizedBox(height: Dimens.marginView)
+              ]);
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(
+                right: Dimens.heightSmall,
+                left: Dimens.heightSmall,
+                top: Dimens.sizedBox,
+                bottom: Dimens.sizedBox),
+            child: _buildBody(context),
+          ),
         ),
       ),
     );

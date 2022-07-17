@@ -38,7 +38,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   ];
   int current = 0;
 
-  late Person _person;
+  late UserApp _person;
 
   @override
   void initState() {

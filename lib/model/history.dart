@@ -4,7 +4,7 @@ class History {
   String? image;
   double? score;
   int? type;
-  int? idNews;
+  String? idNews;
 
   History(
       {this.title,

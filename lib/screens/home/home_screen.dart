@@ -28,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Person _person;
+  late UserApp _person;
 
   @override
   void initState() {

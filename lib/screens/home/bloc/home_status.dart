@@ -18,7 +18,7 @@ class InitHomeStatus extends HomeStatus {
 // }
 
 class HomeStatusSuccess extends HomeStatus {
-  final Person person;
+  final UserApp person;
   HomeStatusSuccess({required this.person});
 
   // TODO: implement props

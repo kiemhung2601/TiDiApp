@@ -11,7 +11,7 @@ import '../untils/untils.dart';
 class InformationLocationWidget extends StatelessWidget {
   final int role;
   final bool qrPush;
-  final Person person;
+  final UserApp person;
   const InformationLocationWidget(
       {Key? key, this.role = 2, this.qrPush = false, required this.person})
       : super(key: key);

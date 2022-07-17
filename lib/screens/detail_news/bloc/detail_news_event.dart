@@ -5,7 +5,15 @@ class DetailNewsEvent {
 }
 
 class LoadDetailNews extends DetailNewsEvent {
-  final int idnews;
+  final String idnews;
 
   const LoadDetailNews({required this.idnews});
+}
+
+class ChangeTypeNewsEvent extends DetailNewsEvent {
+  final String idnews;
+  final String idAccount;
+  final int typeChange;
+
+  const ChangeTypeNewsEvent({required this.idnews, required this.idAccount, required this.typeChange});
 }

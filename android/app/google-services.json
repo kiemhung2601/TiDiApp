@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663074077102",
+    "project_id": "quan-ly-cong-tac-xa-hoi",
+    "storage_bucket": "quan-ly-cong-tac-xa-hoi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663074077102:android:eb025328bfe3d8b581b03f",
+        "android_client_info": {
+          "package_name": "com.example.socialworkapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663074077102-ljej1kqr03ae1n3nl60f07jim33onail.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2onF6awWJ0GN-xi5k1is1ViZbTL02fLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663074077102-ljej1kqr03ae1n3nl60f07jim33onail.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

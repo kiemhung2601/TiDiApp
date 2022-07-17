@@ -1,5 +1,5 @@
 class News {
-  int? idNews;
+  String? idNews;
   String? title;
   String? detail;
   String? dateOpenRegister;

@@ -1,12 +1,16 @@
 class ApiLinks {
   //api host
-  static String apiHost = 'http://192.168.1.94:8000';
+  static String apiHost = 'https://quan-ly-cong-tac-xa-hoi.vercel.app';
 
   //account
-  static String getAccessToken = '$apiHost/auth/login';
+  static String logIn = '$apiHost/auth/login';
   static String updateInformationAccount = '$apiHost/account/update-account';
   static String changePassword = '$apiHost/account/change-password';
+  static String logOut = '$apiHost/auth/logout';
 
   //contact
   static String getInfoContact = '$apiHost/contact/info';
+
+  //news
+  static String registerNews = '$apiHost/event-history/join-event';
 }

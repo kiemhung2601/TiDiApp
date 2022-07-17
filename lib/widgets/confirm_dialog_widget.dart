@@ -32,7 +32,7 @@ class ConfirmDialogWidget extends StatelessWidget {
   }
 
   _buildChild(BuildContext context) => Container(
-        height: DimenUtilsPX.pxToPercentage(context, 150),
+        height: DimenUtilsPX.pxToPercentage(context, 170),
         width: DimenUtilsPX.pxToPercentage(context, 280),
         decoration: const BoxDecoration(
             gradient: LinearGradient(

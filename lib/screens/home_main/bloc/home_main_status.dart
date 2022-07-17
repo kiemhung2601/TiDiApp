@@ -17,7 +17,7 @@ class InitHomeMainStatus extends HomeMainStatus {
 // }
 
 class HomeMainStatusSuccess extends HomeMainStatus {
-  final Person person;
+  final UserApp person;
 
   HomeMainStatusSuccess(this.person,);
 

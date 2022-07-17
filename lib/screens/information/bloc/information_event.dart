@@ -5,7 +5,7 @@ abstract class InformationEvent {
 }
 
 class LoadInformationStudent extends InformationEvent {
-  final Person person;
+  final UserApp person;
 
   const LoadInformationStudent({required this.person});
 }

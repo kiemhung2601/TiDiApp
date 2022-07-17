@@ -10,7 +10,6 @@ import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../model/person.dart';
-import '../../routes.dart';
 import '../../untils/constant_string.dart';
 import '../../untils/untils.dart';
 import '../../widgets/appbar_custom.dart';
@@ -31,7 +30,7 @@ class InformationScreen extends StatefulWidget {
 }
 
 class _InformationScreenState extends State<InformationScreen> {
-  late Person _person;
+  late UserApp _person;
 
   @override
   void initState() {
@@ -64,7 +63,7 @@ class _InformationScreenState extends State<InformationScreen> {
     );
   }
 
-  Widget _buildBody(Person person) {
+  Widget _buildBody(UserApp person) {
     return Padding(
       padding: const EdgeInsets.only(
         top: Dimens.marginView,
@@ -175,13 +174,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                   Navigator.pop(context);
                                 },
                                 onConfirmClick: () {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                        RoutesPath.loginRoute),
-                                    ModalRoute.withName('/login'),
-                                  );
+                                  context.read<LoginBloc>().add(LogoutAccountEvent(id: person.id!));
                                 });
                           },
                         ),

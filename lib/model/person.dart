@@ -1,4 +1,4 @@
-class Person {
+class UserApp {
   String? id;
   int? mssv;
   String? myClass;
@@ -17,7 +17,7 @@ class Person {
   String? avtImage;
   String? position;
 
-  Person({
+  UserApp({
     this.id,
     this.mssv,
     this.myClass,
@@ -37,7 +37,7 @@ class Person {
     this.position,
   });
 
-  factory Person.fromJson(Map<String, dynamic> json) => Person(
+  factory UserApp.fromJson(Map<String, dynamic> json) => UserApp(
         id: json['_id'] ?? '',
         mssv: json['mssv'] ?? -1,
         myClass: json['myClass'] ?? '',
@@ -51,7 +51,7 @@ class Person {
         mail: json['mail'] ?? '',
         phone: json['phone'] ?? '',
         role: json['role'] ?? 2,
-        swScore: json['swScore'].toDouble(),
+        swScore: json['swScore'].toDouble() ?? 0.0,
         isLock: json['isLock'] ?? 0,
         avtImage: json['avtImage'] ?? '',
         position: json['position'] ?? '',

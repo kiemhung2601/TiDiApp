@@ -26,7 +26,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  late Person _person;
+  late UserApp _person;
   final DateTime _dateNow = DateTime.now();
 
   @override

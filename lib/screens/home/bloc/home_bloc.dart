@@ -13,7 +13,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(const HomeState()) {
     on<LoadInfoHome>((event, emit) {
       emit(state.updateWith(homeStatus: const InitHomeStatus()));
-      Person person = event.person;
+      UserApp person = event.person;
 
       emit(state.updateWith(homeStatus: HomeStatusSuccess(person: person)));
 

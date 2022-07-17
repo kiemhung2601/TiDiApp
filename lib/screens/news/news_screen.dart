@@ -21,7 +21,7 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  late Person _person;
+  late UserApp _person;
 
   @override
   void initState() {

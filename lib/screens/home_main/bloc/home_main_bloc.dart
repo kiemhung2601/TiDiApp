@@ -11,7 +11,7 @@ class HomeMainBloc extends Bloc<HomeMainEvent, HomeMainState> {
   HomeMainBloc() : super(const HomeMainState()) {
     on<LoadHomeMain>((event, emit) {
       emit(state.updateWith(homeMainStatus: const InitHomeMainStatus()));
-      Person person = event.person;
+      UserApp person = event.person;
       emit(state.updateWith(homeMainStatus: HomeMainStatusSuccess(person)));
     });
   }

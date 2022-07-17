@@ -11,7 +11,7 @@ import 'bottom_sheet_notification.dart';
 class InformationWidget extends StatelessWidget {
   final int? role;
   final bool qrPush;
-  final Person person;
+  final UserApp person;
   const InformationWidget(
       {Key? key, this.role = 2, this.qrPush = false, required this.person})
       : super(key: key);
