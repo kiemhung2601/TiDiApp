@@ -37,4 +37,12 @@ class ApiServices {
     );
     return response;
   }
+
+  Future getInfoContact() async {
+    final response = await Dio().post(
+        ApiLinks.getInfoContact,
+        options: options
+    );
+    return response;
+  }
 }

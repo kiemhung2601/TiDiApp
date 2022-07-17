@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:socialworkapp/untils/constant_string.dart';
 import 'package:dio/dio.dart';
 
@@ -19,7 +18,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try{
         emit(state.updateWith(loginStatus: const LoginLoadingStatus()));
         final result = await ApiRepository.accountRepo.requestLogin(event.user, event.passWord);
-        debugPrint(result.data['status'].toString());
         if (result.data['data'] != null) {
           person = Person.fromJson(result.data['data']);
         }

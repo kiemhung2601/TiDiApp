@@ -8,7 +8,6 @@ import 'package:socialworkapp/widgets/button_widget.dart';
 import 'package:socialworkapp/widgets/text_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../network/custom_exception.dart';
 import '../../untils/constants.dart';
 import '../../untils/untils.dart';
 import '../../widgets/bottom_sheet_notification.dart';
