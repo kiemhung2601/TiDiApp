@@ -40,7 +40,7 @@ class NewsWidget extends StatelessWidget {
                   width: 1, color: ConstColors.black.withOpacity(0.1)),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage('https://cdn.pixabay.com/photo/2016/11/22/19/27/arid-1850193_960_720.jpg'),
+                image: NetworkImage(news.image!),
               ),
             ),
           ),

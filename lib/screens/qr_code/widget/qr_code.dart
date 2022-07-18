@@ -22,7 +22,7 @@ class QrCode extends StatelessWidget {
           height: Dimens.sizedBox,
         ),
         QrImage(
-          data: "Bạn đã quét được mã QR",
+          data: idAccount,
           size: DimenUtilsPX.pxToPercentage(context, 240),
           backgroundColor: Colors.white,
         ),
